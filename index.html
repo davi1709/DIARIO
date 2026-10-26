@@ -11,7 +11,8 @@
 <link rel="manifest" href="manifest.webmanifest">
 <link rel="icon" href="favicon.ico" sizes="any">
 <link rel="icon" type="image/png" sizes="32x32" href="icons/favicon-32.png">
-<link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@600;700&family=DM+Mono:wght@400;500&family=DM+Sans:wght@400;500;700&display=swap">
 <style>
@@ -80,6 +81,7 @@ h1{font:700 27px/1.1 var(--font-display);letter-spacing:-.015em;margin:0;flex:1 
 .ib{width:40px;height:40px;border-radius:10px;font-size:20px;line-height:1;display:grid;place-items:center;color:var(--fg);flex:none}
 .ib:active{background:var(--surface2)}
 .status{flex-basis:100%;display:flex;align-items:center;gap:7px;font:12px var(--font-mono);color:var(--muted);margin-top:-4px}
+.status{cursor:default}.status[data-s="error"]{cursor:pointer;color:var(--danger)}
 .status i{width:7px;height:7px;border-radius:50%;background:var(--muted);flex:none}
 .status[data-s="cloud"] i{background:var(--c-lime)}
 .status[data-s="saving"] i{background:var(--c-amber)}
@@ -691,18 +693,20 @@ function globalStats(){
 }
 
 /* =============== salvar: aparelho + conta =============== */
+let retryT=null, connT=null;
 let dbDoc=null, dbSynced=false, lastPushed=-1, pushT=null, pushing=false, again=false, failed=false, localOk=true;
 const STATUS={
   sync:'Conectando…',
   local:'Salvo só neste aparelho',
   saving:'Salvando…',
   cloud:'Salvo na sua conta',
-  error:'Não consegui salvar na conta. Os dados ficam neste aparelho.',
+  wait:'Aguardando a nuvem… (os dados já estão salvos neste aparelho)',
+  error:'Não consegui falar com a nuvem. Os dados ficam neste aparelho. Toque aqui para tentar de novo.',
   volatile:'Este navegador não está guardando os dados.'
 };
-function setStatus(s){
-  const el=$('#status'); el.dataset.s=(s==='volatile'?'error':s==='local'?'sync':s);
-  el.querySelector('span').textContent=STATUS[s];
+function setStatus(s,detail){
+  const el=$('#status'); el.dataset.s=(s==='volatile'?'error':(s==='local'||s==='wait')?'sync':s);
+  el.querySelector('span').textContent=STATUS[s]+(detail?' ['+detail+']':'');
 }
 function saveLocal(){
   try{ localStorage.setItem(LS_KEY,JSON.stringify(state)); localOk=true; }
@@ -721,17 +725,19 @@ function pushSoon(delay){
 }
 async function push(){
   pushT=null;
-  if(!dbDoc||!dbSynced) return;
+  if(!dbDoc) return;
+  if(!dbSynced){ setStatus('wait'); return; }
   if(pushing){ again=true; return; }
   if(state.updatedAt===lastPushed){ setStatus('cloud'); return; }
   pushing=true;
   const snap=JSON.parse(JSON.stringify(state));
   try{
-    await dbDoc.set(snap);
+    await Promise.race([dbDoc.set(snap),new Promise((_,rej)=>setTimeout(()=>rej({code:'tempo-esgotado'}),20000))]);
     lastPushed=snap.updatedAt;
     setStatus(state.updatedAt===lastPushed?'cloud':'saving');
   }catch(e){
-    failed=true; setStatus('error');
+    failed=true; setStatus('error',(e&&e.code)||'erro');
+    clearTimeout(retryT); retryT=setTimeout(()=>{ failed=false; if(dbDoc&&state.updatedAt!==lastPushed) pushSoon(0); },20000);
   }finally{
     pushing=false;
     if(!failed&&(again||state.updatedAt!==lastPushed)){ again=false; pushSoon(300); }
@@ -749,18 +755,19 @@ function adopt(remote){
 }
 let currentUser=null, unsub=null;
 let fsApp=null, fsAuth=null, fsDb=null;
+function markSynced(){ dbSynced=true; clearTimeout(connT); }
 function snapHandler(snap){
   const cached=snap.metadata&&snap.metadata.fromCache;
   if(!snap.exists()){
     if(cached) return;
-    dbSynced=true;
+    markSynced();
     if(state.updatedAt>0) pushSoon(0); else setStatus('cloud');
     return;
   }
   const r=snap.data()||{}, ru=Number(r.updatedAt)||0;
-  if(ru>state.updatedAt){ dbSynced=true; adopt(r); return; }
+  if(ru>state.updatedAt){ markSynced(); adopt(r); return; }
   if(cached) return;
-  dbSynced=true;
+  markSynced();
   if(ru<state.updatedAt){ pushSoon(0); }
   else { lastPushed=ru; setStatus('cloud'); }
 }
@@ -771,13 +778,22 @@ function startSession(user){
   applyTheme(); sel=todayKey(); anchor=sel; lastToday=sel;
   $('#login').hidden=true;
   showTab(ui.tab); setStatus('sync');
-  const ref=doc(fsDb,'users',user.uid,'data','app');
-  dbDoc={set:d=>setDoc(ref,d)};
-  unsub=onSnapshot(ref,snapHandler,()=>{ dbDoc=null; setStatus(localOk?'local':'volatile'); });
+  listen();
 }
+function listen(){
+  if(!currentUser) return;
+  if(unsub){ unsub(); unsub=null; }
+  clearTimeout(connT); dbSynced=false;
+  const ref=doc(fsDb,'users',currentUser.uid,'data','app');
+  dbDoc={set:d=>setDoc(ref,d)};
+  connT=setTimeout(()=>{ if(!dbSynced) setStatus('error','sem resposta do servidor'); },10000);
+  unsub=onSnapshot(ref,snapHandler,e=>{ clearTimeout(connT); dbDoc=null; setStatus('error',(e&&e.code)||'erro'); });
+}
+$('#status').addEventListener('click',()=>{ if($('#status').dataset.s==='error'&&currentUser){ setStatus('sync'); failed=false; listen(); } });
+window.addEventListener('online',()=>{ if($('#status').dataset.s==='error'&&currentUser){ failed=false; listen(); } });
 function endSession(){
   if(unsub){ unsub(); unsub=null; }
-  clearTimeout(pushT); pushT=null; dbDoc=null; dbSynced=false; currentUser=null;
+  clearTimeout(pushT); clearTimeout(connT); clearTimeout(retryT); pushT=null; dbDoc=null; dbSynced=false; currentUser=null;
   closeSheets();
   $('#login').hidden=false; $('#lgLoad').hidden=true; $('#lgForm').hidden=false;
   $('#lg-pass').value='';
@@ -786,7 +802,7 @@ function initFirebase(){
   try{
     fsApp=initializeApp(firebaseConfig);
     fsAuth=getAuth(fsApp);
-    fsDb=initializeFirestore(fsApp,{localCache:persistentLocalCache({tabManager:persistentMultipleTabManager()})});
+    fsDb=initializeFirestore(fsApp,{experimentalAutoDetectLongPolling:true,localCache:persistentLocalCache({tabManager:persistentMultipleTabManager()})});
     onAuthStateChanged(fsAuth,u=>{ if(u) startSession(u); else endSession(); });
   }catch(e){
     $('#lgLoad').textContent='Não consegui conectar ao Firebase. Verifique sua internet e recarregue a página.';
