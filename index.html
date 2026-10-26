@@ -466,7 +466,7 @@ textarea{width:100%;border-radius:12px;border:1px solid var(--line);background:v
 <script type="module">
 import {initializeApp} from "https://www.gstatic.com/firebasejs/10.14.1/firebase-app.js";
 import {getAuth,onAuthStateChanged,signInWithEmailAndPassword,signOut} from "https://www.gstatic.com/firebasejs/10.14.1/firebase-auth.js";
-import {initializeFirestore,persistentLocalCache,persistentMultipleTabManager,doc,onSnapshot,setDoc} from "https://www.gstatic.com/firebasejs/10.14.1/firebase-firestore.js";
+import {initializeFirestore,memoryLocalCache,doc,onSnapshot,setDoc} from "https://www.gstatic.com/firebasejs/10.14.1/firebase-firestore.js";
 
 const firebaseConfig={
   apiKey:"AIzaSyDoO1G2v997ws5BuKHwuxald48TaJ0i0pA",
@@ -802,7 +802,7 @@ function initFirebase(){
   try{
     fsApp=initializeApp(firebaseConfig);
     fsAuth=getAuth(fsApp);
-    fsDb=initializeFirestore(fsApp,{experimentalAutoDetectLongPolling:true,localCache:persistentLocalCache({tabManager:persistentMultipleTabManager()})});
+    fsDb=initializeFirestore(fsApp,{experimentalForceLongPolling:true,localCache:memoryLocalCache()});
     onAuthStateChanged(fsAuth,u=>{ if(u) startSession(u); else endSession(); });
   }catch(e){
     $('#lgLoad').textContent='Não consegui conectar ao Firebase. Verifique sua internet e recarregue a página.';
