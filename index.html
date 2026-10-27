@@ -319,6 +319,108 @@ textarea{width:100%;border-radius:12px;border:1px solid var(--line);background:v
 .gate .tiles4{display:grid;grid-template-columns:repeat(4,1fr);gap:5px;width:132px}
 .gate .tiles4 i{aspect-ratio:1;border-radius:4px;background:var(--c)}
 .load{color:var(--muted);font:13px var(--font-mono)}
+
+/* ---------- v3: campos, mensagem do dia, pastas, emojis, pausa, vício, relação, resumo semanal ---------- */
+@property --f{syntax:'<number>';inherits:false;initial-value:0}
+.field input[type=date],.field select{height:46px;border-radius:12px;border:1px solid var(--line);background:var(--bg);padding:0 12px;width:100%;min-width:0;color:var(--fg)}
+.field select{appearance:none;-webkit-appearance:none;background-image:linear-gradient(45deg,transparent 50%,var(--muted) 50%),linear-gradient(135deg,var(--muted) 50%,transparent 50%);background-position:calc(100% - 18px) 20px,calc(100% - 13px) 20px;background-size:5px 5px;background-repeat:no-repeat;padding-right:32px}
+.field select:focus-visible,.field input[type=date]:focus-visible{outline:2px solid var(--accent);outline-offset:0;border-color:transparent}
+.seg3 label{min-width:30%}
+.emrow{display:flex;gap:8px;align-items:center}
+.emrow input{width:84px!important;text-align:center;font-size:22px}
+.emgrid{display:grid;grid-template-columns:repeat(8,1fr);gap:4px}
+.emgrid button{height:38px;border-radius:10px;background:var(--surface2);font-size:20px;line-height:1}
+.emgrid button:active{filter:brightness(1.2)}
+.em{font-size:17px;line-height:1;width:20px;text-align:center;flex:none}
+
+/* mensagem do dia */
+.msg{margin-top:14px;background:var(--surface2);border-radius:14px;padding:12px 14px;display:flex;flex-direction:column;gap:4px}
+.msg .mtag{font:500 11px var(--font-mono);color:var(--muted);text-transform:uppercase;letter-spacing:.06em}
+.msg p{margin:0;font-size:15px;line-height:1.45}
+.msg .mref{font:500 12px var(--font-mono);color:var(--muted)}
+
+/* pastas */
+.fhead{display:flex;align-items:center;gap:4px;margin-top:6px}
+.fhead:first-child{margin-top:0}
+.ftoggle{flex:1;min-width:0;display:flex;align-items:center;gap:8px;padding:8px 2px;text-align:left;border-radius:8px}
+.ftoggle b{font:700 15px var(--font-display);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.ftoggle small{font:12px var(--font-mono);color:var(--muted)}
+.chev{display:inline-block;width:14px;font-size:12px;color:var(--muted);transition:transform .2s}
+.ftoggle[aria-expanded="false"] .chev{transform:rotate(-90deg)}
+.fgroup{display:flex;flex-direction:column;gap:12px}
+.fempty{font:12px var(--font-mono);color:var(--muted);padding:4px 2px}
+.gfold{font:500 12px var(--font-mono);color:var(--muted);text-transform:uppercase;letter-spacing:.06em;margin:10px 0 -2px}
+.addrow{display:flex;gap:10px;margin-top:14px}
+.addrow .add{margin-top:0;flex:1}
+.addrow .add.sm{flex:none;padding:0 16px;width:auto}
+.hiddenbtn{align-self:center;font:500 12px var(--font-mono);color:var(--muted);padding:8px 12px;border-radius:99px;background:var(--surface2)}
+.chips2{display:flex;flex-wrap:wrap;gap:8px}
+
+/* vício */
+.ctl.over .bar i{background:var(--danger)}
+.ctl.over .fullbtn{border-color:var(--danger);color:var(--danger)}
+.cell.slip,.mcell.slip,.wcell.slip{background:color-mix(in srgb,var(--danger) calc(var(--p,0)*1%),var(--cell))}
+.tag{display:inline-block;font:500 10px var(--font-mono);padding:1px 7px;border-radius:99px;background:var(--surface2);color:var(--muted);vertical-align:middle}
+
+/* pausa */
+.pauserow{display:flex;gap:8px;align-items:center}
+.pauserow input{flex:1}
+.pauserow .btn{flex:none;height:46px}
+
+/* resumo semanal e relação */
+.wknav{display:flex;align-items:center;gap:2px}
+.wknav .wl{flex:1;font:500 13px var(--font-mono);text-align:center}
+.wkhead{display:flex;align-items:center;gap:14px}
+.wkhead .ring.big{width:64px;height:64px}
+.wkhead .tx{min-width:0}
+.wkhead .tx b{display:block;font:700 18px var(--font-display)}
+.wkhead .tx span{font:12px var(--font-mono);color:var(--muted)}
+.hrow{display:flex;flex-direction:column;gap:5px}
+.hrow .hl{display:flex;align-items:center;gap:8px;min-width:0}
+.hrow .hl b{font:500 14px var(--font-body);flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.hrow .hl span{font:12px var(--font-mono);color:var(--muted)}
+.hrow .bar{margin-top:0}
+.up{color:var(--c-lime)}
+.dn2{color:var(--danger)}
+.lock{display:flex;flex-direction:column;gap:8px}
+.lock p{margin:0;font-size:14px;color:var(--muted)}
+.corr{display:grid;gap:3px;overflow-x:auto}
+.corr .ch{font:500 11px var(--font-mono);color:var(--muted);display:grid;place-items:center;min-height:30px;overflow:hidden}
+.corr .cc{aspect-ratio:1/1;min-height:30px;border-radius:7px;background:var(--cell)}
+.legend{display:flex;gap:12px;flex-wrap:wrap;font:11px var(--font-mono);color:var(--muted)}
+.legend i{display:inline-block;width:10px;height:10px;border-radius:3px;margin-right:5px;vertical-align:-1px}
+.tier{display:flex;flex-direction:column;gap:6px;border:1px solid var(--line);border-radius:12px;padding:10px 12px;min-width:0}
+.tier b{font:700 14px var(--font-display)}
+.tier .pips{display:flex;gap:4px}
+.tier .pips i{flex:1;height:6px;border-radius:99px;background:var(--cell)}
+.tier .pips i.on{background:var(--c-lime)}
+.tier span{font:11px var(--font-mono);color:var(--muted)}
+.tier.full{border-color:var(--c-lime)}
+.ach{display:flex;flex-direction:column;gap:8px;margin-top:12px}
+.achsum{font:12px var(--font-mono);color:var(--muted)}
+
+/* animações (opcionais) */
+.anim .ring{transition:--f .7s cubic-bezier(.2,.8,.2,1)}
+.anim .bar i{transition:width .45s cubic-bezier(.2,.8,.2,1)}
+.anim .cell,.anim .mcell,.anim .wcell{transition:background .3s}
+.anim .card{animation:rise .4s cubic-bezier(.2,.8,.2,1) both;animation-delay:calc(var(--i,0)*35ms)}
+.anim section:not([hidden]) .msg{animation:rise .4s both}
+.anim .ctl .big{transition:background .25s,color .25s,transform .15s}
+.anim .ctl .big:active,.anim .stepper .sb:active,.anim .fullbtn:active{transform:scale(.96)}
+.anim .ctl.done .big .tick{animation:tickpop .4s cubic-bezier(.3,1.6,.5,1)}
+.anim .card.celebrate .em,.anim .card.celebrate .dot{animation:wiggle .7s ease}
+.anim .backdrop:not([hidden]){animation:fadein .2s both}
+.anim .backdrop:not([hidden]) .sheet{animation:slideup .3s cubic-bezier(.2,.8,.2,1) both}
+.anim .toast{animation:rise .25s both}
+.anim .dayb[aria-pressed="true"] .ring{animation:pop .35s cubic-bezier(.3,1.6,.5,1)}
+@keyframes rise{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+@keyframes fadein{from{opacity:0}to{opacity:1}}
+@keyframes slideup{from{transform:translateY(40px);opacity:0}to{transform:none;opacity:1}}
+@keyframes tickpop{0%{transform:scale(.3) rotate(-20deg);opacity:0}100%{transform:none;opacity:1}}
+@keyframes pop{0%{transform:scale(.8)}100%{transform:none}}
+@keyframes wiggle{0%,100%{transform:rotate(0)}20%{transform:rotate(-14deg) scale(1.25)}50%{transform:rotate(12deg) scale(1.25)}80%{transform:rotate(-6deg)}}
+@media (prefers-reduced-motion:reduce){ .anim *,.anim *::before{animation:none!important;transition:none!important} }
+
 </style>
 </head>
 <body>
@@ -345,6 +447,7 @@ textarea{width:100%;border-radius:12px;border:1px solid var(--line);background:v
   </header>
 
   <section id="v-hoje">
+    <div id="msgbox" hidden></div>
     <div class="strip" id="strip"></div>
     <div class="daysum" id="daysum"></div>
     <div class="list" id="hojeList"></div>
@@ -354,7 +457,7 @@ textarea{width:100%;border-radius:12px;border:1px solid var(--line);background:v
       <label class="sr" for="d-note">Anotação do dia</label>
       <textarea id="d-note" rows="3" maxlength="1000" placeholder="Anote algo sobre o dia (opcional)"></textarea>
     </section>
-    <button type="button" class="add" id="addBtn"><span aria-hidden="true">+</span> Novo hábito</button>
+    <div class="addrow"><button type="button" class="add" id="addBtn"><span aria-hidden="true">+</span> Novo hábito</button><button type="button" class="add" id="addFolderBtn"><span aria-hidden="true">+</span> Nova pasta</button></div>
   </section>
 
   <section id="v-grade" hidden>
@@ -384,40 +487,80 @@ textarea{width:100%;border-radius:12px;border:1px solid var(--line);background:v
       <label for="f-name">Nome</label>
       <input id="f-name" type="text" maxlength="40" autocomplete="off" placeholder="Ex.: Ler, Treinar, Meditar">
     </div>
-    <fieldset class="field seg">
+    <div class="field">
+      <label for="f-emoji">Ícone (opcional)</label>
+      <div class="emrow">
+        <input id="f-emoji" type="text" maxlength="8" autocomplete="off" placeholder="🙂" aria-label="Emoji do hábito">
+        <button type="button" class="rmc" id="f-emoji-clear">Limpar</button>
+      </div>
+      <div class="emgrid" id="emgrid"></div>
+    </div>
+    <fieldset class="field seg seg3">
       <legend>Como marcar</legend>
       <label><input type="radio" name="f-type" id="f-type-check" value="check"><span>Feito ou não</span></label>
       <label><input type="radio" name="f-type" id="f-type-count" value="count"><span>Quantidade</span></label>
+      <label><input type="radio" name="f-type" id="f-type-bad" value="bad"><span>Evitar (vício)</span></label>
     </fieldset>
     <div id="countFields" hidden>
       <div class="row3">
-        <div class="field"><label for="f-goal">Meta por dia</label><input id="f-goal" type="number" inputmode="decimal" min="0" step="any" placeholder="30"></div>
+        <div class="field" id="goalField"><label for="f-goal">Meta por dia</label><input id="f-goal" type="number" inputmode="decimal" min="0" step="any" placeholder="30"></div>
         <div class="field"><label for="f-unit">Unidade</label><input id="f-unit" type="text" maxlength="16" autocomplete="off" placeholder="páginas"></div>
         <div class="field"><label for="f-step">Passo do + e −</label><input id="f-step" type="number" inputmode="decimal" min="0" step="any" placeholder="auto"></div>
       </div>
       <p class="hint" style="margin-top:10px">Quanto mais perto da meta, mais forte fica a cor do quadradinho.</p>
     </div>
-    <fieldset class="field seg">
-      <legend>Frequência</legend>
-      <label><input type="radio" name="f-freq" id="f-freq-daily" value="daily"><span>Todo dia</span></label>
-      <label><input type="radio" name="f-freq" id="f-freq-days" value="days"><span>Dias fixos</span></label>
-      <label><input type="radio" name="f-freq" id="f-freq-weekly" value="weekly"><span>Vezes por semana</span></label>
-    </fieldset>
-    <div class="field" id="daysPanel" hidden>
-      <label>Em quais dias</label>
-      <div class="chips" id="f-days"></div>
-      <p class="hint">Nos outros dias o quadradinho fica apagado e não conta contra você.</p>
+    <div id="badFields" hidden>
+      <div class="row3">
+        <div class="field"><label for="f-limit">Limite por dia</label><input id="f-limit" type="number" inputmode="decimal" min="0" step="any" placeholder="0"></div>
+        <div class="field"><label for="f-bunit">Unidade</label><input id="f-bunit" type="text" maxlength="16" autocomplete="off" placeholder="vezes"></div>
+        <div class="field"><label for="f-since">Contar desde</label><input id="f-since" type="date"></div>
+      </div>
+      <p class="hint" style="margin-top:10px">Limite 0 significa parar de vez. Cada dia dentro do limite já conta como vitória, sem precisar marcar nada. Se escorregar, anote a quantidade do dia e a sequência recomeça.</p>
     </div>
-    <div class="field" id="weeklyPanel" hidden>
-      <label for="f-n">Quantas vezes por semana</label>
-      <input id="f-n" type="number" inputmode="numeric" min="1" max="7" step="1" placeholder="3">
-      <p class="hint">Vale qualquer dia. A sequência conta semanas em que você bateu esse número.</p>
+    <div id="freqBox">
+      <fieldset class="field seg seg3">
+        <legend>Frequência</legend>
+        <label><input type="radio" name="f-freq" id="f-freq-daily" value="daily"><span>Todo dia</span></label>
+        <label><input type="radio" name="f-freq" id="f-freq-days" value="days"><span>Dias fixos</span></label>
+        <label><input type="radio" name="f-freq" id="f-freq-period" value="period"><span>Por período</span></label>
+      </fieldset>
+      <div class="field" id="daysPanel" hidden style="margin-top:16px">
+        <label>Em quais dias</label>
+        <div class="chips" id="f-days"></div>
+        <p class="hint">Nos outros dias o quadradinho fica apagado e não conta contra você. Se você fizer mesmo assim, conta como dia extra a seu favor.</p>
+      </div>
+      <div id="periodPanel" hidden style="margin-top:16px;display:flex;flex-direction:column;gap:14px">
+        <div class="row3">
+          <div class="field"><label for="f-n" id="f-n-label">Quantas vezes</label><input id="f-n" type="number" inputmode="decimal" min="0" step="any" placeholder="3"></div>
+          <div class="field"><label for="f-per">A cada</label>
+            <select id="f-per"><option value="week">semana</option><option value="month">mês</option><option value="year">ano</option><option value="days">X dias</option></select></div>
+          <div class="field" id="everyField" hidden><label for="f-every">Quantos dias</label><input id="f-every" type="number" inputmode="numeric" min="2" step="1" placeholder="14"></div>
+        </div>
+        <fieldset class="field seg" id="metricBox" hidden>
+          <legend>Como contar</legend>
+          <label><input type="radio" name="f-metric" id="f-metric-days" value="days"><span>Dias em que bati a meta</span></label>
+          <label><input type="radio" name="f-metric" id="f-metric-sum" value="sum"><span>Somar a quantidade</span></label>
+        </fieldset>
+        <p class="hint" id="periodHint"></p>
+      </div>
+    </div>
+    <div class="field">
+      <label for="f-folder">Pasta</label>
+      <select id="f-folder"></select>
     </div>
     <fieldset class="field">
       <legend>Cor</legend>
       <div class="swatches" id="swatches"></div>
       <button type="button" class="rmc" id="rmColor" hidden>Remover esta cor da paleta</button>
     </fieldset>
+    <div class="field" id="pauseBox" hidden>
+      <label for="f-pause-to">Pausa</label>
+      <p class="hint" id="pauseInfo"></p>
+      <div class="pauserow">
+        <input id="f-pause-to" type="date" aria-label="Pausar até (opcional)">
+        <button type="button" class="btn" id="f-pause">Pausar agora</button>
+      </div>
+    </div>
     <p class="err" id="f-err" role="alert" hidden></p>
     <div class="editrow" id="editRow" hidden>
       <button type="button" id="f-up">Subir</button>
@@ -430,6 +573,25 @@ textarea{width:100%;border-radius:12px;border:1px solid var(--line);background:v
       <button type="button" class="ghost" id="f-cancel">Cancelar</button>
       <button type="submit" class="primary">Salvar</button>
     </div>
+  </form>
+</div>
+
+<!-- Folha: pasta -->
+<div class="backdrop" id="folderBg" hidden>
+  <form class="sheet" id="folderSheet" role="dialog" aria-modal="true" aria-labelledby="foTitle" novalidate>
+    <h2 id="foTitle">Nova pasta</h2>
+    <div class="field">
+      <label for="fo-name">Nome da pasta</label>
+      <input id="fo-name" type="text" maxlength="30" autocomplete="off" placeholder="Ex.: Saúde, Estudos, Casa">
+    </div>
+    <p class="err" id="fo-err" role="alert" hidden></p>
+    <div class="actions">
+      <button type="button" class="danger" id="fo-del" hidden>Excluir pasta</button>
+      <span class="sp"></span>
+      <button type="button" class="ghost" id="fo-cancel">Cancelar</button>
+      <button type="submit" class="primary">Salvar</button>
+    </div>
+    <p class="hint" id="fo-hint" hidden>Ao excluir uma pasta, os hábitos dela não são apagados: passam para “Sem pasta”.</p>
   </form>
 </div>
 
@@ -478,6 +640,7 @@ const firebaseConfig={
 };
 const EMAIL_DOMAIN='diario.app';
 
+const MSGS={"cur":["Os polvos têm três corações: dois bombeiam o sangue para as brânquias e um o envia para o resto do corpo.","As lontras-marinhas costumam dormir de patas dadas para não serem separadas pela correnteza.","Uma girafa tem apenas sete vértebras no pescoço, o mesmo número que um ser humano, só que bem maiores.","Os wombats produzem fezes em formato de cubo, o que ajuda a marcar território sem que elas rolem.","Os beija-flores são as únicas aves capazes de voar para trás, graças ao movimento especial das asas.","Os filhotes de flamingo nascem com penas acinzentadas; a cor rosada vem dos pigmentos presentes na alimentação.","As formigas não têm pulmões: elas respiram por pequenos orifícios espalhados pelo corpo, chamados espiráculos.","Os camaleões conseguem mover cada olho de forma independente, olhando em duas direções ao mesmo tempo.","Entre os cavalos-marinhos, é o macho que carrega os ovos em uma bolsa e dá à luz os filhotes.","Os elefantes se comunicam por sons muito graves, os infrassons, que viajam por longas distâncias pelo ar e pelo chão.","Uma abelha que encontra flores avisa as colegas por meio de uma dança que indica a direção e a distância do alimento.","O bambu é uma gramínea e está entre as plantas que crescem mais rápido, com algumas espécies ganhando dezenas de centímetros por dia.","Girassóis ainda jovens acompanham o movimento do Sol no céu, virando a flor de leste a oeste ao longo do dia.","Os tubarões existem há mais tempo do que as árvores: eles já nadavam nos oceanos antes de as primeiras florestas surgirem.","Os morcegos são os únicos mamíferos capazes de voar de verdade, batendo as asas em vez de apenas planar.","Entre os pinguins-imperadores, o macho choca o ovo sobre os pés, protegido por uma dobra de pele, durante o inverno antártico.","As corujas não conseguem mexer os olhos dentro das órbitas, por isso giram a cabeça para olhar em volta.","A lula-gigante tem olhos enormes, entre os maiores do reino animal, úteis para enxergar no fundo escuro do mar.","O olfato de um cão é muito mais apurado que o humano, e boa parte do cérebro dele é dedicada a processar cheiros.","Os bigodes dos gatos são sensíveis ao toque e ajudam o animal a perceber o espaço ao redor, mesmo no escuro.","As borboletas sentem o gosto pelas patas: ao pousar numa planta, elas já conseguem saber se é boa para alimento ou para por ovos.","Os caracóis têm milhares de dentes minúsculos em uma língua raspadora chamada rádula, usada para triturar o alimento.","Os vaga-lumes produzem luz por reações químicas dentro do corpo, a bioluminescência, e quase não geram calor.","A jabuticabeira dá frutos direto no tronco e nos galhos grossos, fenômeno que os botânicos chamam de cauliflória.","A vitória-régia, planta aquática da Amazônia, tem folhas circulares que podem passar de um metro de diâmetro.","Os cactos guardam água no interior dos caules, o que permite a eles sobreviver por longos períodos sem chuva.","A bananeira não é uma árvore: o que parece um tronco é formado por bainhas de folhas sobrepostas, e a planta é uma grande erva.","Em um morango, os pontinhos na superfície são os verdadeiros frutos; a parte vermelha e suculenta é o receptáculo da flor.","Em termos botânicos, o tomate é um fruto, pois se desenvolve a partir da flor e guarda as sementes da planta.","O abacaxi é uma planta da família das bromélias, e cada fruto se forma a partir de muitas flores que se fundem.","Os coalas passam grande parte do dia dormindo, porque as folhas de eucalipto de que se alimentam rendem pouca energia.","O ornitorrinco é um mamífero que põe ovos, tem bico parecido com o do pato e vive em rios da Austrália.","Os golfinhos dormem com apenas metade do cérebro de cada vez, o que permite a eles continuar subindo à superfície para respirar.","A baleia-azul é o maior animal que se conhece em toda a história da Terra, maior até que os maiores dinossauros.","Os corais parecem pedras ou plantas, mas são animais: pequenos pólipos que vivem em colônias e formam recifes.","As esponjas-do-mar são animais simples, sem cérebro, sem coração e sem músculos, que filtram a água para se alimentar.","As estrelas-do-mar não têm cérebro nem sangue: a água do mar circula por canais internos que fazem o papel do sistema circulatório.","As águas-vivas existem há centenas de milhões de anos e não têm cérebro, coração nem ossos.","O joão-de-barro constrói a própria casa com barro, formando um ninho em forma de forno, geralmente no alto de postes e galhos.","Os corvos são capazes de reconhecer rostos humanos e lembrar de quem os tratou bem ou mal.","Os papagaios conseguem imitar a fala humana porque têm um órgão vocal muito flexível e grande capacidade de aprender sons.","O tamanduá-bandeira não tem dentes: ele captura formigas e cupins com uma língua comprida e pegajosa.","A capivara é o maior roedor do mundo e passa boa parte do tempo perto da água, onde nada e mergulha com facilidade.","O boto-cor-de-rosa, golfinho de rio da Amazônia, fica mais rosado conforme envelhece e se agita ou se excita.","O guepardo é o animal terrestre mais veloz e consegue acelerar de zero a mais de cem quilômetros por hora em poucos segundos.","A corcova dos camelos guarda gordura, e não água, como muita gente pensa; essa reserva fornece energia em longas travessias.","Os salmões nascem em rios, vivem boa parte da vida no mar e depois voltam à água doce para se reproduzir.","O avestruz é a maior ave do mundo e, embora não voe, corre em alta velocidade com suas pernas fortes.","O albatroz-errante tem a maior envergadura de asas entre as aves vivas, que pode passar de três metros.","O grilo canta esfregando uma asa na outra, e o ritmo do canto varia com a temperatura do ambiente.","As cigarras passam anos debaixo da terra como ninfas e só depois de muito tempo saem para viver o breve período adulto.","As libélulas já voavam antes da época dos dinossauros, e seus parentes antigos tinham asas de grande tamanho.","O tatu-bola consegue se enrolar por completo e formar uma esfera dura que protege o corpo dos predadores.","A cauda enfeitada do pavão, mostrada pelo macho para cortejar as fêmeas, é formada por penas longas com desenhos em forma de olho.","Os gansos voam em formação de V, e esse arranjo ajuda o grupo a economizar energia durante as viagens longas.","O axolote, um anfíbio mexicano, consegue regenerar patas, cauda e até partes de órgãos perdidos.","A rã-de-vidro tem a pele da barriga tão transparente que dá para ver o coração batendo.","Os ursos-polares têm pele preta sob o pelo branco, e a cor escura ajuda a absorver o calor do Sol.","Cada zebra tem um padrão de listras diferente, como se fosse uma impressão digital.","A raposa-do-ártico troca de pelagem ao longo do ano: fica branca no inverno e acinzentada ou marrom no verão.","Os lobos uivam para se comunicar, seja para reunir o bando, seja para avisar a outros grupos onde estão.","As formigas-cortadeiras não comem as folhas que carregam: elas as usam para cultivar um fungo, que serve de alimento.","Os cupins constroem ninhos enormes, e alguns montes de terra feitos por eles têm vários metros de altura.","Os cogumelos pertencem ao reino dos fungos, que não é de plantas nem de animais, e se alimentam de matéria orgânica.","As samambaias não dão flores nem sementes: elas se reproduzem por esporos, que ficam na parte de baixo das folhas.","A araucária, o pinheiro-do-paraná, produz o pinhão, semente muito usada na culinária do Sul do Brasil.","O pau-brasil, árvore da Mata Atlântica, deu nome ao nosso país por causa da tinta avermelhada extraída de sua madeira.","O baobá armazena grande quantidade de água no tronco grosso, o que o ajuda a sobreviver a longas estações secas.","As orquídeas formam uma das maiores famílias de plantas com flores, com dezenas de milhares de espécies conhecidas.","Os cocos podem boiar no mar por longas distâncias, o que ajudou os coqueiros a se espalhar por muitas praias tropicais.","As algas e o plâncton marinho produzem uma parte muito grande do oxigênio que existe na atmosfera.","Os musgos não têm raízes verdadeiras: eles absorvem água e nutrientes diretamente pelas folhinhas.","A lhama é um animal andino usado há séculos para transportar cargas leves nas montanhas.","O hipopótamo produz uma secreção avermelhada na pele que forma uma camada protetora contra o sol e pequenas feridas.","As formigas conseguem carregar objetos muitas vezes mais pesados que o próprio corpo.","O peixe-boi é um mamífero aquático herbívoro, e seus parentes mais próximos entre os animais terrestres são os elefantes.","O louva-a-deus é um dos poucos insetos que conseguem virar a cabeça para olhar por cima do ombro.","O mico-leão-dourado, símbolo da Mata Atlântica, tem pelagem alaranjada e vive em pequenos grupos familiares.","O pirarucu, gigante dos rios amazônicos, é um dos maiores peixes de água doce do mundo e precisa subir à superfície para respirar ar.","Os ovos de um beija-flor são tão pequenos que cabem facilmente na ponta de um dedo.","A pele do camaleão muda de cor principalmente para se comunicar e regular a temperatura, não apenas para se camuflar.","As tartarugas-marinhas põem os ovos na areia, e o sexo dos filhotes depende da temperatura do ninho.","A águia tem visão extremamente aguçada e consegue avistar uma presa pequena a grande distância.","O gambá finge-se de morto diante de ameaças, um comportamento involuntário conhecido como tanatose.","O urso-pardo pode hibernar por meses, reduzindo os batimentos cardíacos e o gasto de energia durante o inverno.","A seiva do seringueiro, uma árvore amazônica, é o látex usado para fabricar a borracha natural.","A castanheira-do-pará depende de uma abelha grande e de um roedor, a cutia, para se reproduzir e espalhar suas sementes.","As folhas de uma árvore mudam de cor no outono porque a clorofila verde se degrada e revela pigmentos amarelos e alaranjados.","O ipê floresce na estação seca, cobrindo a copa de flores amarelas, rosadas ou roxas, quase sem folhas.","O cacau, matéria-prima do chocolate, nasce em frutos grandes que crescem diretamente no tronco de uma árvore tropical.","A seiva dos bordos canadenses é fervida para fazer o xarope de bordo, muito usado em panquecas.","O dodô, ave que vivia na ilha Maurício, foi extinto no século XVII, pouco depois da chegada dos europeus.","As joaninhas são besouros, e suas cores vivas funcionam como aviso aos predadores de que elas têm gosto ruim.","A luz do Sol leva cerca de oito minutos para chegar à Terra, então o Sol que você vê é o de oito minutos atrás.","Júpiter é tão grande que caberiam mais de mil Terras dentro dele.","Em Vênus, um dia dura mais que um ano: o planeta gira tão devagar que leva mais tempo para dar uma volta em si do que ao redor do Sol.","Saturno tem densidade média menor que a da água, então boiaria se existisse uma banheira grande o bastante.","A Lua se afasta da Terra alguns centímetros por ano.","No espaço não há ar para transmitir o som, por isso as explosões dos filmes de ficção científica seriam silenciosas na vida real.","A Via Láctea é a galáxia onde fica o Sistema Solar e tem centenas de bilhões de estrelas.","Marte parece avermelhado porque o solo tem muito óxido de ferro, a mesma substância da ferrugem.","O Sol concentra mais de 99% da massa de todo o Sistema Solar.","Os anéis de Saturno são feitos principalmente de pedaços de gelo, de grãos de poeira a blocos enormes.","A Terra leva cerca de 365 dias e um quarto para dar uma volta ao redor do Sol, e é por isso que existe o ano bissexto.","Plutão foi reclassificado como planeta-anão em 2006 pela União Astronômica Internacional.","Os astronautas ficam alguns centímetros mais altos no espaço, porque sem a gravidade a coluna se alonga um pouco.","O telescópio espacial Hubble foi lançado em 1990 e já registrou imagens de galáxias muito distantes.","Mercúrio é o planeta mais próximo do Sol, mas Vênus é o mais quente, por causa do efeito estufa de sua atmosfera densa.","Nos eclipses solares totais, a Lua cobre o Sol por completo porque o Sol é cerca de 400 vezes maior, mas também está cerca de 400 vezes mais longe.","As estrelas que vemos a olho nu à noite pertencem à nossa própria galáxia, a Via Láctea.","A Estação Espacial Internacional dá uma volta completa na Terra em cerca de uma hora e meia.","Urano gira praticamente deitado, com o eixo quase paralelo ao plano de sua órbita.","Os cometas ganham uma cauda brilhante ao se aproximar do Sol, porque o calor vaporiza o gelo de que são feitos.","O Sol é uma estrela de tamanho médio: existem estrelas centenas de vezes maiores.","A primeira pessoa a ir ao espaço foi o cosmonauta soviético Yuri Gagarin, em 1961.","A Lua mostra sempre a mesma face para a Terra, porque o tempo que ela leva para girar em torno de si é igual ao de sua volta ao redor do planeta.","As estrelas cadentes não são estrelas: são pequenos fragmentos de rocha que queimam ao entrar na atmosfera.","O Sistema Solar tem oito planetas: quatro rochosos, perto do Sol, e quatro gigantes, mais longe.","Nas noites sem Lua e longe das cidades, dá para ver a faixa esbranquiçada da Via Láctea a olho nu.","A gravidade na Lua é cerca de um sexto da gravidade da Terra, por isso os astronautas davam saltos longos.","Um ano em Marte dura quase dois anos terrestres.","O Brasil tem um centro de lançamento de foguetes em Alcântara, no Maranhão, perto da linha do Equador, o que ajuda a economizar combustível.","A primeira imagem de um buraco negro foi divulgada em 2019 e mostrou o brilho do gás em volta do centro da galáxia M87.","O arco-íris se forma quando a luz do Sol é refratada e refletida nas gotas de chuva, separando as cores.","Um raio chega a ser mais quente que a superfície do Sol, por uma fração de segundo.","O trovão chega depois do raio porque a luz viaja muito mais rápido que o som.","O deserto do Saara já foi uma região com lagos e vegetação, há alguns milhares de anos.","A Antártida é o continente mais frio, mais seco e mais ventoso do planeta.","O ponto mais alto da Terra acima do nível do mar é o Monte Everest, nos Himalaias.","A atmosfera da Terra é formada principalmente por nitrogênio, e só cerca de um quinto dela é oxigênio.","Grande parte dos terremotos e vulcões do mundo se concentra no chamado Círculo de Fogo do Pacífico.","A água cobre cerca de 70% da superfície da Terra, mas a maior parte é salgada.","Os continentes se movem lentamente, alguns centímetros por ano, sobre placas que formam a crosta terrestre.","A chuva tem um cheiro característico quando cai em solo seco, e esse aroma tem nome: petricor.","As estações do ano existem porque o eixo da Terra é inclinado, e não porque a distância até o Sol muda muito.","Quando é verão no Brasil, é inverno na Europa, porque os hemisférios recebem a luz do Sol de formas opostas.","A aurora boreal acontece quando partículas vindas do Sol colidem com gases da atmosfera perto dos polos e criam luzes coloridas.","Furacão e tufão são o mesmo tipo de tempestade; o nome muda conforme a região onde ela se forma.","A floresta amazônica é a maior floresta tropical do mundo e abriga uma enorme variedade de espécies.","O rio Amazonas é o de maior volume de água do mundo e despeja no oceano mais água que qualquer outro rio.","Formar poucos centímetros de solo fértil pode levar centenas de anos.","O Pantanal é uma das maiores planícies alagáveis do planeta e fica no centro da América do Sul.","As geleiras guardam a maior parte da água doce do planeta, em forma de gelo.","A fossa das Marianas, no Pacífico, é o ponto mais profundo dos oceanos, com cerca de onze quilômetros de profundidade.","Boa parte do fundo dos oceanos ainda não foi mapeada com alta resolução.","A água do mar é salgada porque os rios levam minerais das rochas para os oceanos, onde eles se acumulam ao longo de milhões de anos.","As marés são causadas principalmente pela atração gravitacional da Lua sobre a água dos oceanos.","O Mar Morto é tão salgado que as pessoas boiam nele com facilidade.","A Grande Barreira de Corais, na Austrália, é a maior estrutura formada por seres vivos no planeta.","Nas grandes profundidades o oceano é gelado e escuro, mas ainda há seres vivos que vivem ali.","O Atlântico se alarga lentamente, alguns centímetros por ano, enquanto o Pacífico vai diminuindo.","Os recifes de coral ocupam uma pequena parte do fundo do mar, mas abrigam uma grande parcela das espécies marinhas.","Em um iceberg, só uma parte pequena fica acima da água; a maior parte permanece submersa.","O Brasil é o maior país da América do Sul e o quinto maior do mundo em área.","A Rússia é o maior país do mundo em área e atravessa onze fusos horários.","O Vaticano é o menor país do mundo em área, com menos de meio quilômetro quadrado.","A Austrália é, ao mesmo tempo, um país e um continente.","O Nilo e o Amazonas disputam o título de maior rio do mundo em comprimento.","O Monte Roraima fica na fronteira entre Brasil, Venezuela e Guiana e tem o topo plano, como uma mesa.","O Pico da Neblina, no Amazonas, é o ponto mais alto do Brasil.","A cidade de Istambul fica em dois continentes, a Europa e a Ásia, separados pelo estreito do Bósforo.","O Japão é um arquipélago com milhares de ilhas.","A Islândia tem muitos vulcões e fontes de água quente, e aproveita essa energia geotérmica para aquecer casas.","O Brasil faz fronteira com quase todos os países da América do Sul, exceto o Chile e o Equador.","As Cataratas do Iguaçu ficam na fronteira entre Brasil e Argentina e estão entre as maiores quedas-d'água do mundo.","Brasília foi inaugurada em 1960 como capital do país, com um plano piloto em forma de avião.","O Lago Titicaca, entre o Peru e a Bolívia, é um dos lagos navegáveis mais altos do mundo.","A Grande Muralha da China se estende por milhares de quilômetros e foi construída em épocas diferentes, por várias dinastias.","As pirâmides de Gizé, no Egito, foram construídas há mais de quatro mil anos.","Veneza foi construída sobre ilhas e tem canais no lugar de ruas.","O Canal do Panamá liga os oceanos Atlântico e Pacífico e permite que os navios evitem contornar a América do Sul.","Machu Picchu, cidade construída pelos incas nas montanhas do Peru, fica a mais de dois mil metros de altitude.","O Uruguai é um dos menores países da América do Sul e faz fronteira com o Brasil no extremo sul.","Se contarmos as ilhas oceânicas, o Brasil tem quatro fusos horários.","O Cristo Redentor, cartão-postal do Rio de Janeiro, foi inaugurado em 1931.","O euro é a moeda de vários países europeus, e as notas e moedas circulam entre eles sem câmbio.","A Groenlândia é a maior ilha do mundo e pertence ao Reino da Dinamarca.","O Himalaia continua crescendo alguns milímetros por ano, porque as placas indiana e eurasiática seguem se pressionando.","A Noruega tem fiordes, vales profundos cavados por geleiras e preenchidos pelo mar.","São Paulo é a maior cidade do Brasil e uma das maiores do hemisfério sul.","O Atacama, no Chile, é um dos desertos mais secos do mundo, e em alguns trechos quase nunca chove.","O Canadá tem mais lagos do que qualquer outro país.","A Suíça tem quatro línguas oficiais: alemão, francês, italiano e romanche.","A escrita surgiu há mais de cinco mil anos na Mesopotâmia, em tabuletas de argila marcadas com cunhas.","A imprensa de tipos móveis de Gutenberg, na Europa do século XV, tornou os livros muito mais baratos.","Os antigos egípcios escreviam em papiro, uma folha feita de uma planta que crescia às margens do Nilo.","Os Jogos Olímpicos da Antiguidade eram realizados em Olímpia, na Grécia, em homenagem a Zeus.","O primeiro voo de avião com motor, dos irmãos Wright, em 1903, durou apenas alguns segundos.","Em 1906, Santos Dumont voou em Paris com o 14-Bis, um avião que decolou por conta própria diante de testemunhas.","O telefone foi patenteado por Alexander Graham Bell em 1876.","A lâmpada elétrica foi aperfeiçoada por Thomas Edison no fim do século XIX e passou a iluminar casas e ruas.","O ENIAC, um dos primeiros computadores eletrônicos de uso geral, ocupava uma sala inteira.","A internet começou como um projeto para ligar computadores de universidades e centros de pesquisa.","Antes do relógio mecânico, as pessoas marcavam as horas com relógios de sol e de água.","O papel foi inventado na China e chegou à Europa séculos depois.","A bússola, usada na navegação, também surgiu na China.","O nosso alfabeto descende de sinais criados por povos antigos, como os fenícios e os gregos.","O Império Romano chegou a dominar toda a região em torno do mar Mediterrâneo.","Os romanos construíram aquedutos para levar água às cidades, e vários deles continuam de pé.","Cleópatra viveu mais perto da chegada do ser humano à Lua do que da construção da Grande Pirâmide.","A Revolução Industrial começou na Inglaterra, no século XVIII, com máquinas movidas a vapor.","O Brasil foi colônia de Portugal até a Independência, proclamada em 1822.","A primeira Copa do Mundo de futebol foi disputada no Uruguai, em 1930.","A Torre Eiffel foi inaugurada em 1889 para uma exposição universal em Paris.","A Estátua da Liberdade foi um presente da França aos Estados Unidos.","A palavra vacina vem do latim vacca, vaca, porque as primeiras vacinas usaram material de uma doença que atacava o gado.","O código de barras foi criado para agilizar a leitura de preços e hoje está em quase todos os produtos.","Segundo a história mais conhecida, o forno de micro-ondas foi inventado quando um engenheiro notou que ondas de rádio derreteram um doce em seu bolso.","O velcro foi inspirado nos carrapichos que grudavam na roupa e nos cães do inventor depois de caminhadas.","O primeiro e-mail foi enviado em 1971 por Ray Tomlinson.","A palavra robô vem do tcheco robota, que significa trabalho forçado, e apareceu numa peça de teatro em 1920.","O GPS usa sinais de satélites para calcular a sua posição na Terra.","As primeiras câmeras fotográficas precisavam de vários minutos de exposição para registrar uma imagem.","O chocolate foi consumido pela primeira vez como uma bebida amarga, pelos povos da Mesoamérica.","O xadrez surgiu na Índia há mais de mil anos, com o nome de chaturanga.","O cinema nasceu no fim do século XIX, e os primeiros filmes eram curtos e sem som.","A televisão chegou ao Brasil em 1950, com a inauguração da TV Tupi.","A primeira viagem de volta ao mundo de navio foi concluída em 1522 pela expedição que Fernão de Magalhães havia iniciado.","O calendário que usamos hoje, o gregoriano, foi adotado no século XVI para corrigir o desvio do calendário anterior.","Os antigos maias desenvolveram um calendário sofisticado e já usavam o conceito de zero.","Os algarismos de 0 a 9 vieram da Índia e chegaram à Europa pelos árabes.","Os gregos antigos já sabiam que a Terra era redonda, e Eratóstenes calculou o tamanho dela com boa precisão.","O sistema métrico foi criado na França, no fim do século XVIII.","O primeiro satélite artificial, o Sputnik, foi lançado em 1957.","A missão Apollo 11 levou os primeiros seres humanos à Lua, em 1969.","A Biblioteca de Alexandria, no Egito antigo, foi um dos maiores centros de estudo do mundo antigo.","A tinta usada em muitos documentos antigos era feita de misturas de galhas de carvalho e ferro.","O número pi, a razão entre o comprimento de uma circunferência e o seu diâmetro, tem infinitas casas decimais que nunca se repetem em padrão.","O zero é um número par.","Um bilhão, em português do Brasil, é o número 1 seguido de nove zeros.","A soma dos ângulos internos de qualquer triângulo plano é igual a 180 graus.","Número primo é aquele que só se divide por 1 e por ele mesmo, e o 2 é o único primo par.","Em um dado comum, as faces opostas somam sempre sete.","O símbolo do infinito foi popularizado pelo matemático John Wallis, no século XVII.","O português é a língua oficial de países em vários continentes, como Portugal, Angola, Moçambique e Brasil.","A palavra saudade é famosa por ser difícil de traduzir com exatidão para outros idiomas.","O mandarim é o idioma com mais falantes nativos no mundo.","Com o Acordo Ortográfico, as letras K, W e Y passaram a fazer parte formal do nosso alfabeto, que tem 26 letras.","Muitas palavras do português vêm do árabe, como açúcar, azeite e alface.","Palavras como abacate, tomate e chocolate chegaram ao português por línguas indígenas da América.","Do tupi, o português herdou palavras como abacaxi, mandioca, jabuti e pipoca.","A palavra quarentena vem do italiano e lembra os quarenta dias que os navios esperavam antes de desembarcar em Veneza.","Em japonês, um mesmo texto pode misturar três tipos de escrita: hiragana, katakana e kanji.","O árabe é escrito da direita para a esquerda.","A Libras, língua brasileira de sinais, tem gramática própria e é reconhecida oficialmente no Brasil.","O esperanto é uma língua criada em 1887 para servir de segundo idioma comum entre povos diferentes.","A frase inglesa The quick brown fox jumps over the lazy dog usa todas as letras do alfabeto.","O símbolo @ se chama arroba porque vem de uma antiga unidade de peso usada na Península Ibérica.","O til, que usamos em ã e õ, nasceu como um pequeno n escrito sobre a vogal pelos copistas medievais.","O português do Brasil e o de Portugal têm diferenças de pronúncia, de vocabulário e de algumas regras de gramática.","O inglês é a língua mais usada na comunicação internacional, mas não é a que tem mais falantes nativos.","O dicionário Houaiss reúne centenas de milhares de verbetes da língua portuguesa.","A escala musical ocidental tem sete notas básicas: dó, ré, mi, fá, sol, lá e si.","Um violino tem quatro cordas, afinadas em sol, ré, lá e mi.","O piano comum tem 88 teclas.","O samba nasceu da mistura de tradições africanas e brasileiras e se desenvolveu no Rio de Janeiro.","O berimbau, instrumento da capoeira, é feito de um arco de madeira, uma corda de aço e uma cabaça.","A bossa nova surgiu no fim dos anos 1950 e ficou conhecida no mundo inteiro.","Beethoven continuou compondo mesmo depois de perder grande parte da audição.","Na música, a pausa tem nome e valor definidos: o silêncio na hora certa também faz parte da melodia.","O Maracanã, no Rio de Janeiro, foi inaugurado em 1950 para a Copa do Mundo.","O Brasil é o único país que participou de todas as edições da Copa do Mundo masculina de futebol.","O vôlei foi inventado nos Estados Unidos em 1895, como uma alternativa mais leve ao basquete.","O basquete foi criado em 1891 por James Naismith, que usou cestos de pêssego como alvo.","Uma maratona tem 42 quilômetros e 195 metros.","A capoeira mistura luta, dança e música e é reconhecida como patrimônio cultural do Brasil.","Os anéis olímpicos representam a união dos cinco continentes.","A natação é um dos esportes mais completos, porque trabalha vários grupos musculares ao mesmo tempo.","O judô, arte marcial japonesa, tem como princípio usar a força do adversário a seu favor.","O jogo real de Ur, um dos jogos de tabuleiro mais antigos que se conhece, tem mais de quatro mil anos.","O frevo, dança de Pernambuco, é conhecido pelos passos rápidos e pelas sombrinhas coloridas.","O violão chegou ao Brasil com os portugueses e se tornou um dos instrumentos mais ligados à música popular.","O pão de queijo é típico de Minas Gerais e é feito com polvilho, um derivado da mandioca.","A feijoada tem raízes nos cozidos portugueses de feijão com carnes e se firmou no Brasil como um prato nacional.","O tomate chegou à Europa vindo da América, depois das grandes navegações do século XVI.","A batata e o milho são alimentos de origem americana e hoje aparecem em pratos do mundo inteiro.","O café chegou ao Brasil no século XVIII e virou um dos principais produtos de exportação do país.","A pimenta-do-reino foi tão valiosa na Europa medieval que chegou a ser usada para pagar aluguéis e impostos.","A mandioca é cultivada há milhares de anos pelos povos indígenas da América do Sul.","O açaí, fruto de uma palmeira amazônica, é consumido há muito tempo pelas populações da região.","A pizza moderna, com molho de tomate e queijo, ficou famosa em Nápoles, na Itália.","O sushi começou como uma forma de conservar peixe em arroz fermentado, muito antes de virar o prato que conhecemos.","Potes de mel foram encontrados em tumbas do Egito antigo, ainda com aparência de bem conservados.","A palavra companheiro vem do latim cum panis, que quer dizer com pão: quem divide o pão.","O arroz é o alimento básico de mais da metade da população mundial.","O trigo foi uma das primeiras plantas cultivadas pelo ser humano, na região do Oriente Médio.","A banana vem do Sudeste Asiático e chegou à América depois das viagens dos europeus.","A laranja é um híbrido antigo, surgido na Ásia.","A castanha-de-caju é a semente que fica pendurada do lado de fora do falso fruto do cajueiro.","O guaraná é uma planta nativa da Amazônia e sua semente é rica em cafeína.","O queijo coalho é muito popular no Nordeste e costuma ser assado na brasa, num espeto.","O brigadeiro foi criado no Brasil na década de 1940 e levou o nome de um político e militar da época.","O chimarrão é uma bebida de erva-mate tomada em cuia, típica do Sul do Brasil e de países vizinhos.","O pão francês brasileiro tem receita e jeito próprios, bem diferentes dos pães que se comem na França.","O milho tem origem no México e é a base de pratos como pamonha, canjica e cuscuz.","A tapioca é feita da goma da mandioca e já era preparada pelos povos indígenas antes da chegada dos europeus.","As sementes de cacau já foram usadas como moeda pelos astecas.","Antes das geladeiras, o gelo era um artigo de luxo: cortado de lagos congelados e levado em navios.","As primeiras cenouras cultivadas eram roxas ou amarelas; a cenoura alaranjada foi desenvolvida ao longo dos séculos.","O pimentão, a pimenta-malagueta e a páprica pertencem ao mesmo gênero de plantas, o Capsicum.","O alho e a cebola são parentes e pertencem ao mesmo gênero de plantas, o Allium.","O chocolate branco não leva cacau em pó, apenas a manteiga de cacau.","A luz branca é a mistura de todas as cores do arco-íris.","O céu é azul porque a atmosfera espalha mais a luz azul do Sol do que as outras cores.","O pôr do sol é avermelhado porque, perto do horizonte, a luz percorre um caminho maior na atmosfera e perde parte do azul.","O preto absorve quase toda a luz que recebe, por isso roupas pretas esquentam mais ao sol.","Uma folha parece verde porque reflete a luz verde e absorve o resto.","A luz do Sol também tem raios que não vemos, como o ultravioleta e o infravermelho.","As três cores primárias da luz são vermelho, verde e azul, as mesmas usadas pelas telas.","As telas de celular e de TV formam todas as cores misturando pontinhos minúsculos de vermelho, verde e azul.","Algumas abelhas enxergam cores que nós não vemos: elas percebem o ultravioleta.","Cães e gatos enxergam menos cores do que os seres humanos.","O olho humano consegue distinguir milhões de tons de cor.","O vidro é feito principalmente de areia derretida em temperaturas altíssimas.","O espelho comum é uma placa de vidro com uma película metálica atrás.","Luz e som são ondas, mas a luz viaja no vácuo e o som, não.","Uma lupa concentra a luz do Sol e, em poucos segundos, pode aquecer um ponto até queimar papel.","O coração bate cerca de cem mil vezes por dia.","O corpo de um adulto tem 206 ossos.","Quase um quarto dos ossos do corpo humano está nos pés.","O maior músculo do corpo é o glúteo máximo.","O menor osso do corpo humano é o estribo, e fica dentro do ouvido.","A pele é o maior órgão do corpo humano.","O cérebro usa cerca de um quinto da energia do corpo, apesar de pesar bem pouco.","Os pulmões não têm músculos próprios: quem faz o ar entrar e sair é principalmente o diafragma.","O esmalte dos dentes é a substância mais dura do corpo humano.","As impressões digitais se formam antes do nascimento e cada pessoa tem as suas.","O fígado é um dos poucos órgãos internos capazes de se regenerar de forma considerável.","Piscamos os olhos milhares de vezes por dia, quase sempre sem perceber.","A língua tem papilas que percebem os gostos doce, salgado, azedo, amargo e umami.","O ouvido interno cuida também do equilíbrio, e não só da audição.","Os glóbulos vermelhos levam o oxigênio dos pulmões para todas as partes do corpo.","Esticados, os vasos sanguíneos de um adulto dariam mais de uma volta ao redor da Terra.","O corpo humano é formado em grande parte por água.","As unhas crescem alguns milímetros por mês, e as das mãos crescem mais rápido que as dos pés.","O cabelo cresce, em média, cerca de um centímetro por mês.","Ficamos um pouco mais baixos ao fim do dia, porque a coluna se comprime ao longo das horas.","A pele se renova o tempo todo: as células da camada externa são trocadas continuamente.","Os cães escutam sons mais agudos do que os seres humanos conseguem ouvir.","O corpo humano tem mais de seiscentos músculos.","Os rins filtram o sangue o tempo todo, e é possível viver bem com apenas um deles.","A saliva começa a digerir o alimento já dentro da boca.","Durante o sono o cérebro continua ativo e passa por fases diferentes, algumas delas com sonhos intensos.","Todo mundo sonha, mesmo quem não lembra dos sonhos ao acordar.","O ritmo circadiano é o relógio interno do corpo, que ajuda a regular o sono ao longo de cerca de 24 horas.","A luz do dia ajuda a ajustar o relógio interno do corpo.","Pesquisas sobre formação de hábitos mostram que o tempo para um comportamento ficar automático varia bastante de pessoa para pessoa.","Um estudo muito citado encontrou uma média de cerca de dois meses para um novo comportamento ficar automático, com grande variação.","Faltar um dia isolado não costuma acabar com a formação de um hábito: o que pesa é a repetição ao longo do tempo.","Ligar um hábito novo a algo que você já faz, como escovar os dentes, ajuda a lembrar de fazê-lo.","O cérebro tende a repetir caminhos conhecidos, por isso as rotinas ficam mais fáceis com o tempo.","Anotar o próprio progresso costuma ajudar a manter um hábito.","Dormir e acordar em horários parecidos todos os dias ajuda o corpo a se ajustar ao ritmo do sono.","O bocejo é contagioso entre as pessoas, e até os cães parecem responder ao bocejo de quem convive com eles.","Sentir mais cansaço no começo da tarde é normal: o corpo costuma ter uma queda natural de alerta nessa hora.","A memória se fortalece quando revisamos algo aos poucos, em vários dias, em vez de tudo de uma vez.","Começar com uma meta pequena demais para falhar é uma das estratégias mais usadas para criar um hábito novo.","Um dia de descanso planejado faz parte de qualquer rotina de treino, porque é no descanso que o corpo se recupera.","Resumir com as próprias palavras ajuda a fixar o que se aprende.","Acompanhar a rotina com um calendário marcado dia a dia já era um método usado por muita gente muito antes dos aplicativos.","A sensação de tempo muda conforme a atenção: um dia cheio de novidades costuma parecer mais longo na lembrança.","Respirar fundo e devagar por alguns instantes é um jeito simples de desacelerar quando se está agitado.","Ler vinte páginas por dia soma mais de sete mil páginas em um ano.","Beber água ao longo do dia, em pequenos goles, costuma ser mais fácil do que tentar tomar tudo de uma vez.","Caminhar dez minutos por dia durante um ano soma mais de sessenta horas de caminhada."],"fra":["Hoje não precisa ser perfeito. Precisa ser feito do jeito que der, e isso já é muito.","Faça só a primeira parte do hábito. O resto costuma vir junto quando você começa.","Quem você era ontem é a única comparação que vale a pena fazer hoje.","Um dia ruim não apaga os dias bons que você já construiu.","Você já voltou antes. Voltar de novo é só mais uma prova de que sabe o caminho.","E se hoje você fizesse apenas cinco minutos? Cinco minutos ainda são um começo de verdade.","Descansar também faz parte do plano, não é um desvio dele.","Seja tão paciente com você quanto seria com um amigo aprendendo algo novo.","Progresso lento continua sendo progresso, e ninguém está cronometrando você.","Comece sem vontade mesmo. A motivação costuma chegar depois do primeiro movimento.","Sua rotina é um lugar onde você cuida de quem quer se tornar, um dia de cada vez.","Falhou ontem? Hoje é uma página em branco, e a caneta continua na sua mão.","Coragem muitas vezes é só abrir o aplicativo e marcar o que você fez.","Pequenas repetições constroem coisas grandes, mesmo quando ninguém está olhando.","Olhe para trás um instante: você já fez bem mais do que lembra.","Disciplina sem culpa é voltar ao combinado sem se castigar pelo desvio.","Que tal diminuir a meta hoje, em vez de desistir dela?","Nem todo dia rende igual, e tudo bem. O que importa é aparecer.","Respire fundo, escolha uma única tarefa e dê a ela sua atenção inteira.","Você não está atrasado. Está no seu próprio ritmo, e ele é válido.","Cada marca no calendário é um lembrete de que você cumpriu sua palavra consigo.","Foque no que cabe nas próximas duas horas. O resto pode esperar sua vez.","Celebre o que você fez hoje antes de pensar no que ficou faltando.","Seu futuro agradece cada escolha simples que você faz agora.","Quando o dia pesar, reduza o hábito ao tamanho mínimo e cumpra só isso.","A constância não pede força de herói. Pede disposição para repetir o simples.","Esquecer um dia não é fracassar. É só uma pausa que você pode encerrar agora.","Quem cuida da rotina cuida, no fundo, do próprio humor e da própria energia.","Já pensou em como seria bom chegar ao fim do dia com o hábito cumprido?","Aceite o ritmo lento de hoje. Ele ainda te leva para a frente.","Uma boa rotina é feita de decisões tomadas uma vez, para sobrar energia depois.","Você merece um recomeço sem cobrança e sem discurso duro na cabeça.","Prepare hoje o que vai facilitar o seu amanhã: deixe o tênis perto da porta.","Mudanças reais costumam parecer entediantes por fora e importantes por dentro.","Dormir bem é um hábito também, e dos mais generosos que existem.","Não espere o momento ideal. Use o momento que tem, mesmo pequeno.","Todo hábito começou com uma primeira vez desajeitada.","Elogie seu esforço em voz alta, nem que seja só para você ouvir.","Sua história não depende de uma sequência perfeita, e sim de continuar voltando.","Se a semana começou torta, a segunda metade ainda pode ser sua.","Escolha a versão do hábito que cabe no dia que você realmente tem.","Persistir não é ignorar o cansaço. É saber quando pausar e quando seguir.","Quantas vezes você já duvidou e mesmo assim fez? Lembre-se disso hoje.","Dar um passo de dois minutos vale mais do que planejar uma hora inteira.","A pressa atrapalha o que a paciência faria bem feito.","Hoje, trate sua energia como algo precioso e gaste-a no que importa.","Sem comparação com ninguém, o seu avanço fica mais fácil de enxergar.","Um hábito novo é como um broto: pede água todo dia e nenhuma pressa.","Reconheça a pessoa que levantou e tentou, mesmo quando o resultado foi pequeno.","Recomeçar é uma habilidade, e você vem treinando mais do que imagina.","Dá para ser exigente com o objetivo e gentil com o caminho ao mesmo tempo.","Se você não consegue fazer tudo, faça o que é essencial e deixe o resto.","Você não precisa acreditar em tudo para dar o próximo passo.","Aprecie o silêncio depois de cumprir sua tarefa. Ele é uma pequena recompensa.","Nada de culpa pelo que passou. A decisão que vale é a de agora.","Troque o \"tudo ou nada\" por \"um pouco é melhor que nada\".","Seu corpo e sua mente aprendem por repetição, então repita com carinho.","Amanhã de manhã você vai querer ter começado hoje, mesmo que pouco.","O que parece rotina chata hoje pode virar o seu chão firme mais tarde.","Dê crédito às vezes em que você foi em frente sem ninguém perceber.","Hábitos se firmam quando ficam fáceis de começar. Facilite o seu.","Um tropeço mostra onde ajustar o plano, e não onde abandoná-lo.","Faça uma pausa sem pedir desculpas. Quem descansa rende com mais clareza.","Qual é a menor versão do seu hábito que você faria até em um dia terrível?","Tenha paciência: raízes crescem debaixo da terra muito antes de aparecer folha.","Hoje, escolha a constância em vez da intensidade.","Seu esforço tem valor mesmo quando o resultado ainda não aparece.","Aprender a recomeçar sem drama é uma das maiores forças que existem.","Anote uma coisa que deu certo hoje, por menor que seja.","Enfrente a tarefa que você vem adiando por apenas dez minutos.","Ninguém avança sem cansar. O segredo é combinar esforço com descanso.","Seu ritmo não precisa se parecer com o de ninguém para dar certo.","Estar presente no que você faz já é metade do trabalho.","Tire o peso da palavra \"sempre\". Hoje basta fazer uma vez.","Vez ou outra o plano falha. A relação com você mesmo não precisa falhar junto.","Organize o ambiente para que o hábito seja a opção mais fácil à vista.","A semana que vem começa com o que você faz hoje, mesmo em escala mínima.","Sinta orgulho do esforço, não só do resultado.","Mantenha o foco no próximo passo e deixe a escada inteira para depois.","Você pode estar cansado e ainda assim cumprir a versão curta do hábito.","Gentileza consigo mesmo não é moleza. É o que sustenta a disciplina por muito tempo.","Cada dia em que você tentou vale mais do que mil dias de intenção.","Respeite seus limites hoje para ter fôlego amanhã.","Pergunte-se com calma: o que eu consigo fazer agora, sem exagero?","Pequenas vitórias merecem um sorriso. Dê um a si mesmo agora.","Repetir não é monotonia quando você sabe para onde está indo.","Uma sequência quebrada é só uma sequência esperando para recomeçar.","A mudança que dura costuma ser a mais discreta.","Comece pelo mais simples e deixe o embalo fazer o resto do trabalho.","Quanta coisa você já aprendeu só tentando? Continue assim.","Hoje o objetivo é modesto: não deixar o hábito ficar para trás.","A rotina é um abrigo para os dias em que a cabeça está cheia.","Tente trocar a cobrança por curiosidade: o que me impediu ontem?","Não existe atraso para quem está caminhando na própria direção.","Faça um pouco, com cuidado, e repita amanhã. É assim que se constrói.","Sua dedicação silenciosa de hoje será visível daqui a alguns meses.","Mesmo quando a vontade some, o compromisso pode ficar de pé.","Ajuste o plano sem vergonha. Quem se adapta continua no jogo.","Observe como você se sente depois de cumprir o hábito. Guarde essa sensação.","Dias comuns, bem usados, formam uma vida inteira diferente.","Desligue o piloto automático por um minuto e escolha o que fazer com intenção.","Não precisa provar nada a ninguém. Basta cumprir o que prometeu a si.","O que pesa menos: começar agora ou carregar a culpa de não ter começado?","Aceite ajuda quando precisar. Pedir apoio também é parte da constância.","Trate o descanso como compromisso marcado, sem culpa e sem atraso.","Você é capaz de coisas pequenas todos os dias, e elas se somam.","Siga em frente com os pés no chão e a expectativa na medida certa.","Hoje, uma decisão pequena e bem feita basta.","Aos poucos, o que era esforço vira costume, e o costume vira parte de você.","Se o plano ficou grande demais, corte-o ao meio e comece pela metade.","Observe seus avanços como quem lê um diário: com atenção e boa vontade.","Ninguém começa sabendo. Todo mundo que aprendeu já foi iniciante.","Dê a si mesmo o mesmo tempo que daria a uma planta que quer ver florescer.","Em vez de perguntar se está bom, pergunte se está sendo feito.","O primeiro minuto é o mais difícil. Depois, o corpo costuma acompanhar.","Mesmo uma pausa longa pode terminar com um passo simples hoje.","Faça as pazes com os dias lentos. Eles também levam a algum lugar.","Convide a calma para dentro da sua rotina, e ela vai render mais.","Você não é o seu pior dia. É a soma de todas as vezes que seguiu tentando.","Com pouco tempo, faça pouco. Com muito tempo, faça com calma.","Planeje o amanhã em uma linha e vá dormir com a cabeça mais leve.","Anote o motivo que te fez começar e releia quando bater o desânimo.","Ter dúvida não impede ninguém de agir. Aja com a dúvida no bolso.","Hoje vale tentar de um jeito diferente, se o jeito antigo não está funcionando.","Os hábitos que você cultiva hoje são o clima em que você vai viver depois.","A vontade vai e volta. A decisão de aparecer pode ficar.","Perdoe o deslize de ontem e coloque toda a atenção no que dá para fazer agora.","Quem insiste com cuidado chega mais longe do que quem corre sem fôlego.","Reserve um horário fixo e deixe o hábito se acomodar nele.","Que tal terminar o dia reconhecendo três coisas que você fez direito?","A coragem de recomeçar costuma ser silenciosa e ocorre no meio de uma terça-feira comum.","Dê um passo que seja visível: marque, anote, risque. Isso fortalece o ânimo.","Fazer mal feito, mas fazer, é melhor do que esperar fazer perfeito.","Aprenda com o que não funcionou e leve só a lição para a frente.","Hoje o seu único trabalho é cumprir o combinado mais simples.","Desacelerar não é desistir. Às vezes é a única forma de continuar.","Cercar-se de lembretes gentis ajuda mais do que cobranças duras.","O mesmo esforço, repetido com carinho, rende mais do que um esforço enorme e raro.","A distância entre querer e fazer cabe em um primeiro gesto.","Cultive uma rotina que combine com a sua vida, e não com a vida de outra pessoa.","Se hoje foi só o mínimo, o mínimo foi o suficiente.","Seu progresso não precisa de plateia para ser real.","Cada vez que você volta, o caminho fica um pouco mais conhecido.","Troque a pergunta \"por que não consegui?\" por \"o que posso tentar agora?\".","Há força em quem decide ser constante sem alarde.","Sinta o peso bom de ter cumprido o que se propôs.","Mesmo na pressa do dia, existe um intervalo de um minuto para o seu hábito.","Escolha uma âncora na sua rotina e encaixe o novo hábito logo depois dela.","Nem sempre a melhor decisão é a mais ousada. Às vezes é a mais sustentável.","Seu amanhã agradece o preparo que você faz hoje, ainda que pareça pouco.","Reconhecer o cansaço é sabedoria, e não fraqueza.","Algumas conquistas só aparecem depois de muitas manhãs sem graça.","Um passo de cada vez ainda é um jeito completo de chegar.","Desfaça a ideia de que precisa estar inspirado para começar.","O que você repete com atenção vira habilidade.","Se der vontade de desistir, adie a desistência para amanhã e faça só hoje.","Confie no processo, mas observe-o com olhos honestos e curiosos.","Seu valor não depende de uma sequência de dias intocada.","Descubra o que te dá energia e coloque isso no começo do seu dia.","Em vez de se cobrar, convide-se: vamos fazer juntos, só um pouquinho?","Há beleza em fazer o básico bem feito todos os dias.","Nenhuma meta é pequena demais quando representa um cuidado com você.","Cada recomeço ensina algo que o primeiro começo não tinha como ensinar.","A paciência é uma forma de coragem que ninguém aplaude.","Deixe o hábito simples o bastante para caber até nos dias bagunçados.","Ao final do dia, o que importa é ter sido honesto com o seu esforço.","Observe seus pensamentos duros e responda como responderia a alguém querido.","Sentir preguiça é humano. Agir mesmo assim, aos poucos, também é.","Quanto vale uma semana inteira de passos curtos? Mais do que parece.","Hoje, comemore ter chegado até aqui, mesmo com tropeços no caminho.","Um bom hábito é aquele que você consegue manter quando a vida aperta.","Deixe a ansiedade falar e continue andando no seu passo.","Não carregue o fardo de dias que ainda não chegaram.","Divida a tarefa em partes minúsculas e comemore cada uma.","O seu \"mais ou menos\" de hoje é melhor que o \"nada\" de quem não tentou.","Faça silêncio por um momento e lembre por que isso importa para você.","Quando tudo parecer travado, mude só um detalhe e tente outra vez.","Quem sabe parar para recuperar o fôlego dura mais na estrada.","Trabalhar em si mesmo é um projeto sem prazo, então relaxe os ombros.","Gentileza e firmeza podem andar juntas dentro de você.","Valorize o dia em que nada deu errado e também o dia em que quase tudo deu.","Acorde com um objetivo pequeno e deixe que ele guie as primeiras horas.","Seu esforço de hoje é um recado para o seu eu de daqui a um ano.","A regularidade tem um poder discreto: ela te transforma sem barulho.","Se ainda não é fácil, é porque você está aprendendo, e isso é bom.","Reserve alguns minutos de calma e cumpra sua tarefa sem distrações.","Cada escolha consciente é um voto na pessoa que você está se tornando.","Você tem permissão para ir devagar, desde que não pare de se mexer.","Registre sua evolução, mesmo a mais tímida, para ver o quanto andou.","Lembre-se das manhãs em que você foi mesmo sem querer e se sentiu melhor depois.","É possível ser firme com os próprios planos e carinhoso com os próprios limites.","Um recomeço humilde vale mais do que um orgulho que impede de tentar de novo.","Não adie o cuidado com você para quando \"sobrar tempo\". Faça o tempo.","O que você começa hoje, mesmo pequeno, já está mais perto do que o que você só pensa.","Tarefas difíceis ficam mais leves quando têm hora e lugar marcados.","Sorria para o que foi feito e deixe o que faltou para a próxima rodada.","Existe um tipo de força que só aparece nos dias ordinários.","Mantenha-se curioso sobre o que funciona melhor para você.","Ajuste a meta para a vida real e não a vida real para a meta.","Um dia cumprido pela metade ainda é um dia em que você apareceu.","Aprecie o ritmo constante, como o de uma respiração tranquila.","Se não puder hoje do jeito ideal, faça do jeito possível.","Dar o melhor muda de tamanho a cada dia, e todos os tamanhos servem.","Quanto mais simples o gesto, mais fácil será repeti-lo amanhã.","Reconheça que cada pequeno hábito é uma forma de dizer \"eu me importo comigo\".","Que o cansaço seja um sinal para ajustar, não para abandonar.","Você já passou por dias piores e mesmo assim chegou aqui.","Dê um nome ao hábito, torne-o um velho conhecido e receba-o sem cerimônia.","A melhor hora para um recomeço costuma ser a que você está vivendo.","Não adianta correr se o caminho pede passos firmes. Assente o pé e siga.","Deixe a gratidão por quem você já é caminhar ao lado do desejo de mudar.","Continuar não exige brilho, exige apenas a decisão de voltar amanhã.","Pergunte ao seu eu de amanhã o que ele gostaria que você fizesse hoje.","A disciplina mais saudável tem voz calma e olhar generoso.","Tudo bem estar no meio do caminho. É exatamente lá que a maior parte do trabalho acontece.","Substitua a pressão por um plano simples e uma chance honesta de tentar.","Em dias de pouca energia, o hábito mínimo é um ato de lealdade a você.","Quem persiste com leveza guarda forças para os dias que realmente pedem mais.","Seja o tipo de pessoa que cumpre as promessas pequenas que faz a si mesma.","Nem toda semana será sua melhor semana, mas toda semana pode ter um passo.","Fique por perto do seu objetivo, mesmo que seja só olhando para ele hoje.","Há dias em que fazer uma única coisa é uma vitória enorme.","Abra espaço para o erro: ele é parte natural de qualquer aprendizado.","Você pode se orgulhar de tentar, independentemente do placar do dia.","Deixe um bilhete para si mesmo com uma frase gentil e leia amanhã cedo.","A cada repetição, o hábito deixa de ser esforço e passa a ser casa.","Pense no que o esforço de hoje torna possível daqui a alguns meses.","Mesmo uma tentativa torta já tira você do ponto de partida.","Reduza as exigências, aumente a presença e veja o que muda.","Resolver o simples primeiro libera a cabeça para o difícil.","Não são os dias de brilho que sustentam uma rotina, e sim os dias comuns.","Seja generoso ao medir o próprio avanço. Ele merece ser visto com carinho.","Quando a motivação faltar, deixe o costume assumir o volante por um tempo.","Quer um bom começo? Levante, beba água e dê o primeiro passo do hábito.","A sua jornada não precisa ser admirada para ser valiosa.","Dedique-se com calma e perceba como a calma também rende.","O que você faz com constância fala mais de você do que o que faz com pressa.","Se perdeu o fio, ache a ponta mais próxima e puxe com delicadeza.","Reserve um momento para notar a diferença entre hoje e o seu primeiro dia.","A repetição amável é o que transforma intenção em identidade.","Resista à ideia de que só vale o que é grande. O pequeno sustenta o grande.","Um recomeço não custa nada além de uma decisão sincera.","Faça agora a parte mais fácil, e a mais difícil vai parecer menos assustadora.","Valorize quem você é enquanto trabalha em quem você quer ser.","Toda manhã traz uma chance nova de cuidar do que importa.","Em vez de prometer muito, prometa pouco e cumpra com alegria.","Quem não desiste de tentar de outro jeito sempre encontra um caminho mais curto.","Observe o que já ficou mais fácil. Isso é prova de crescimento.","O cuidado que você tem com um hábito mostra o cuidado que tem com a própria vida.","Algumas respostas só chegam depois que a gente cumpre a rotina por um tempo.","Não confunda um tropeço com o fim do trajeto.","Entregue-se ao que está fazendo por alguns minutos e deixe o mundo esperar.","Escolha a calma de quem tem direção em vez da pressa de quem quer provar algo.","Meça seu dia pelo que você cuidou, e não pelo que deixou de lado.","Ei, você apareceu de novo. Isso já merece um pequeno aplauso.","Uma rotina leve é aquela que você ainda quer seguir daqui a um mês.","O próximo passo pode ser tão pequeno que quase ninguém notaria, e ainda assim contar.","Dê ao seu desejo de mudar a companhia de um plano realista.","Cansou? Reduza o ritmo, troque de tarefa, mas não rasgue o plano.","Seu esforço tem memória: tudo que você já fez continua somando.","Afaste a ideia de recompensa imediata e aprecie o sentido do processo.","Tenha por perto algo que lembre o seu motivo, como uma foto ou uma frase.","Desfrute da sensação de ter feito sua parte hoje, por menor que tenha sido.","Reconstrua sem pressa, tijolo por tijolo, o que ficou parado.","Na dúvida entre fazer pouco e não fazer nada, fique com o pouco.","Que seu hábito seja um encontro marcado com a melhor parte de você.","Uma conversa gentil com você mesmo ajuda mais que uma bronca em voz alta.","Vá no seu passo. Quem está na própria pista não perde a corrida de ninguém.","O sucesso de um hábito está em ele ser possível em quase todos os dias.","Abandonar a perfeição é um jeito sério de ficar mais perto do progresso.","Termine o dia sem listas de cobranças, só com uma nota do que foi bom.","Agradeça ao seu corpo pelo que ele fez hoje e conceda-lhe o descanso devido.","Veja o hábito como um presente que você entrega a si mesmo todo dia.","Seguir em frente pode parecer um gesto minúsculo, e é.","Quais são as três ações simples que mais mudariam a sua semana?","Pausas planejadas protegem a sua constância melhor do que a força de vontade.","Não subestime o que dez minutos diários fazem ao longo de um ano.","Enfrente a inércia com um movimento simples: levante e comece.","Todo mundo tem dias de baixa. Os que seguem em frente apenas os atravessam.","Seja mais curioso do que crítico com os seus próprios resultados.","Desenhe um dia possível, não um dia perfeito, e cumpra-o.","Quando duvidar do caminho, olhe o quanto já andou por ele.","Acolha o recomeço como quem acolhe um amigo que voltou de viagem.","Criar um costume é um ato de paciência com um toque de teimosia gentil.","Pequenos gestos repetidos têm a força silenciosa de um rio.","Se hoje o corpo pede calma, faça do descanso o seu hábito do dia.","Valha-se das manhãs tranquilas para plantar o que vai florescer mais tarde.","Nada de grandes discursos internos. Só um \"vamos lá\" e um primeiro movimento.","Pouco a pouco, o difícil de hoje será o automático de amanhã.","Mostre-se para o seu objetivo mesmo nos dias em que ele parece distante.","Cuidar de si é uma tarefa diária e merece o mesmo respeito que qualquer outra.","O recomeço mais sincero é aquele que vem sem promessas dramáticas.","Em vez de esperar a energia chegar, ofereça a ela um bom motivo para aparecer.","O quanto você avançou pode ser medido em hábitos que já não dão trabalho.","Um sim pequeno a você hoje vale mais que um grande plano guardado na gaveta.","Respeitar o processo é aceitar que algumas semanas serão de ajuste, e não de salto.","Reconheça sua teimosia saudável: foi ela que te trouxe até aqui.","Hoje você pode errar, aprender e ainda terminar o dia em paz.","Alguém que você ainda vai ser está torcendo pelo esforço que você faz agora.","Faça menos, mas faça de verdade, com a cabeça inteira naquilo.","O movimento de hoje não precisa explicar nada a ninguém, só acontecer.","Todo dia traz uma brecha para cumprir o que importa. Procure a sua.","Você não perdeu o ritmo, só precisa reencontrá-lo com calma.","Dê tempo ao tempo, e ao mesmo tempo dê o seu próximo passo.","Transforme o \"preciso\" em \"escolho\" e sinta o peso diminuir.","Quando o plano parecer grande, olhe apenas para a próxima hora.","Crescer inclui dias de pausa, de dúvida e de recomeço. Todos contam.","Valorize quem insiste com ternura, porque essa pessoa é você.","Mais um dia, mais uma chance de fazer um pouco melhor do que ontem.","Tire cinco minutos para arrumar o espaço do seu hábito e perceba como ele flui.","Lembrar do motivo certo pode valer mais do que reunir toda a coragem.","Hoje, ajude seu eu do futuro: deixe tudo pronto para amanhã.","Por que esperar a segunda-feira? Qualquer hora serve de começo.","Todo avanço que você faz com cuidado fica guardado dentro de você.","Quanto mais gentil o recomeço, mais fácil é voltar a ele.","Imagine o alívio de cumprir a tarefa que você anda empurrando. Agora vá buscá-lo.","Descanse sem pressa e volte sem peso: a ordem certa muda tudo.","Tenha em mente que cansaço passa, mas o hábito construído fica.","Sem alarde, sem pressa e sem desculpas rígidas: apenas o próximo passo.","Escolha um gesto que dependa só de você e realize-o ainda hoje.","Prefira um plano modesto que sobreviva à semana a um plano enorme que morra na terça.","Veja o dia como uma folha em branco e escreva só uma linha, com calma.","Alguma coisa simples que você repete com carinho já é um alicerce.","Ainda dá tempo de fazer algo bom por você antes de o dia acabar.","Ouça o seu corpo, respeite o seu tempo e continue a sua trilha.","Sustentar uma rotina é como regar uma planta: pouco, sempre e sem esquecer.","Passo curto também chega longe quando a direção é a certa.","Seus pequenos \"sim\" de hoje abrem espaço para os grandes de amanhã.","Meio caminho andado já é caminho andado. Respeite o trecho que você fez.","Contente-se com o suficiente hoje e deixe o extraordinário para quando vier.","Dedique alguns minutos ao que te faz bem e veja o dia mudar de cor.","Entre a vontade e o feito existe um gesto. Faça só ele.","Refaça a rota quantas vezes precisar. Mapas existem para ser atualizados.","Olhe para o seu hábito como um amigo fiel que sempre te espera de volta.","Construir confiança em si mesmo leva tempo, e cada dia cumprido ajuda.","Prove a si mesmo que consegue, começando pelo mais simples possível.","Diante de um dia corrido, proteja ao menos um momento só seu.","Combinar o hábito com algo que você já gosta torna tudo mais leve.","Todos os dias tímidos de esforço somam um ano valente.","Experimente fazer o hábito de forma mais divertida e veja se muda algo.","Nenhum passo dado com cuidado é desperdício, mesmo que pareça lento.","Se errou o caminho, ótimo: agora você conhece um atalho que não leva a lugar nenhum.","Honrar o que decidiu fazer é uma forma discreta de autorrespeito.","Longe de ser um luxo, descansar bem é o combustível do dia seguinte.","Inicie sem plateia, sem trilha sonora e sem garantia. Inicie.","Deixe a cobrança em casa e leve só a vontade de tentar.","Adaptar não é fracassar. Quem muda o método para manter o objetivo é esperto.","Ainda que o dia tenha sido torto, o último gesto pode ser bom.","Sorte e talento ajudam, mas a rotina cuidadosa sustenta.","Sinta onde está sua energia hoje e escolha uma tarefa do mesmo tamanho.","Hábitos fortes costumam nascer de decisões tão pequenas que ninguém discute com elas.","Acostume-se a comemorar o simples, e a vida ganha mais cor.","Superar a vontade de adiar leva só alguns segundos de coragem.","Dentro de você mora quem já recomeçou muitas vezes. Chame essa pessoa hoje.","Cada tentativa honesta, mesmo cheia de falhas, deixa você mais experiente.","Siga a sua linha, sem medir o passo pelo de quem está ao lado.","Respire, sacuda a poeira dos ombros e retome de onde parou.","Coloque o hábito onde você o veja logo cedo, e ele ficará menos distante.","Dividir uma meta com alguém de confiança pode deixar o caminho mais leve.","Para quem anda devagar mas não para, o horizonte chega mais perto.","Descubra o prazer discreto de riscar uma tarefa pequena da lista.","Uma ação simples, feita agora, vale por dez intenções guardadas.","Reserve um instante para se perguntar como você está, de verdade, e escute a resposta.","Nada se constrói de uma vez, e por isso mesmo cada dia importa.","Avance mesmo hesitando: a clareza costuma aparecer a meio caminho."],"ver":[["Salmos 3:3","Porém tu, Senhor, és um escudo para mim, a minha glória, e o que exalta a minha cabeça."],["Salmos 3:5","Eu me deitei e dormi; acordei, porque o Senhor me sustentou."],["Salmos 4:8","Em paz também me deitarei e dormirei, porque só tu, Senhor, me fazes habitar em segurança."],["Salmos 5:12","Pois tu, Senhor, abençoarás ao justo; circundá-lo-ás da tua benevolência como de um escudo."],["Salmos 9:9","O Senhor será também um alto refúgio para o oprimido; um alto refúgio em tempos de angústia."],["Salmos 10:17","Senhor, tu ouviste os desejos dos mansos; confortarás os seus corações; os teus ouvidos estarão abertos para eles;"],["Salmos 16:8","Tenho posto o Senhor continuamente diante de mim; por isso que ele está à minha mão direita, nunca vacilarei."],["Salmos 16:11","Far-me-ás ver a vereda da vida; na tua presença há fartura de alegrias; à tua mão direita há delícias perpetuamente."],["Salmos 18:1","Eu te amarei, ó SENHOR, fortaleza minha."],["Salmos 18:2","O Senhor é o meu rochedo, e o meu lugar forte, e o meu libertador; o meu Deus, a minha fortaleza, em quem confio; o meu escudo, a força da minha salvação, e o meu alto refúgio."],["Salmos 18:32","Deus é o que me cinge de força e aperfeiçoa o meu caminho."],["Salmos 19:14","Sejam agradáveis as palavras da minha boca e a meditação do meu coração perante a tua face, Senhor, Rocha minha e Redentor meu!"],["Salmos 20:4","Conceda-te conforme ao teu coração, e cumpra todo o teu plano."],["Salmos 23:1","O SENHOR é o meu pastor, nada me faltará."],["Salmos 23:4","Ainda que eu andasse pelo vale da sombra da morte, não temeria mal algum, porque tu estás comigo; a tua vara e o teu cajado me consolam."],["Salmos 23:6","Certamente que a bondade e a misericórdia me seguirão todos os dias da minha vida; e habitarei na casa do Senhor por longos dias."],["Salmos 24:1","Do SENHOR é a terra e a sua plenitude, o mundo e aqueles que nele habitam."],["Salmos 25:4","Faze-me saber os teus caminhos, Senhor; ensina-me as tuas veredas."],["Salmos 25:5","Guia-me na tua verdade, e ensina-me, pois tu és o Deus da minha salvação; por ti estou esperando todo o dia."],["Salmos 27:1","O SENHOR é a minha luz e a minha salvação; a quem temerei? O SENHOR é a força da minha vida; de quem me recearei?"],["Salmos 27:13","Pereceria sem dúvida, se não cresse que veria a bondade do Senhor na terra dos viventes."],["Salmos 27:14","Espera no Senhor, anima-te, e ele fortalecerá o teu coração; espera, pois, no Senhor."],["Salmos 28:7","O Senhor é a minha força e o meu escudo; nele confiou o meu coração, e fui socorrido; assim o meu coração salta de prazer, e com o meu canto o louvarei."],["Salmos 29:11","O Senhor dará força ao seu povo; o Senhor abençoará o seu povo com paz."],["Salmos 30:5","Porque a sua ira dura só um momento; no seu favor está a vida. O choro pode durar uma noite, mas a alegria vem pela manhã."],["Salmos 31:14","Mas eu confiei em ti, Senhor; e disse: Tu és o meu Deus."],["Salmos 31:24","Esforçai-vos, e ele fortalecerá o vosso coração, vós todos que esperais no Senhor."],["Salmos 32:8","Instruir-te-ei, e ensinar-te-ei o caminho que deves seguir; guiar-te-ei com os meus olhos."],["Salmos 33:4","Porque a palavra do Senhor é reta, e todas as suas obras são fiéis."],["Salmos 33:18","Eis que os olhos do Senhor estão sobre os que o temem, sobre os que esperam na sua misericórdia;"],["Salmos 33:20","A nossa alma espera no Senhor; ele é o nosso auxílio e o nosso escudo."],["Salmos 34:1","Louvarei ao SENHOR em todo o tempo; o seu louvor estará continuamente na minha boca."],["Salmos 34:4","Busquei ao Senhor, e ele me respondeu; livrou-me de todos os meus temores."],["Salmos 34:8","Provai, e vede que o Senhor é bom; bem-aventurado o homem que nele confia."],["Salmos 34:14","Aparta-te do mal, e faze o bem; procura a paz, e segue-a."],["Salmos 34:18","Perto está o Senhor dos que têm o coração quebrantado, e salva os contritos de espírito."],["Salmos 34:22","O Senhor resgata a alma dos seus servos, e nenhum dos que nele confiam será punido."],["Salmos 36:7","Quão preciosa é, ó Deus, a tua benignidade, pelo que os filhos dos homens se abrigam à sombra das tuas asas."],["Salmos 37:3","Confia no Senhor e faze o bem; habitarás na terra, e verdadeiramente serás alimentado."],["Salmos 37:4","Deleita-te também no Senhor, e te concederá os desejos do teu coração."],["Salmos 37:5","Entrega o teu caminho ao Senhor; confia nele, e ele o fará."],["Salmos 37:7","Descansa no Senhor, e espera nele; não te indignes por causa daquele que prospera em seu caminho, por causa do homem que executa astutos intentos."],["Salmos 37:11","Mas os mansos herdarão a terra, e se deleitarão na abundância de paz."],["Salmos 37:23","Os passos de um homem bom são confirmados pelo Senhor, e deleita-se no seu caminho."],["Salmos 40:1","Esperei com paciência no SENHOR, e ele se inclinou para mim, e ouviu o meu clamor."],["Salmos 40:3","E pôs um novo cântico na minha boca, um hino ao nosso Deus; muitos o verão, e temerão, e confiarão no Senhor."],["Salmos 40:8","Deleito-me em fazer a tua vontade, ó Deus meu; sim, a tua lei está dentro do meu coração."],["Salmos 42:5","Por que estás abatida, ó minha alma, e por que te perturbas em mim? Espera em Deus, pois ainda o louvarei pela salvação da sua face."],["Salmos 43:5","Por que estás abatida, ó minha alma? E por que te perturbas dentro de mim? Espera em Deus, pois ainda o louvarei, o qual é a salvação da minha face e Deus meu."],["Salmos 46:1","Deus é o nosso refúgio e fortaleza, socorro bem presente na angústia."],["Salmos 46:10","Aquietai-vos, e sabei que eu sou Deus; serei exaltado entre os gentios; serei exaltado sobre a terra."],["Salmos 50:15","E invoca-me no dia da angústia; eu te livrarei, e tu me glorificarás."],["Salmos 51:10","Cria em mim, ó Deus, um coração puro, e renova em mim um espírito reto."],["Salmos 54:4","Eis que Deus é o meu ajudador, o Senhor está com aqueles que sustêm a minha alma."],["Salmos 55:22","Lança o teu cuidado sobre o Senhor, e ele te susterá; não permitirá jamais que o justo seja abalado."],["Salmos 56:3","Em qualquer tempo em que eu temer, confiarei em ti."],["Salmos 56:4","Em Deus louvarei a sua palavra, em Deus pus a minha confiança; não temerei o que me possa fazer a carne."],["Salmos 59:16","Eu, porém, cantarei a tua força; pela manhã louvarei com alegria a tua misericórdia; porquanto tu foste o meu alto refúgio, e proteção no dia da minha angústia."],["Salmos 61:2","Desde o fim da terra clamarei a ti, quando o meu coração estiver desmaiado; leva-me para a rocha que é mais alta do que eu."],["Salmos 62:1","A minha alma espera somente em Deus; dele vem a minha salvação."],["Salmos 62:5","Ó minha alma, espera somente em Deus, porque dele vem a minha esperança."],["Salmos 62:8","Confiai nele, ó povo, em todos os tempos; derramai perante ele o vosso coração. Deus é o nosso refúgio. (Selá.)"],["Salmos 63:1","O Deus, tu és o meu Deus, de madrugada te buscarei; a minha alma tem sede de ti; a minha carne te deseja muito em uma terra seca e cansada, onde não há água;"],["Salmos 65:11","Coroas o ano com a tua bondade, e as tuas veredas destilam gordura."],["Salmos 68:19","Bendito seja o Senhor, que de dia em dia nos carrega de benefícios; o Deus que é a nossa salvação. (Selá.)."],["Salmos 71:1","Em ti, SENHOR, confio; nunca seja eu confundido."],["Salmos 71:5","Pois tu és a minha esperança, Senhor DEUS; tu és a minha confiança desde a minha mocidade."],["Salmos 71:14","Mas eu esperarei continuamente, e te louvarei cada vez mais."],["Salmos 73:23","Todavia estou de contínuo contigo; tu me sustentaste pela minha mão direita."],["Salmos 73:26","A minha carne e o meu coração desfalecem; mas Deus é a fortaleza do meu coração, e a minha porção para sempre."],["Salmos 84:11","Porque o Senhor Deus é um sol e escudo; o Senhor dará graça e glória; não retirará bem algum aos que andam na retidão."],["Salmos 86:5","Pois tu, Senhor, és bom, e pronto a perdoar, e abundante em benignidade para todos os que te invocam."],["Salmos 86:11","Ensina-me, Senhor, o teu caminho, e andarei na tua verdade; une o meu coração ao temor do teu nome."],["Salmos 89:1","As benignidades do SENHOR cantarei perpetuamente; com a minha boca manifestarei a tua fidelidade de geração em geração."],["Salmos 90:12","Ensina-nos a contar os nossos dias, de tal maneira que alcancemos corações sábios."],["Salmos 90:14","Farta-nos de madrugada com a tua benignidade, para que nos regozijemos, e nos alegremos todos os nossos dias."],["Salmos 90:17","E seja sobre nós a formosura do Senhor nosso Deus, e confirma sobre nós a obra das nossas mãos; sim, confirma a obra das nossas mãos."],["Salmos 91:1","Aquele que habita no esconderijo do Altíssimo, à sombra do Onipotente descansará."],["Salmos 91:2","Direi do Senhor: Ele é o meu Deus, o meu refúgio, a minha fortaleza, e nele confiarei."],["Salmos 91:11","Porque aos seus anjos dará ordem a teu respeito, para te guardarem em todos os teus caminhos."],["Salmos 92:1","Bom é louvar ao SENHOR, e cantar louvores ao teu nome, ó Altíssimo;"],["Salmos 94:19","Na multidão dos meus pensamentos dentro de mim, as tuas consolações recrearam a minha alma."],["Salmos 96:1","Cantai ao SENHOR um cântico novo, cantai ao SENHOR toda a terra."],["Salmos 98:1","Cantai ao SENHOR um cântico novo, porque fez maravilhas; a sua destra e o seu braço santo lhe alcançaram a salvação."],["Salmos 100:2","Servi ao Senhor com alegria; e entrai diante dele com canto."],["Salmos 100:4","Entrai pelas portas dele com gratidão, e em seus átrios com louvor; louvai-o, e bendizei o seu nome."],["Salmos 103:1","Bendize, ó minha alma, ao SENHOR, e tudo o que há em mim bendiga o seu santo nome."],["Salmos 103:2","Bendize, ó minha alma, ao Senhor, e não te esqueças de nenhum de seus benefícios."],["Salmos 103:8","Misericordioso e piedoso é o Senhor; longânimo e grande em benignidade."],["Salmos 103:11","Pois assim como o céu está elevado acima da terra, assim é grande a sua misericórdia para com os que o temem."],["Salmos 105:1","Louvai ao SENHOR, e invocai o seu nome; fazei conhecidas as suas obras entre os povos."],["Salmos 105:4","Buscai ao Senhor e a sua força; buscai a sua face continuamente."],["Salmos 107:1","Louvai ao SENHOR, porque ele é bom, porque a sua benignidade dura para sempre."],["Salmos 107:8","Louvem ao Senhor pela sua bondade, e pelas suas maravilhas para com os filhos dos homens."],["Salmos 107:9","Pois fartou a alma sedenta, e encheu de bens a alma faminta."],["Salmos 112:7","Não temerá maus rumores; o seu coração está firme, confiando no Senhor."],["Salmos 113:3","Desde o nascimento do sol até ao ocaso, seja louvado o nome do Senhor."],["Salmos 116:7","Volta, minha alma, para o teu repouso, pois o Senhor te fez bem."],["Salmos 118:1","Louvai ao SENHOR, porque ele é bom, porque a sua benignidade dura para sempre."],["Salmos 118:6","O Senhor está comigo; não temerei o que me pode fazer o homem."],["Salmos 118:14","O Senhor é a minha força e o meu cântico; e se fez a minha salvação."],["Salmos 118:24","Este é o dia que fez o Senhor; regozijemo-nos, e alegremo-nos nele."],["Salmos 119:50","Isto é a minha consolação na minha aflição, porque a tua palavra me vivificou."],["Salmos 119:105","Lâmpada para os meus pés é tua palavra, e luz para o meu caminho."],["Salmos 119:114","Tu és o meu refúgio e o meu escudo; espero na tua palavra."],["Salmos 119:130","A entrada das tuas palavras dá luz, dá entendimento aos símplices."],["Salmos 119:165","Muita paz têm os que amam a tua lei, e para eles não há tropeço."],["Salmos 121:1","Levantarei os meus olhos para os montes, de onde vem o meu socorro."],["Salmos 121:2","O meu socorro vem do Senhor que fez o céu e a terra."],["Salmos 121:7","O Senhor te guardará de todo o mal; guardará a tua alma."],["Salmos 121:8","O Senhor guardará a tua entrada e a tua saída, desde agora e para sempre."],["Salmos 125:1","Os que confiam no SENHOR serão como o monte de Sião, que não se abala, mas permanece para sempre."],["Salmos 126:5","Os que semeiam em lágrimas segarão com alegria."],["Salmos 127:1","Se o SENHOR não edificar a casa, em vão trabalham os que a edificam; se o SENHOR não guardar a cidade, em vão vigia a sentinela."],["Salmos 127:2","Inútil vos será levantar de madrugada, repousar tarde, comer o pão de dores, pois assim dá ele aos seus amados o sono."],["Salmos 128:2","Pois comerás do trabalho das tuas mãos; feliz serás, e te irá bem."],["Salmos 130:5","Aguardo ao Senhor; a minha alma o aguarda, e espero na sua palavra."],["Salmos 131:2","Certamente que me tenho portado e sossegado como uma criança desmamada de sua mãe; a minha alma está como uma criança desmamada."],["Salmos 133:1","Oh! quão bom e quão suave é que os irmãos vivam em união."],["Salmos 136:1","Louvai ao SENHOR, porque ele é bom; porque a sua benignidade dura para sempre."],["Salmos 138:3","No dia em que eu clamei, me escutaste; e alentaste com força a minha alma."],["Salmos 138:7","Andando eu no meio da angústia, tu me reviverás; estenderás a tua mão contra a ira dos meus inimigos, e a tua destra me salvará."],["Salmos 139:14","Eu te louvarei, porque de um modo assombroso, e tão maravilhoso fui feito; maravilhosas são as tuas obras, e a minha alma o sabe muito bem."],["Salmos 143:8","Faze-me ouvir a tua benignidade pela manhã, pois em ti confio; faze-me saber o caminho que devo seguir, porque a ti levanto a minha alma."],["Salmos 143:10","Ensina-me a fazer a tua vontade, pois és o meu Deus. O teu Espírito é bom; guie-me por terra plana."],["Salmos 145:3","Grande é o Senhor, e muito digno de louvor, e a sua grandeza inescrutável."],["Salmos 145:9","O Senhor é bom para todos, e as suas misericórdias são sobre todas as suas obras."],["Salmos 145:18","Perto está o Senhor de todos os que o invocam, de todos os que o invocam em verdade."],["Salmos 146:5","Bem-aventurado aquele que tem o Deus de Jacó por seu auxílio, e cuja esperança está posta no Senhor seu Deus."],["Salmos 147:3","Sara os quebrantados de coração, e lhes ata as suas feridas."],["Salmos 147:11","O Senhor se agrada dos que o temem e dos que esperam na sua misericórdia."],["Provérbios 2:6","Porque o Senhor dá a sabedoria; da sua boca é que vem o conhecimento e o entendimento."],["Provérbios 3:5","Confia no Senhor de todo o teu coração, e não te estribes no teu próprio entendimento."],["Provérbios 3:6","Reconhece-o em todos os teus caminhos, e ele endireitará as tuas veredas."],["Provérbios 3:27","Não deixes de fazer bem a quem o merece, estando em tuas mãos a capacidade de fazê-lo."],["Provérbios 4:18","Mas a vereda dos justos é como a luz da aurora, que vai brilhando mais e mais até ser dia perfeito."],["Provérbios 4:23","Sobre tudo o que se deve guardar, guarda o teu coração, porque dele procedem as fontes da vida."],["Provérbios 4:25","Os teus olhos olhem para a frente, e as tuas pálpebras olhem direto diante de ti."],["Provérbios 10:4","O que trabalha com mão displicente empobrece, mas a mão dos diligentes enriquece."],["Provérbios 10:12","O ódio excita contendas, mas o amor cobre todos os pecados."],["Provérbios 10:22","A bênção do Senhor é que enriquece; e não traz consigo dores."],["Provérbios 11:2","Em vindo a soberba, virá também a afronta; mas com os humildes está a sabedoria."],["Provérbios 11:14","Não havendo sábios conselhos, o povo cai, mas na multidão de conselhos há segurança."],["Provérbios 11:17","O homem bom cuida bem de si mesmo, mas o cruel prejudica o seu corpo."],["Provérbios 11:25","A alma generosa prosperará e aquele que atende também será atendido."],["Provérbios 12:18","Há alguns que falam como que espada penetrante, mas a língua dos sábios é saúde."],["Provérbios 12:25","A ansiedade no coração deixa o homem abatido, mas uma boa palavra o alegra."],["Provérbios 13:3","O que guarda a sua boca conserva a sua alma, mas o que abre muito os seus lábios se destrói."],["Provérbios 13:4","A alma do preguiçoso deseja, e coisa nenhuma alcança, mas a alma dos diligentes se farta."],["Provérbios 13:20","O que anda com os sábios ficará sábio, mas o companheiro dos tolos será destruído."],["Provérbios 14:23","Em todo trabalho há proveito, mas ficar só em palavras leva à pobreza."],["Provérbios 14:29","O longânimo é grande em entendimento, mas o que é de espírito impaciente mostra a sua loucura."],["Provérbios 15:1","A resposta branda desvia o furor, mas a palavra dura suscita a ira."],["Provérbios 15:13","O coração alegre aformoseia o rosto, mas pela dor do coração o espírito se abate."],["Provérbios 15:22","Quando não há conselhos os planos se dispersam, mas havendo muitos conselheiros eles se firmam."],["Provérbios 15:23","O homem se alegra em responder bem, e quão boa é a palavra dita a seu tempo!"],["Provérbios 15:30","A luz dos olhos alegra o coração, a boa notícia fortalece os ossos."],["Provérbios 16:3","Confia ao Senhor as tuas obras, e teus pensamentos serão estabelecidos."],["Provérbios 16:9","O coração do homem planeja o seu caminho, mas o Senhor lhe dirige os passos."],["Provérbios 16:24","As palavras suaves são favos de mel, doces para a alma, e saúde para os ossos."],["Provérbios 16:32","Melhor é o que tarda em irar-se do que o poderoso, e o que controla o seu ânimo do que aquele que toma uma cidade."],["Provérbios 17:17","Em todo o tempo ama o amigo e para a hora da angústia nasce o irmão."],["Provérbios 17:22","O coração alegre é como o bom remédio, mas o espírito abatido seca até os ossos."],["Provérbios 18:10","Torre forte é o nome do Senhor; a ela correrá o justo, e estará em alto refúgio."],["Provérbios 18:21","A morte e a vida estão no poder da língua; e aquele que a ama comerá do seu fruto."],["Provérbios 19:11","A prudência do homem faz reter a sua ira, e é glória sua o passar por cima da transgressão."],["Provérbios 19:20","Ouve o conselho, e recebe a correção, para que no fim sejas sábio."],["Provérbios 21:5","Os pensamentos do diligente tendem só para a abundância, porém os de todo apressado, tão-somente para a pobreza."],["Provérbios 21:21","O que segue a justiça e a beneficência achará a vida, a justiça e a honra."],["Provérbios 22:1","Vale mais ter um bom nome do que muitas riquezas; e o ser estimado é melhor do que a riqueza e o ouro."],["Provérbios 22:6","Educa a criança no caminho em que deve andar; e até quando envelhecer não se desviará dele."],["Provérbios 24:3","Com a sabedoria se edifica a casa, e com o entendimento ela se estabelece;"],["Provérbios 24:10","Se te mostrares fraco no dia da angústia, é que a tua força é pequena."],["Provérbios 24:16","Porque sete vezes cairá o justo, e se levantará; mas os ímpios tropeçarão no mal."],["Provérbios 25:11","Como maçãs de ouro em salvas de prata, assim é a palavra dita a seu tempo."],["Provérbios 25:28","Como a cidade derrubada, sem muro, assim é o homem que não pode conter o seu espírito."],["Provérbios 27:1","Não presumas do dia de amanhã, porque não sabes o que ele trará."],["Provérbios 27:17","Como o ferro com ferro se aguça, assim o homem afia o rosto do seu amigo."],["Provérbios 28:20","O homem fiel será coberto de bênçãos, mas o que se apressa a enriquecer não ficará impune."],["Provérbios 29:25","O temor do homem armará laços, mas o que confia no Senhor será posto em alto retiro."],["Provérbios 31:25","A força e a honra são seu vestido, e se alegrará com o dia futuro."],["Eclesiastes 3:1","Tudo tem o seu tempo determinado, e há tempo para todo o propósito debaixo do céu."],["Eclesiastes 3:11","Tudo fez formoso em seu tempo; também pôs o mundo no coração do homem, sem que este possa descobrir a obra que Deus fez desde o princípio até ao fim."],["Eclesiastes 3:12","Já tenho entendido que não há coisa melhor para eles do que alegrar-se e fazer bem na sua vida;"],["Eclesiastes 4:9","Melhor é serem dois do que um, porque têm melhor paga do seu trabalho."],["Eclesiastes 4:12","E, se alguém prevalecer contra um, os dois lhe resistirão; e o cordão de três dobras não se quebra tão depressa."],["Eclesiastes 7:8","Melhor é o fim das coisas do que o princípio delas; melhor é o paciente de espírito do que o altivo de espírito."],["Eclesiastes 9:10","Tudo quanto te vier à mão para fazer, faze-o conforme as tuas forças, porque na sepultura, para onde tu vais, não há obra nem projeto, nem conhecimento, nem sabedoria alguma."],["Eclesiastes 11:1","Lança o teu pão sobre as águas, porque depois de muitos dias o acharás."],["Eclesiastes 11:4","Quem observa o vento, nunca semeará, e o que olha para as nuvens nunca segará."],["Isaías 26:3","Tu conservarás em paz aquele cuja mente está firme em ti; porque ele confia em ti."],["Isaías 26:4","Confiai no SENHOR perpetuamente; porque o SENHOR DEUS é uma rocha eterna."],["Isaías 30:15","Porque assim diz o Senhor DEUS, o Santo de Israel: Voltando e descansando sereis salvos; no sossego e na confiança estaria a vossa força, mas não quisestes."],["Isaías 30:18","Por isso, o Senhor esperará, para ter misericórdia de vós; e por isso se levantará, para se compadecer de vós, porque o Senhor é um Deus de eqüidade; bem-aventurados todos os que nele esperam."],["Isaías 40:8","Seca-se a erva, e cai a flor, porém a palavra de nosso Deus subsiste eternamente."],["Isaías 40:29","Dá força ao cansado, e multiplica as forças ao que não tem nenhum vigor."],["Isaías 40:31","Mas os que esperam no Senhor renovarão as forças, subirão com asas como águias; correrão, e não se cansarão; caminharão, e não se fatigarão."],["Isaías 41:10","Não temas, porque eu sou contigo; não te assombres, porque eu sou teu Deus; eu te fortaleço, e te ajudo, e te sustento com a destra da minha justiça."],["Isaías 41:13","Porque eu, o Senhor teu Deus, te tomo pela tua mão direita; e te digo: Não temas, eu te ajudo."],["Isaías 43:1","Mas agora, assim diz o SENHOR que te criou, ó Jacó, e que te formou, ó Israel: Não temas, porque eu te remi; chamei-te pelo teu nome, tu és meu."],["Isaías 43:2","Quando passares pelas águas estarei contigo, e quando pelos rios, eles não te submergirão; quando passares pelo fogo, não te queimarás, nem a chama arderá em ti."],["Isaías 43:19","Eis que faço uma coisa nova, agora sairá à luz; porventura não a percebeis? Eis que porei um caminho no deserto, e rios no ermo."],["Isaías 46:4","E até à velhice eu serei o mesmo, e ainda até às cãs eu vos carregarei; eu vos fiz, e eu vos levarei, e eu vos trarei, e vos livrarei."],["Isaías 48:17","Assim diz o Senhor, o teu Redentor, o Santo de Israel: Eu sou o Senhor teu Deus, que te ensina o que é útil, e te guia pelo caminho em que deves andar."],["Isaías 54:10","Porque os montes se retirarão, e os outeiros serão abalados; porém a minha benignidade não se apartará de ti, e a aliança da minha paz não mudará, diz o Senhor que se compadece de ti."],["Isaías 55:12","Porque com alegria saireis, e em paz sereis guiados; os montes e os outeiros romperão em cântico diante de vós, e todas as árvores do campo baterão palmas."],["Isaías 58:11","E o Senhor te guiará continuamente, e fartará a tua alma em lugares áridos, e fortificará os teus ossos; e serás como um jardim regado, e como um manancial, cujas águas nunca faltam."],["Isaías 60:1","Levanta-te, resplandece, porque vem a tua luz, e a glória do SENHOR vai nascendo sobre ti;"],["Jeremias 17:7","Bendito o homem que confia no Senhor, e cuja confiança é o Senhor."],["Jeremias 17:8","Porque será como a árvore plantada junto às águas, que estende as suas raízes para o ribeiro, e não receia quando vem o calor, mas a sua folha fica verde; e no ano de sequidão não se afadiga, nem deixa de dar fruto."],["Jeremias 29:11","Porque eu bem sei os pensamentos que tenho a vosso respeito, diz o Senhor; pensamentos de paz, e não de mal, para vos dar o fim que esperais."],["Jeremias 29:13","E buscar-me-eis, e me achareis, quando me buscardes com todo o vosso coração."],["Jeremias 31:3","Há muito que o Senhor me apareceu, dizendo: Porquanto com amor eterno te amei, por isso com benignidade te atraí."],["Jeremias 33:3","Clama a mim, e responder-te-ei, e anunciar-te-ei coisas grandes e firmes que não sabes."],["Lamentações de Jeremias 3:22","As misericórdias do Senhor são a causa de não sermos consumidos, porque as suas misericórdias não têm fim;"],["Lamentações de Jeremias 3:23","Novas são cada manhã; grande é a tua fidelidade."],["Lamentações de Jeremias 3:25","Bom é o Senhor para os que esperam por ele, para a alma que o busca."],["Lamentações de Jeremias 3:26","Bom é ter esperança, e aguardar em silêncio a salvação do Senhor."],["Miquéias 6:8","Ele te declarou, ó homem, o que é bom; e que é o que o Senhor pede de ti, senão que pratiques a justiça, e ames a benignidade, e andes humildemente com o teu Deus?"],["Naum 1:7","O Senhor é bom, ele serve de fortaleza no dia da angústia, e conhece os que confiam nele."],["Habacuque 3:19","O Senhor Deus é a minha força, e fará os meus pés como os das cervas, e me fará andar sobre as minhas alturas. (Para o cantor-mor sobre os meus instrumentos de corda)."],["Sofonias 3:17","O Senhor teu Deus, o poderoso, está no meio de ti, ele salvará; ele se deleitará em ti com alegria; calar-se-á por seu amor, regozijar-se-á em ti com júbilo."],["Daniel 12:3","Os que forem sábios, pois, resplandecerão como o fulgor do firmamento; e os que a muitos ensinam a justiça, como as estrelas sempre e eternamente."],["Josué 1:8","Não se aparte da tua boca o livro desta lei; antes medita nele dia e noite, para que tenhas cuidado de fazer conforme a tudo quanto nele está escrito; porque então farás prosperar o teu caminho, e serás bem sucedido."],["Josué 1:9","Não to mandei eu? Esforça-te, e tem bom ânimo; não temas, nem te espantes; porque o Senhor teu Deus é contigo, por onde quer que andares."],["Deuteronômio 31:6","Esforçai-vos, e animai-vos; não temais, nem vos espanteis diante deles; porque o Senhor teu Deus é o que vai contigo; não te deixará nem te desamparará."],["Deuteronômio 31:8","O Senhor, pois, é aquele que vai adiante de ti; ele será contigo, não te deixará, nem te desamparará; não temas, nem te espantes."],["Deuteronômio 33:27","O Deus eterno é a tua habitação, e por baixo estão os braços eternos; e ele lançará o inimigo de diante de ti, e dirá: Destrói-o."],["2 Crônicas 15:7","Mas esforçai-vos, e não desfaleçam as vossas mãos; porque a vossa obra tem uma recompensa."],["1 Crônicas 16:34","Louvai ao Senhor, porque é bom; pois a sua benignidade dura perpetuamente."],["Jó 8:7","O teu princípio, na verdade, terá sido pequeno, porém o teu último estado crescerá em extremo."],["Jó 11:18","E terás confiança, porque haverá esperança; olharás em volta e repousarás seguro."],["Jó 17:9","E o justo seguirá o seu caminho firmemente, e o puro de mãos irá crescendo em força."],["Jó 22:21","Apega-te, pois, a ele, e tem paz, e assim te sobrevirá o bem."],["Mateus 5:5","Bem-aventurados os mansos, porque eles herdarão a terra;"],["Mateus 5:9","Bem-aventurados os pacificadores, porque eles serão chamados filhos de Deus;"],["Mateus 5:14","Vós sois a luz do mundo; não se pode esconder uma cidade edificada sobre um monte;"],["Mateus 5:16","Assim resplandeça a vossa luz diante dos homens, para que vejam as vossas boas obras e glorifiquem a vosso Pai, que está nos céus."],["Mateus 6:21","Porque onde estiver o vosso tesouro, aí estará também o vosso coração."],["Mateus 6:33","Mas, buscai primeiro o reino de Deus, e a sua justiça, e todas estas coisas vos serão acrescentadas."],["Mateus 6:34","Não vos inquieteis, pois, pelo dia de amanhã, porque o dia de amanhã cuidará de si mesmo. Basta a cada dia o seu mal."],["Mateus 7:7","Pedi, e dar-se-vos-á; buscai, e encontrareis; batei, e abrir-se-vos-á."],["Mateus 7:12","Portanto, tudo o que vós quereis que os homens vos façam, fazei-lho também vós, porque esta é a lei e os profetas."],["Mateus 11:28","Vinde a mim, todos os que estais cansados e oprimidos, e eu vos aliviarei."],["Mateus 11:29","Tomai sobre vós o meu jugo, e aprendei de mim, que sou manso e humilde de coração; e encontrareis descanso para as vossas almas."],["Mateus 25:21","E o seu senhor lhe disse: Bem está, servo bom e fiel. Sobre o pouco foste fiel, sobre muito te colocarei; entra no gozo do teu senhor."],["Mateus 28:20","Ensinando-os a guardar todas as coisas que eu vos tenho mandado; e eis que eu estou convosco todos os dias, até a consumação dos séculos. Amém."],["Marcos 9:23","E Jesus disse-lhe: Se tu podes crer, tudo é possível ao que crê."],["Lucas 1:37","Porque para Deus nada é impossível."],["Lucas 6:31","E como vós quereis que os homens vos façam, da mesma maneira lhes fazei vós, também."],["Lucas 6:38","Dai, e ser-vos-á dado; boa medida, recalcada, sacudida e transbordando, vos deitarão no vosso regaço; porque com a mesma medida com que medirdes também vos medirão de novo."],["Lucas 12:32","Não temais, ó pequeno rebanho, porque a vosso Pai agradou dar-vos o reino."],["João 8:12","Falou-lhes, pois, Jesus outra vez, dizendo: Eu sou a luz do mundo; quem me segue não andará em trevas, mas terá a luz da vida."],["João 13:34","Um novo mandamento vos dou: Que vos ameis uns aos outros; como eu vos amei a vós, que também vós uns aos outros vos ameis."],["João 14:1","Não se turbe o vosso coração; credes em Deus, crede também em mim."],["João 14:27","Deixo-vos a paz, a minha paz vos dou; não vo-la dou como o mundo a dá. Não se turbe o vosso coração, nem se atemorize."],["João 15:5","Eu sou a videira, vós as varas; quem está em mim, e eu nele, esse dá muito fruto; porque sem mim nada podeis fazer."],["João 15:11","Tenho-vos dito isto, para que o meu gozo permaneça em vós, e o vosso gozo seja completo."],["João 15:12","O meu mandamento é este: Que vos ameis uns aos outros, assim como eu vos amei."],["João 16:33","Tenho-vos dito isto, para que em mim tenhais paz; no mundo tereis aflições, mas tende bom ânimo, eu venci o mundo."],["Atos 20:35","Tenho-vos mostrado em tudo que, trabalhando assim, é necessário auxiliar os enfermos, e recordar as palavras do Senhor Jesus, que disse: Mais bem-aventurada coisa é dar do que receber."],["Romanos 5:3","E não somente isto, mas também nos gloriamos nas tribulações; sabendo que a tribulação produz a paciência,"],["Romanos 5:4","E a paciência a experiência, e a experiência a esperança."],["Romanos 5:5","E a esperança não traz confusão, porquanto o amor de Deus está derramado em nossos corações pelo Espírito Santo que nos foi dado."],["Romanos 8:18","Porque para mim tenho por certo que as aflições deste tempo presente não são para comparar com a glória que em nós há de ser revelada."],["Romanos 8:25","Mas, se esperamos o que não vemos, com paciência o esperamos."],["Romanos 8:28","E sabemos que todas as coisas contribuem juntamente para o bem daqueles que amam a Deus, daqueles que são chamados segundo o seu propósito."],["Romanos 8:31","Que diremos, pois, a estas coisas? Se Deus é por nós, quem será contra nós?"],["Romanos 8:37","Mas em todas estas coisas somos mais do que vencedores, por aquele que nos amou."],["Romanos 12:2","E não sede conformados com este mundo, mas sede transformados pela renovação do vosso entendimento, para que experimenteis qual seja a boa, agradável, e perfeita vontade de Deus."],["Romanos 12:10","Amai-vos cordialmente uns aos outros com amor fraternal, preferindo-vos em honra uns aos outros."],["Romanos 12:12","Alegrai-vos na esperança, sede pacientes na tribulação, perseverai na oração;"],["Romanos 12:18","Se for possível, quanto estiver em vós, tende paz com todos os homens."],["Romanos 12:21","Não te deixes vencer do mal, mas vence o mal com o bem."],["Romanos 14:19","Sigamos, pois, as coisas que servem para a paz e para a edificação de uns para com os outros."],["Romanos 15:5","Ora, o Deus de paciência e consolação vos conceda o mesmo sentimento uns para com os outros, segundo Cristo Jesus,"],["Romanos 15:13","Ora o Deus de esperança vos encha de todo o gozo e paz em crença, para que abundeis em esperança pela virtude do Espírito Santo."],["1 Coríntios 9:24","Não sabeis vós que os que correm no estádio, todos, na verdade, correm, mas um só leva o prêmio? Correi de tal maneira que o alcanceis."],["1 Coríntios 10:13","Não veio sobre vós tentação, senão humana; mas fiel é Deus, que não vos deixará tentar acima do que podeis, antes com a tentação dará também o escape, para que a possais suportar."],["1 Coríntios 13:4","O amor é sofredor, é benigno; o amor não é invejoso; o amor não trata com leviandade, não se ensoberbece."],["1 Coríntios 13:7","Tudo sofre, tudo crê, tudo espera, tudo suporta."],["1 Coríntios 13:13","Agora, pois, permanecem a fé, a esperança e o amor, estes três, mas o maior destes é o amor."],["1 Coríntios 15:58","Portanto, meus amados irmãos, sede firmes e constantes, sempre abundantes na obra do Senhor, sabendo que o vosso trabalho não é vão no Senhor."],["1 Coríntios 16:13","Vigiai, estai firmes na fé; portai-vos varonilmente, e fortalecei-vos."],["1 Coríntios 16:14","Todas as vossas coisas sejam feitas com amor."],["2 Coríntios 4:16","Por isso não desfalecemos; mas, ainda que o nosso homem exterior se corrompa, o interior, contudo, se renova de dia em dia."],["2 Coríntios 5:7","(Porque andamos por fé, e não por vista)."],["2 Coríntios 5:17","Assim que, se alguém está em Cristo, nova criatura é; as coisas velhas já passaram; eis que tudo se fez novo."],["2 Coríntios 9:6","E digo isto: Que o que semeia pouco, pouco também ceifará; e o que semeia em abundância, em abundância ceifará."],["2 Coríntios 9:7","Cada um contribua segundo propôs no seu coração; não com tristeza, ou por necessidade; porque Deus ama ao que dá com alegria."],["2 Coríntios 12:9","E disse-me: A minha graça te basta, porque o meu poder se aperfeiçoa na fraqueza. De boa vontade, pois, me gloriarei nas minhas fraquezas, para que em mim habite o poder de Cristo."],["2 Coríntios 13:11","Quanto ao mais, irmãos, regozijai-vos, sede perfeitos, sede consolados, sede de um mesmo parecer, vivei em paz; e o Deus de amor e de paz será convosco."],["Gálatas 5:13","Porque vós, irmãos, fostes chamados à liberdade. Não useis então da liberdade para dar ocasião à carne, mas servi-vos uns aos outros pelo amor."],["Gálatas 6:2","Levai as cargas uns dos outros, e assim cumprireis a lei de Cristo."],["Gálatas 6:9","E não nos cansemos de fazer bem, porque a seu tempo ceifaremos, se não houvermos desfalecido."],["Gálatas 6:10","Então, enquanto temos tempo, façamos bem a todos, mas principalmente aos domésticos da fé."],["Efésios 3:20","Ora, àquele que é poderoso para fazer tudo muito mais abundantemente além daquilo que pedimos ou pensamos, segundo o poder que em nós opera,"],["Efésios 4:2","Com toda a humildade e mansidão, com longanimidade, suportando-vos uns aos outros em amor,"],["Efésios 4:29","Não saia da vossa boca nenhuma palavra torpe, mas só a que for boa para promover a edificação, para que dê graça aos que a ouvem."],["Efésios 4:32","Antes sede uns para com os outros benignos, misericordiosos, perdoando-vos uns aos outros, como também Deus vos perdoou em Cristo."],["Efésios 6:10","No demais, irmãos meus, fortalecei-vos no Senhor e na força do seu poder."],["Filipenses 1:6","Tendo por certo isto mesmo, que aquele que em vós começou a boa obra a aperfeiçoará até ao dia de Jesus Cristo;"],["Filipenses 2:3","Nada façais por contenda ou por vanglória, mas por humildade; cada um considere os outros superiores a si mesmo."],["Filipenses 2:14","Fazei todas as coisas sem murmurações nem contendas;"],["Filipenses 3:13","Irmãos, quanto a mim, não julgo que o haja alcançado; mas uma coisa faço, e é que, esquecendo-me das coisas que atrás ficam, e avançando para as que estão diante de mim,"],["Filipenses 3:14","Prossigo para o alvo, pelo prêmio da soberana vocação de Deus em Cristo Jesus."],["Filipenses 4:4","Regozijai-vos sempre no Senhor; outra vez digo, regozijai-vos."],["Filipenses 4:6","Não estejais inquietos por coisa alguma; antes as vossas petições sejam em tudo conhecidas diante de Deus pela oração e súplica, com ação de graças."],["Filipenses 4:7","E a paz de Deus, que excede todo o entendimento, guardará os vossos corações e os vossos pensamentos em Cristo Jesus."],["Filipenses 4:8","Quanto ao mais, irmãos, tudo o que é verdadeiro, tudo o que é honesto, tudo o que é justo, tudo o que é puro, tudo o que é amável, tudo o que é de boa fama, se há alguma virtude, e se há algum louvor, nisso pensai."],["Filipenses 4:13","Posso todas as coisas em Cristo que me fortalece."],["Filipenses 4:19","O meu Deus, segundo as suas riquezas, suprirá todas as vossas necessidades em glória, por Cristo Jesus."],["Colossenses 3:2","Pensai nas coisas que são de cima, e não nas que são da terra;"],["Colossenses 3:13","Suportando-vos uns aos outros, e perdoando-vos uns aos outros, se alguém tiver queixa contra outro; assim como Cristo vos perdoou, assim fazei vós também."],["Colossenses 3:14","E, sobre tudo isto, revesti-vos de amor, que é o vínculo da perfeição."],["Colossenses 3:15","E a paz de Deus, para a qual também fostes chamados em um corpo, domine em vossos corações; e sede agradecidos."],["Colossenses 3:17","E, quanto fizerdes por palavras ou por obras, fazei tudo em nome do Senhor Jesus, dando por ele graças a Deus Pai."],["Colossenses 3:23","E tudo quanto fizerdes, fazei-o de todo o coração, como ao Senhor, e não aos homens,"],["Colossenses 4:2","Perseverai em oração, velando nela com ação de graças;"],["Colossenses 4:6","A vossa palavra seja sempre agradável, temperada com sal, para que saibais como vos convém responder a cada um."],["1 Tessalonicenses 5:11","Por isso exortai-vos uns aos outros, e edificai-vos uns aos outros, como também o fazeis."],["1 Tessalonicenses 5:16","Regozijai-vos sempre."],["1 Tessalonicenses 5:17","Orai sem cessar."],["1 Tessalonicenses 5:18","Em tudo dai graças, porque esta é a vontade de Deus em Cristo Jesus para convosco."],["2 Tessalonicenses 3:13","E vós, irmãos, não vos canseis de fazer o bem."],["1 Timóteo 4:12","Ninguém despreze a tua mocidade; mas sê o exemplo dos fiéis, na palavra, no trato, no amor, no espírito, na fé, na pureza."],["1 Timóteo 6:6","Mas é grande ganho a piedade com contentamento."],["2 Timóteo 1:7","Porque Deus não nos deu o espírito de temor, mas de fortaleza, e de amor, e de moderação."],["2 Timóteo 4:7","Combati o bom combate, acabei a carreira, guardei a fé."],["Hebreus 4:16","Cheguemos, pois, com confiança ao trono da graça, para que possamos alcançar misericórdia e achar graça, a fim de sermos ajudados em tempo oportuno."],["Hebreus 10:23","Retenhamos firmes a confissão da nossa esperança; porque fiel é o que prometeu."],["Hebreus 10:24","E consideremo-nos uns aos outros, para nos estimularmos ao amor e às boas obras,"],["Hebreus 10:35","Não rejeiteis, pois, a vossa confiança, que tem grande e avultado galardão."],["Hebreus 11:1","Ora, a fé é o firme fundamento das coisas que se esperam, e a prova das coisas que se não vêem."],["Hebreus 11:6","Ora, sem fé é impossível agradar-lhe; porque é necessário que aquele que se aproxima de Deus creia que ele existe, e que é galardoador dos que o buscam."],["Hebreus 12:1","Portanto nós também, pois que estamos rodeados de uma tão grande nuvem de testemunhas, deixemos todo o embaraço, e o pecado que tão de perto nos rodeia, e corramos com paciência a carreira que nos está proposta,"],["Hebreus 13:5","Sejam vossos costumes sem avareza, contentando-vos com o que tendes; porque ele disse: Não te deixarei, nem te desampararei."],["Hebreus 13:6","E assim com confiança ousemos dizer: O Senhor é o meu ajudador, e não temerei O que me possa fazer o homem."],["Hebreus 13:16","E não vos esqueçais da beneficência e comunicação, porque com tais sacrifícios Deus se agrada."],["Tiago 1:3","Sabendo que a prova da vossa fé opera a paciência."],["Tiago 1:4","Tenha, porém, a paciência a sua obra perfeita, para que sejais perfeitos e completos, sem faltar em coisa alguma."],["Tiago 1:5","E, se algum de vós tem falta de sabedoria, peça-a a Deus, que a todos dá liberalmente, e o não lança em rosto, e ser-lhe-á dada."],["Tiago 1:12","Bem-aventurado o homem que sofre a tentação; porque, quando for provado, receberá a coroa da vida, a qual o Senhor tem prometido aos que o amam."],["Tiago 1:19","Portanto, meus amados irmãos, todo o homem seja pronto para ouvir, tardio para falar, tardio para se irar."],["Tiago 1:22","E sede cumpridores da palavra, e não somente ouvintes, enganando-vos a vós mesmos."],["Tiago 4:10","Humilhai-vos perante o Senhor, e ele vos exaltará."],["1 Pedro 4:8","Mas, sobretudo, tende ardente amor uns para com os outros; porque o amor cobrirá a multidão de pecados."],["1 Pedro 4:10","Cada um administre aos outros o dom como o recebeu, como bons despenseiros da multiforme graça de Deus."],["1 Pedro 5:7","Lançando sobre ele toda a vossa ansiedade, porque ele tem cuidado de vós."],["1 João 3:18","Meus filhinhos, não amemos de palavra, nem de língua, mas por obra e em verdade."],["1 João 4:7","Amados, amemo-nos uns aos outros; porque o amor é de Deus; e qualquer que ama é nascido de Deus e conhece a Deus."],["1 João 4:11","Amados, se Deus assim nos amou, também nós devemos amar uns aos outros."],["1 João 4:18","No amor não há temor, antes o perfeito amor lança fora o temor; porque o temor tem consigo a pena, e o que teme não é perfeito em amor."],["3 João 1:2","Amado, desejo que te vá bem em todas as coisas, e que tenhas saúde, assim como bem vai a tua alma."],["Salmos 19:1","Os céus declaram a glória de Deus e o firmamento anuncia a obra das suas mãos."],["Salmos 84:10","Porque vale mais um dia nos teus átrios do que mil. Preferiria estar à porta da casa do meu Deus, a habitar nas tendas dos ímpios."],["Provérbios 3:13","Bem-aventurado o homem que acha sabedoria, e o homem que adquire conhecimento;"],["Provérbios 14:30","O sentimento sadio é vida para o corpo, mas a inveja é podridão para os ossos."],["Provérbios 19:21","Muitos propósitos há no coração do homem, porém o conselho do Senhor permanecerá."],["Isaías 12:2","Eis que Deus é a minha salvação; nele confiarei, e não temerei, porque o SENHOR DEUS é a minha força e o meu cântico, e se tornou a minha salvação."],["Tiago 3:17","Mas a sabedoria que do alto vem é, primeiramente pura, depois pacífica, moderada, tratável, cheia de misericórdia e de bons frutos, sem parcialidade, e sem hipocrisia."],["Tiago 5:7","Sede pois, irmãos, pacientes até à vinda do Senhor. Eis que o lavrador espera o precioso fruto da terra, aguardando-o com paciência, até que receba a chuva temporã e serôdia."],["1 Coríntios 13:8","O amor nunca falha; mas havendo profecias, serão aniquiladas; havendo línguas, cessarão; havendo ciência, desaparecerá;"],["2 Tessalonicenses 3:16","Ora, o mesmo Senhor da paz vos dê sempre paz de toda a maneira. O Senhor seja com todos vós."],["Romanos 13:10","O amor não faz mal ao próximo. De sorte que o cumprimento da lei é o amor."]]};
 (function(){
 'use strict';
 
@@ -509,6 +672,7 @@ function cstyle(c){ return isHex(c)?'--c:'+c+';--on-c:'+onFor(c):'--c:var(--c-'+
 function setC(el,c){ if(isHex(c)){ el.style.setProperty('--c',c); el.style.setProperty('--on-c',onFor(c)); } else { el.style.setProperty('--c','var(--c-'+c+')'); el.style.removeProperty('--on-c'); } }
 
 /* =============== estado =============== */
+const DATE_RE=/^\d{4}-\d\d-\d\d$/;
 function seed(){
   const t=todayKey(), f=()=>({mode:'daily',days:[0,1,2,3,4,5,6],n:3});
   return normalize({updatedAt:0,habits:[
@@ -522,32 +686,52 @@ function normalize(s){
   const logs=(s.logs&&typeof s.logs==='object')?s.logs:{};
   const set=(s.settings&&typeof s.settings==='object')?s.settings:{};
   const out={
-    v:2, updatedAt:Number(s.updatedAt)||0, logs:logs,
+    v:3, updatedAt:Number(s.updatedAt)||0, logs:logs,
     days:(s.days&&typeof s.days==='object')?s.days:{},
     settings:{
       theme:['auto','light','dark'].includes(set.theme)?set.theme:'auto',
-      weekStart:set.weekStart===1?1:0
+      weekStart:set.weekStart===1?1:0,
+      msg:['none','cur','ver','fra'].includes(set.msg)?set.msg:'none',
+      emoji:set.emoji!==false,
+      anim:set.anim!==false,
+      offDay:set.offDay==='hide'?'hide':'show'
     },
     customColors:Array.isArray(s.customColors)?s.customColors.filter(isHex).map(x=>x.toLowerCase()).filter((x,i,a)=>a.indexOf(x)===i).slice(0,12):[],
+    folders:[],
     habits:[]
   };
+  const fids={};
+  (Array.isArray(s.folders)?s.folders:[]).forEach(f=>{
+    if(f&&f.id&&!fids[f.id]){ fids[f.id]=1; out.folders.push({id:String(f.id),name:String(f.name||'Pasta').slice(0,30)}); }
+  });
   (Array.isArray(s.habits)?s.habits:[]).forEach(h=>{
     if(!h||!h.id) return;
-    const f=h.freq||{};
-    const mode=['daily','days','weekly'].includes(f.mode)?f.mode:'daily';
+    const f=h.freq||{}, bad=!!h.bad;
+    const type=(h.type==='count'||bad)?'count':'check';
+    let mode=f.mode==='weekly'?'period':f.mode;
+    if(!['daily','days','period'].includes(mode)) mode='daily';
+    if(bad) mode='daily';
+    const per=f.mode==='weekly'?'week':(['week','month','year','days'].includes(f.per)?f.per:'week');
+    const every=Math.max(2,parseInt(f.every,10)||14);
+    const metric=(type==='count'&&!bad&&f.metric==='sum')?'sum':'days';
+    let n=Number(f.n); if(!(n>0)) n=3;
+    if(metric==='days') n=Math.min(366,Math.max(1,Math.round(n)));
     let days=Array.isArray(f.days)?f.days.filter(x=>x>=0&&x<=6):[0,1,2,3,4,5,6];
     if(!days.length) days=[0,1,2,3,4,5,6];
-    const n=Math.min(7,Math.max(1,parseInt(f.n,10)||3));
     const l=logs[h.id]||{}, ks=Object.keys(l).sort();
     out.habits.push({
       id:h.id, name:String(h.name||'Hábito'),
       color:COLOR_IDS.includes(h.color)?h.color:(isHex(h.color)?h.color.toLowerCase():'blue'),
-      type:h.type==='count'?'count':'check',
-      goal:h.type==='count'?(Number(h.goal)>0?Number(h.goal):1):1,
+      type:type, bad:bad,
+      goal:(type==='count'&&!bad)?(Number(h.goal)>0?Number(h.goal):1):1,
+      limit:bad?Math.max(0,Number(h.limit)||0):0,
       unit:h.unit?String(h.unit):'',
       step:Number(h.step)>0?Number(h.step):null,
-      freq:{mode:mode,days:days,n:n},
-      start:h.start||ks[0]||todayKey(),
+      emoji:typeof h.emoji==='string'?h.emoji.slice(0,8):'',
+      folder:(h.folder&&fids[h.folder])?h.folder:null,
+      freq:{mode:mode,days:days,n:n,per:per,every:every,metric:metric},
+      pauses:(Array.isArray(h.pauses)?h.pauses:[]).filter(p=>p&&DATE_RE.test(p.from||'')).map(p=>({from:p.from,to:DATE_RE.test(p.to||'')?p.to:null})),
+      start:(h.start&&DATE_RE.test(h.start))?h.start:(ks[0]||todayKey()),
       archived:!!h.archived
     });
   });
@@ -561,11 +745,12 @@ function loadLocal(){
   return seed();
 }
 function loadUi(){
-  const d={tab:'hoje',zoom:'ano'};
+  const d={tab:'hoje',zoom:'ano',collapsed:{}};
   try{
     const u=JSON.parse(localStorage.getItem(UI_KEY)||'{}');
     if(['hoje','grade','resumo','ajustes'].includes(u.tab)) d.tab=u.tab;
     if(['ano','mes','semana'].includes(u.zoom)) d.zoom=u.zoom;
+    if(u.collapsed&&typeof u.collapsed==='object') d.collapsed=u.collapsed;
   }catch(e){}
   return d;
 }
@@ -576,8 +761,14 @@ let ui=loadUi();
 let sel=todayKey();
 let anchor=todayKey();
 let ryear=new Date().getFullYear();
+let rweek=null;
 let lastToday=todayKey();
 let gScrollX=null;
+let showHidden=false;
+
+/* cache de contagens por período, limpo a cada alteração */
+const pcache=new Map();
+function bust(){ pcache.clear(); }
 
 /* semana e frequência */
 const WS=()=>state.settings.weekStart;
@@ -586,11 +777,14 @@ const weekStartDate=d=>addDays(d,-dowIdx(d));
 const weekKeysOf=k=>{const s=weekStartDate(parse(k));return Array.from({length:7},(_,i)=>key(addDays(s,i)))};
 const wdOrder=()=>Array.from({length:7},(_,i)=>(i+WS())%7);
 const active=()=>state.habits.filter(h=>!h.archived);
+const daysBetween=(a,b)=>Math.round((parse(b)-parse(a))/864e5);
 
 const goalOf=h=>h.type==='check'?1:Math.max(Number(h.goal)||1,0.01);
+const limitOf=h=>Math.max(0,Number(h.limit)||0);
 function stepOf(h){
-  if(h.type==='check') return 1;
+  if(h.type==='check'&&!h.bad) return 1;
   if(h.step>0) return h.step;
+  if(h.bad) return 1;
   const g=goalOf(h);
   if(g<=12) return 1; if(g<=60) return 5; if(g<=200) return 10; return Math.round(g/10);
 }
@@ -600,15 +794,61 @@ function setVal(h,k,v){
   v=Math.round(v*100)/100;
   const l=state.logs[h.id]||(state.logs[h.id]={});
   if(v===0) delete l[k]; else l[k]=v;
+  bust();
 }
-const isDone=(h,k)=>getVal(h,k)>=goalOf(h);
 const startOf=h=>h.start||todayKey();
-const weekly=h=>h.freq.mode==='weekly';
-function scheduled(h,k){ return h.freq.mode!=='days'||h.freq.days.includes(parse(k).getDay()); }
-function weekCount(h,k){ return weekKeysOf(k).reduce((a,x)=>a+(isDone(h,x)?1:0),0); }
+const isPeriod=h=>!h.bad&&h.freq.mode==='period';
+const isPaused=(h,k)=>h.pauses.some(p=>k>=p.from&&(!p.to||k<=p.to));
+function isDone(h,k){
+  if(h.bad){
+    if(k<startOf(h)||k>todayKey()||isPaused(h,k)) return false;
+    return getVal(h,k)<=limitOf(h);
+  }
+  return getVal(h,k)>=goalOf(h);
+}
+function scheduled(h,k){
+  if(isPaused(h,k)) return false;
+  return h.freq.mode!=='days'||h.freq.days.includes(parse(k).getDay());
+}
+
+/* períodos (semana, mês, ano ou X dias) */
+function periodLen(h){ const p=h.freq.per; return p==='week'?7:p==='month'?30:p==='year'?365:h.freq.every; }
+function periodOf(h,k){
+  const d=parse(k), p=h.freq.per;
+  if(p==='week'){ const s=weekStartDate(d); return [key(s),key(addDays(s,6))]; }
+  if(p==='month') return [key(new Date(d.getFullYear(),d.getMonth(),1)),key(new Date(d.getFullYear(),d.getMonth()+1,0))];
+  if(p==='year') return [d.getFullYear()+'-01-01',d.getFullYear()+'-12-31'];
+  const e=h.freq.every, i=Math.floor(daysBetween(startOf(h),k)/e), s=addDays(parse(startOf(h)),i*e);
+  return [key(s),key(addDays(s,e-1))];
+}
+const nextPeriod=(h,p)=>periodOf(h,key(addDays(parse(p[1]),1)));
+function periodCount(h,k){
+  const r=periodOf(h,k), ck=h.id+'|'+r[0]+'|'+r[1]+'|'+h.freq.metric;
+  if(pcache.has(ck)) return pcache.get(ck);
+  const t=todayKey(), end=r[1]>t?t:r[1]; let c=0;
+  for(let d=parse(r[0]);key(d)<=end;d=addDays(d,1)){
+    const kk=key(d);
+    if(h.freq.metric==='sum') c+=getVal(h,kk); else if(isDone(h,kk)) c++;
+  }
+  c=Math.round(c*100)/100; pcache.set(ck,c); return c;
+}
+const periodMet=(h,k)=>periodCount(h,k)>=h.freq.n;
+function periodName(h){ const p=h.freq.per; return p==='week'?'na semana':p==='month'?'no mês':p==='year'?'no ano':'em '+h.freq.every+' dias'; }
+function periodUnitPl(h){ const p=h.freq.per; return p==='week'?'semanas':p==='month'?'meses':p==='year'?'anos':'ciclos'; }
+function periodUnitSg(h){ const p=h.freq.per; return p==='week'?'semana':p==='month'?'mês':p==='year'?'ano':'ciclo'; }
+function periodProgress(h,k){
+  const c=periodCount(h,k), n=h.freq.n;
+  return h.freq.metric==='sum'?fmt(c)+'/'+fmt(n)+(h.unit?' '+h.unit:'')+' '+periodName(h):c+'/'+n+' '+periodName(h);
+}
+function allPaused(h,from,to){
+  for(let d=parse(from);key(d)<=to;d=addDays(d,1)){ if(!isPaused(h,key(d))) return false; }
+  return true;
+}
+
 function relevant(h,k){
   if(k<startOf(h)||k>todayKey()) return false;
-  if(weekly(h)) return isDone(h,k)||weekCount(h,k)<h.freq.n;
+  if(h.bad) return !isPaused(h,k);
+  if(isPeriod(h)) return isDone(h,k)||(!isPaused(h,k)&&!periodMet(h,k));
   return scheduled(h,k)||isDone(h,k);
 }
 function dayInfo(k){
@@ -620,45 +860,53 @@ function dayInfo(k){
 /* estatísticas de um hábito (desde o início) */
 function habitStats(h){
   const t=todayKey(), st=startOf(h);
-  let done=0,total=0,run=0,best=0,checkins=0;
-  if(weekly(h)){
-    const n=h.freq.n, curWs=key(weekStartDate(parse(t)));
-    for(let w=weekStartDate(parse(st)); key(w)<=t; w=addDays(w,7)){
-      const wk=key(w), c=weekKeysOf(wk).filter(k=>isDone(h,k)).length;
-      checkins+=c;
-      if(c>=n){ total++; done++; run++; best=Math.max(best,run); }
-      else if(wk!==curWs){ total++; run=0; }
+  let done=0,total=0,run=0,best=0,checkins=0,slips=0;
+  for(let d=parse(st); key(d)<=t; d=addDays(d,1)){
+    const k=key(d);
+    if(isDone(h,k)) checkins++;
+    if(h.bad&&!isPaused(h,k)&&getVal(h,k)>limitOf(h)) slips++;
+  }
+  if(isPeriod(h)){
+    let p=periodOf(h,st), guard=0;
+    while(p[0]<=t&&guard++<4000){
+      if(!allPaused(h,p[0],p[1])){
+        if(periodMet(h,p[0])){ total++; done++; run++; best=Math.max(best,run); }
+        else if(p[1]<t){ total++; run=0; }
+      }
+      p=nextPeriod(h,p);
     }
   }else{
     for(let d=parse(st); key(d)<=t; d=addDays(d,1)){
       const k=key(d), dn=isDone(h,k);
-      if(dn) checkins++;
       if(scheduled(h,k)){
         if(dn){ total++; done++; run++; best=Math.max(best,run); }
-        else if(k!==t){ total++; run=0; }
-      }
+        else if(k!==t||h.bad){ total++; run=0; }
+      }else if(dn&&!h.bad){ total++; done++; run++; best=Math.max(best,run); }
     }
   }
   let sum=0,logged=0; const l=state.logs[h.id]||{};
   for(const k in l){ sum+=l[k]; logged++; }
-  return {done:done,total:total,pct:total?Math.round(done/total*100):0,streak:run,best:best,checkins:checkins,sum:sum,logged:logged,unit:weekly(h)?'semanas':'dias'};
+  return {done:done,total:total,pct:total?Math.round(done/total*100):0,streak:run,best:best,checkins:checkins,slips:slips,sum:sum,logged:logged,unit:isPeriod(h)?periodUnitPl(h):'dias'};
 }
-/* estatística de um período [from,to] */
+/* estatística de um intervalo [from,to] */
 function rangeStats(h,from,to){
   const t=todayKey(), st=startOf(h);
   const a=from<st?st:from, b=to>t?t:to;
   let done=0,total=0;
   if(a>b) return {done:0,total:0,pct:null};
-  if(weekly(h)){
-    const n=h.freq.n, curWs=key(weekStartDate(parse(t)));
-    for(let w=weekStartDate(parse(a)); key(w)<=b; w=addDays(w,7)){
-      const wk=key(w), c=weekKeysOf(wk).filter(k=>isDone(h,k)).length;
-      if(c>=n){ total++; done++; } else if(wk!==curWs){ total++; }
+  if(isPeriod(h)){
+    let p=periodOf(h,a), guard=0;
+    while(p[0]<=b&&guard++<4000){
+      if(!allPaused(h,p[0],p[1])){
+        if(periodMet(h,p[0])){ total++; done++; } else if(p[1]<t){ total++; }
+      }
+      p=nextPeriod(h,p);
     }
   }else{
     for(let d=parse(a); key(d)<=b; d=addDays(d,1)){
-      const k=key(d);
-      if(scheduled(h,k)){ const dn=isDone(h,k); if(dn){total++;done++;} else if(k!==t) total++; }
+      const k=key(d), dn=isDone(h,k);
+      if(scheduled(h,k)){ if(dn){total++;done++;} else if(k!==t||h.bad) total++; }
+      else if(dn&&!h.bad){ total++; done++; }
     }
   }
   return {done:done,total:total,pct:total?Math.round(done/total*100):null};
@@ -672,10 +920,12 @@ function rangeAll(from,to){
 function globalStats(){
   const t=todayKey(); let first=t;
   active().forEach(h=>{ if(startOf(h)<first) first=startOf(h); });
-  const g={checkins:0,rel:0,perfect:0,run:0,best:0,bestStreak:0,byDow:Array.from({length:7},()=>({d:0,r:0})),byMonth:{},last30:[],mood:{sum:0,n:0}};
+  const g={checkins:0,rel:0,perfect:0,run:0,best:0,bestStreak:0,bestPeriod:0,bestBad:0,activeDays:0,strongMonths:0,
+    byDow:Array.from({length:7},()=>({d:0,r:0})),byMonth:{},last30:[],mood:{sum:0,n:0},notes:0,moods:0};
   for(let d=parse(first); key(d)<=t; d=addDays(d,1)){
     const k=key(d), i=dayInfo(k);
     g.checkins+=i.done; g.rel+=i.rel;
+    if(i.done>0) g.activeDays++;
     if(i.rel>0){
       const w=g.byDow[dowIdx(d)]; w.d+=i.done; w.r+=i.rel;
       const mk=d.getFullYear()+'-'+d.getMonth(), m=g.byMonth[mk]||(g.byMonth[mk]={d:0,r:0}); m.d+=i.done; m.r+=i.rel;
@@ -683,12 +933,19 @@ function globalStats(){
       else if(k!==t){ g.run=0; }
     }
   }
+  for(const mk in g.byMonth){ const m=g.byMonth[mk]; if(m.r>=30&&m.d/m.r>=0.9) g.strongMonths++; }
   for(let i=29;i>=0;i--){
     const k=key(addDays(new Date(),-i)), inf=dayInfo(k), mood=(state.days[k]||{}).mood||0;
     g.last30.push({k:k,rel:inf.rel,done:inf.done,mood:mood});
     if(mood){ g.mood.sum+=mood; g.mood.n++; }
   }
-  active().forEach(h=>{ if(!weekly(h)) g.bestStreak=Math.max(g.bestStreak,habitStats(h).best); });
+  Object.keys(state.days).forEach(k=>{ const d=state.days[k]; if(d.note) g.notes++; if(d.mood) g.moods++; });
+  active().forEach(h=>{
+    const b=habitStats(h).best;
+    if(h.bad) g.bestBad=Math.max(g.bestBad,b);
+    else if(isPeriod(h)) g.bestPeriod=Math.max(g.bestPeriod,b);
+    else g.bestStreak=Math.max(g.bestStreak,b);
+  });
   return g;
 }
 
@@ -713,6 +970,7 @@ function saveLocal(){
   catch(e){ localOk=false; }
 }
 function touch(){
+  bust();
   state.updatedAt=Date.now();
   failed=false;
   saveLocal();
@@ -746,6 +1004,7 @@ async function push(){
 function flush(){ if(pushT){ clearTimeout(pushT); push(); } }
 
 function adopt(remote){
+  bust();
   state=normalize(remote);
   lastPushed=state.updatedAt;
   saveLocal(); applyTheme();
@@ -774,7 +1033,7 @@ function snapHandler(snap){
 function startSession(user){
   currentUser=user;
   LS_KEY='diario.v2.'+user.uid;
-  state=loadLocal(); lastPushed=-1; dbSynced=false; failed=false; pushing=false; again=false;
+  bust(); state=loadLocal(); lastPushed=-1; dbSynced=false; failed=false; pushing=false; again=false;
   applyTheme(); sel=todayKey(); anchor=sel; lastToday=sel;
   $('#login').hidden=true;
   showTab(ui.tab); setStatus('sync');
@@ -828,10 +1087,12 @@ $('#lgForm').addEventListener('submit',async e=>{
 
 /* =============== tema =============== */
 const origTheme=document.documentElement.getAttribute('data-theme');
+const reduceMq=window.matchMedia?window.matchMedia('(prefers-reduced-motion: reduce)'):null;
 function applyTheme(){
   const r=document.documentElement, t=state.settings.theme;
   if(t==='auto'){ if(origTheme) r.setAttribute('data-theme',origTheme); else r.removeAttribute('data-theme'); }
   else r.setAttribute('data-theme',t);
+  r.classList.toggle('anim',!!state.settings.anim&&!(reduceMq&&reduceMq.matches));
 }
 
 /* =============== avisos e botões de duas etapas =============== */
@@ -849,30 +1110,44 @@ function armOrRun(btn,armedText,fn){
   btn.dataset.armed=String(setTimeout(()=>{ btn.removeAttribute('data-armed'); btn.textContent=btn.dataset.orig; },4000));
 }
 
+/* =============== marcas (emoji ou bolinha) =============== */
+function markHTML(h){
+  return (state.settings.emoji&&h.emoji)?'<span class="em" aria-hidden="true">'+esc(h.emoji)+'</span>':'<i class="dot"></i>';
+}
+function markText(h){ return (state.settings.emoji&&h.emoji)?h.emoji:''; }
+
 /* =============== controle de um hábito (usado em Hoje e na folha do dia) =============== */
 const TICK='<svg class="tick" viewBox="0 0 20 20" aria-hidden="true"><path d="M4.5 10.5l3.5 3.5 7.5-8" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>';
 const PEN='<svg class="pen" viewBox="0 0 16 16" aria-hidden="true"><path d="M2.5 13.5l.7-3L10.8 3a1.4 1.4 0 012 2l-7.6 7.6-2.7.9z" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linejoin="round"/></svg>';
 
 function makeControl(h,getK,onChange){
   const root=document.createElement('div'); root.className='ctl';
-  if(h.type==='check'){
+  const bad=!!h.bad;
+  if(h.type==='check'&&!bad){
     root.innerHTML='<button type="button" class="big" aria-pressed="false">'+TICK+'<span class="lbl">Marcar como feito</span></button>';
   }else{
+    const cap=bad?'/ limite '+fmt(limitOf(h))+(h.unit?' '+h.unit:''):'/ '+fmt(h.goal)+(h.unit?' '+h.unit:'');
     root.innerHTML='<div class="stepper">'
       +'<button type="button" class="sb" data-a="dec" aria-label="Diminuir">−</button>'
-      +'<label class="valbox"><input type="number" inputmode="decimal" min="0" step="any" placeholder="0" aria-label="Quantidade de '+esc(h.name)+'"><span>/ '+esc(fmt(h.goal)+(h.unit?' '+h.unit:''))+'</span></label>'
+      +'<label class="valbox"><input type="number" inputmode="decimal" min="0" step="any" placeholder="0" aria-label="Quantidade de '+esc(h.name)+'"><span>'+esc(cap)+'</span></label>'
       +'<button type="button" class="sb" data-a="inc" aria-label="Aumentar">+</button>'
-      +'<button type="button" class="fullbtn" data-a="full">Meta</button></div>'
+      +'<button type="button" class="fullbtn" data-a="'+(bad?'zero':'full')+'">'+(bad?'Zerar':'Meta')+'</button></div>'
       +'<div class="bar" aria-hidden="true"><i></i></div>';
   }
   const big=root.querySelector('.big'), lbl=root.querySelector('.lbl'), input=root.querySelector('input'), bar=root.querySelector('.bar i');
   function update(skipInput){
-    const k=getK(), v=getVal(h,k), g=goalOf(h), done=v>=g;
+    const k=getK(), v=getVal(h,k), done=isDone(h,k);
     root.classList.toggle('done',done);
     if(big){ big.setAttribute('aria-pressed',String(done)); lbl.textContent=done?'Feito':'Marcar como feito'; }
     else{
       if(!skipInput) input.value=v?String(v):'';
-      bar.style.width=Math.min(v/g,1)*100+'%';
+      if(bad){
+        const lim=limitOf(h), over=v>lim;
+        root.classList.toggle('over',over);
+        bar.style.width=(over?100:(lim>0?v/lim*100:0))+'%';
+      }else{
+        bar.style.width=Math.min(v/goalOf(h),1)*100+'%';
+      }
     }
   }
   function apply(v,skipInput){
@@ -880,7 +1155,11 @@ function makeControl(h,getK,onChange){
     if(k<h.start) h.start=k;
     update(skipInput); onChange(); touch();
     const af=dayInfo(k);
-    if(!wasDone&&isDone(h,k)){ try{ navigator.vibrate&&navigator.vibrate(12); }catch(e){} }
+    if(!bad&&!wasDone&&isDone(h,k)){
+      try{ navigator.vibrate&&navigator.vibrate(12); }catch(e){}
+      const card=root.closest('.card');
+      if(card){ card.classList.add('celebrate'); setTimeout(()=>card.classList.remove('celebrate'),800); }
+    }
     if(af.rel>0&&af.done===af.rel&&!(b4.rel>0&&b4.done===b4.rel)) burst();
   }
   root.addEventListener('click',e=>{
@@ -890,6 +1169,7 @@ function makeControl(h,getK,onChange){
     else if(b.dataset.a==='inc') apply(v+stepOf(h));
     else if(b.dataset.a==='dec') apply(Math.max(0,v-stepOf(h)));
     else if(b.dataset.a==='full') apply(goalOf(h));
+    else if(b.dataset.a==='zero') apply(0);
   });
   if(input){
     input.addEventListener('input',()=>apply(parseFloat(input.value)||0,true));
@@ -916,18 +1196,42 @@ function burst(){
 }
 
 /* =============== aba HOJE =============== */
-let rows={};
+let rows={}, foldHabits={};
 function freqPart(h){
   const f=h.freq;
+  if(h.bad) return 'evitar';
   if(f.mode==='days') return wdOrder().filter(i=>f.days.includes(i)).map(i=>WD[i]).join(', ');
-  if(f.mode==='weekly') return f.n+'× por semana';
+  if(f.mode==='period'){
+    const per={week:'por semana',month:'por mês',year:'por ano',days:'a cada '+f.every+' dias'}[f.per];
+    return f.metric==='sum'?fmt(f.n)+(h.unit?' '+h.unit:'')+' '+per:f.n+'× '+per;
+  }
   return 'todo dia';
 }
-function goalPart(h){ return h.type==='check'?'Feito ou não':fmt(h.goal)+(h.unit?' '+h.unit:''); }
+function goalPart(h){
+  if(h.bad) return 'Evitar · limite '+fmt(limitOf(h))+(h.unit?' '+h.unit:'')+'/dia';
+  return h.type==='check'?'Feito ou não':fmt(h.goal)+(h.unit?' '+h.unit:'');
+}
 function goalLine(h,k){
-  let s=goalPart(h)+' · '+freqPart(h);
-  if(weekly(h)) s+=' ('+weekCount(h,k)+'/'+h.freq.n+' na semana)';
-  return s;
+  const a=[];
+  if(h.bad) a.push(goalPart(h));
+  else{
+    if(!(isPeriod(h)&&h.freq.metric==='sum')) a.push(goalPart(h));
+    a.push(freqPart(h)+(isPeriod(h)?' ('+periodProgress(h,k)+')':''));
+  }
+  if(isPaused(h,k)) a.push('pausado');
+  else if(!h.bad&&h.freq.mode==='days'&&!scheduled(h,k)&&!isDone(h,k)) a.push('fora do dia');
+  else if(k<startOf(h)&&!isDone(h,k)) a.push('antes do início');
+  return a.join(' · ');
+}
+function isRest(h,k){
+  if(isDone(h,k)) return false;
+  return isPaused(h,k)||k<startOf(h)||(!h.bad&&h.freq.mode==='days'&&!scheduled(h,k));
+}
+function streakLabel(h,n){
+  if(n<=0) return 'sem sequência';
+  if(h.bad) return n===1?'dia sem recaída':'dias sem recaída';
+  if(isPeriod(h)) return n===1?periodUnitSg(h)+' seguido':periodUnitPl(h)+' seguidos';
+  return n===1?'dia seguido':'dias seguidos';
 }
 function dayName(k){
   const d=parse(k), t=todayKey();
@@ -938,6 +1242,22 @@ function dayName(k){
 function dayShort(k){
   const d=parse(k), yr=d.getFullYear()!==new Date().getFullYear()?' '+d.getFullYear():'';
   return WD[d.getDay()]+', '+d.getDate()+' '+MONTHS[d.getMonth()]+yr;
+}
+
+/* mensagem do dia */
+function dayOfYear(d){ return Math.floor((d-new Date(d.getFullYear(),0,0))/864e5); }
+function msgOfDay(){
+  const m=state.settings.msg; if(m==='none') return null;
+  const d=new Date(), i=(((dayOfYear(d)-1)+(d.getFullYear()-2026)*97)%365+365)%365;
+  if(m==='cur') return {tag:'Curiosidade do dia',text:MSGS.cur[i]};
+  if(m==='fra') return {tag:'Frase do dia',text:MSGS.fra[i]};
+  const v=MSGS.ver[i]; return {tag:'Versículo do dia',text:v[1],ref:v[0]};
+}
+function renderMsg(){
+  const b=$('#msgbox'), m=msgOfDay();
+  if(!m){ b.hidden=true; b.innerHTML=''; return; }
+  b.hidden=false;
+  b.innerHTML='<div class="msg"><span class="mtag">'+m.tag+'</span><p>'+esc(m.text)+'</p>'+(m.ref?'<span class="mref">'+esc(m.ref)+'</span>':'')+'</div>';
 }
 
 function renderStrip(){
@@ -954,11 +1274,16 @@ function renderStrip(){
   html+='</div><button type="button" class="ib" data-w="1" aria-label="Próxima semana"'+(key(addDays(s,7))>t?' disabled':'')+'>›</button>';
   $('#strip').innerHTML=html;
 }
-function ydayChip(){
+function chipsHTML(){
   if(sel!==todayKey()) return '';
+  let out='';
   const y=key(addDays(new Date(),-1)), i=dayInfo(y);
-  if(i.rel>0&&i.done<i.rel) return '<button type="button" class="pill inl" data-yday="'+y+'">Ontem: '+i.done+' de '+i.rel+' · ajustar</button>';
-  return '';
+  if(i.rel>0&&i.done<i.rel) out+='<button type="button" class="pill inl" data-yday="'+y+'">Ontem: '+i.done+' de '+i.rel+' · ajustar</button>';
+  if(dowIdx(new Date())<=1){
+    const ps=key(addDays(weekStartDate(new Date()),-7)), r=rangeAll(ps,key(addDays(parse(ps),6)));
+    if(r.total>0) out+='<button type="button" class="pill inl" data-wkprev="'+ps+'">Resumo da semana passada</button>';
+  }
+  return out?'<div class="chips2">'+out+'</div>':'';
 }
 function renderSummary(){
   const inf=dayInfo(sel), f=inf.rel?Math.round(100*inf.done/inf.rel):0, perfect=inf.rel>0&&inf.done===inf.rel;
@@ -966,14 +1291,14 @@ function renderSummary(){
   if(inf.rel===0) sub+=' · nada programado';
   else sub+=' · '+inf.done+' de '+inf.rel+' feitos'+(perfect?' · dia perfeito':'');
   $('#daysum').innerHTML='<div class="ring big'+(perfect?' perfect':'')+'" style="--f:'+f+'"><b>'+f+'%</b></div>'
-    +'<div class="sumtxt"><div class="dmain">'+esc(dayName(sel))+'</div><div class="dsub">'+esc(sub)+'</div>'+ydayChip()+'</div>'
+    +'<div class="sumtxt"><div class="dmain">'+esc(dayName(sel))+'</div><div class="dsub">'+esc(sub)+'</div>'+chipsHTML()+'</div>'
     +(sel!==todayKey()?'<button type="button" class="pill" data-today="1">Hoje</button>':'');
 }
 function buildRow(h){
   const el=document.createElement('article');
   el.className='card'; el.dataset.id=h.id; setC(el,h.color);
   el.innerHTML='<div class="card-head"><button type="button" class="name" aria-label="Editar '+esc(h.name)+'">'
-    +'<span class="nm"><i class="dot"></i><b>'+esc(h.name)+'</b>'+PEN+'</span><span class="goal"></span></button>'
+    +'<span class="nm">'+markHTML(h)+'<b>'+esc(h.name)+'</b>'+PEN+'</span><span class="goal"></span></button>'
     +'<div class="pct"><b></b><small></small></div></div>';
   const ctl=makeControl(h,()=>sel,()=>refreshHoje());
   el.appendChild(ctl.root);
@@ -987,8 +1312,13 @@ function refreshRows(){
     const st=habitStats(h);
     r.goal.textContent=goalLine(h,sel);
     r.sb.textContent=st.streak;
-    r.ss.textContent=st.streak>0?(st.streak===1?(weekly(h)?'semana seguida':'dia seguido'):(weekly(h)?'semanas seguidas':'dias seguidos')):'sem sequência';
-    r.el.classList.toggle('rest',h.freq.mode==='days'&&!scheduled(h,sel)&&!isDone(h,sel));
+    r.ss.textContent=streakLabel(h,st.streak);
+    r.el.classList.toggle('rest',isRest(h,sel));
+  });
+  document.querySelectorAll('[data-fcount]').forEach(el=>{
+    const hs=foldHabits[el.dataset.fcount]||[];
+    const rel=hs.filter(h=>relevant(h,sel)).length, dn=hs.filter(h=>relevant(h,sel)&&isDone(h,sel)).length;
+    el.textContent=hs.length?dn+'/'+rel:'';
   });
 }
 function refreshHoje(){ renderStrip(); renderSummary(); refreshRows(); }
@@ -997,21 +1327,59 @@ function renderDiary(){
   $('#moods').innerHTML=MOODS.map((l,i)=>'<button type="button" role="radio" aria-checked="'+(mood===i+1)+'" data-m="'+(i+1)+'" style="--mc:var(--m'+(i+1)+')"><i></i><span>'+l+'</span></button>').join('');
   const n=$('#d-note'); if(document.activeElement!==n) n.value=d.note||'';
 }
+function visibleInHoje(h){
+  if(state.settings.offDay!=='hide'||showHidden) return true;
+  const k=sel;
+  if(isDone(h,k)) return true;
+  if(isPaused(h,k)||k<startOf(h)) return false;
+  if(!h.bad&&h.freq.mode==='days') return scheduled(h,k);
+  return true;
+}
+function buildFolderHead(f,hs){
+  const id=f?f.id:'_none', name=f?f.name:'Sem pasta', open=!ui.collapsed[id];
+  foldHabits[id]=hs;
+  const el=document.createElement('div'); el.className='fhead';
+  el.innerHTML='<button type="button" class="ftoggle" data-ftoggle="'+esc(id)+'" aria-expanded="'+open+'"><span class="chev" aria-hidden="true">▾</span><b>'+esc(name)+'</b><small data-fcount="'+esc(id)+'"></small></button>'
+    +(f?'<button type="button" class="ib" data-fedit="'+esc(id)+'" aria-label="Editar pasta '+esc(name)+'">⋯</button>':'');
+  return el;
+}
 function renderHoje(){
-  renderStrip(); renderSummary();
-  const L=$('#hojeList'); L.innerHTML=''; rows={};
-  const act=active();
+  renderMsg(); renderStrip(); renderSummary();
+  const L=$('#hojeList'); L.innerHTML=''; rows={}; foldHabits={};
+  const act=active(), fs=state.folders;
+  let hidden=0, idx=0;
+  const addRows=(hs,wrap)=>hs.forEach(h=>{
+    if(visibleInHoje(h)){ const r=buildRow(h); r.style.setProperty('--i',idx++); wrap.appendChild(r); } else hidden++;
+  });
   if(!act.length){
     const e=document.createElement('div'); e.className='empty';
     e.innerHTML='<strong>Nenhum hábito ativo</strong>Toque em “Novo hábito” para criar o primeiro.';
     L.appendChild(e);
+  }else if(!fs.length){
+    addRows(act,L);
+  }else{
+    const group=(f,hs)=>{
+      const id=f?f.id:'_none';
+      L.appendChild(buildFolderHead(f,hs));
+      if(ui.collapsed[id]) return;
+      const w=document.createElement('div'); w.className='fgroup';
+      if(!hs.length){ const e=document.createElement('div'); e.className='fempty'; e.textContent='Pasta vazia. Abra um hábito e escolha esta pasta.'; w.appendChild(e); }
+      addRows(hs,w); L.appendChild(w);
+    };
+    fs.forEach(f=>group(f,act.filter(h=>h.folder===f.id)));
+    const loose=act.filter(h=>!h.folder||!fs.some(f=>f.id===h.folder));
+    if(loose.length) group(null,loose);
   }
-  act.forEach(h=>L.appendChild(buildRow(h)));
+  if(state.settings.offDay==='hide'&&(hidden>0||showHidden)){
+    const b=document.createElement('button'); b.type='button'; b.className='hiddenbtn'; b.dataset.showhidden='1';
+    b.textContent=showHidden?'Esconder hábitos fora do dia':'Mostrar '+hidden+(hidden===1?' hábito escondido':' hábitos escondidos');
+    L.appendChild(b);
+  }
   refreshRows(); renderDiary();
 }
 function selectDay(k){
   if(k>todayKey()) return;
-  sel=k; renderHoje();
+  sel=k; showHidden=false; renderHoje();
 }
 function setDay(k,patch){
   const d=Object.assign({},state.days[k]||{},patch);
@@ -1027,7 +1395,14 @@ $('#strip').addEventListener('click',e=>{
 });
 $('#daysum').addEventListener('click',e=>{
   if(e.target.closest('[data-today]')){ selectDay(todayKey()); return; }
-  const y=e.target.closest('[data-yday]'); if(y) selectDay(y.dataset.yday);
+  const y=e.target.closest('[data-yday]'); if(y){ selectDay(y.dataset.yday); return; }
+  const w=e.target.closest('[data-wkprev]'); if(w){ rweek=w.dataset.wkprev; showTab('resumo'); }
+});
+$('#hojeList').addEventListener('click',e=>{
+  const t=e.target.closest('[data-ftoggle]');
+  if(t){ const id=t.dataset.ftoggle; ui.collapsed[id]=!ui.collapsed[id]; if(!ui.collapsed[id]) delete ui.collapsed[id]; saveUi(); renderHoje(); return; }
+  const fe=e.target.closest('[data-fedit]'); if(fe){ openFolderSheet(fe.dataset.fedit); return; }
+  if(e.target.closest('[data-showhidden]')){ showHidden=!showHidden; renderHoje(); }
 });
 $('#moods').addEventListener('click',e=>{
   const b=e.target.closest('[data-m]'); if(!b) return;
@@ -1041,6 +1416,7 @@ $('#d-note').addEventListener('input',()=>{
 });
 $('#d-note').addEventListener('blur',()=>{ if(noteT){ clearTimeout(noteT); noteT=null; setDay(sel,{note:$('#d-note').value.trim()?$('#d-note').value:''}); } });
 $('#addBtn').addEventListener('click',()=>openSheet(null));
+$('#addFolderBtn').addEventListener('click',()=>openFolderSheet(null));
 
 /* =============== aba GRADE =============== */
 function periodRange(zoom,a){
@@ -1076,8 +1452,24 @@ function zoomBy(dir){
   if(n!==i) setZoom(order[n]);
 }
 
+/* cor e texto de um quadradinho */
+function cellP(h,k){
+  const t=todayKey();
+  if(h.bad){
+    if(k<startOf(h)||k>t||isPaused(h,k)) return {p:0,slip:false,txt:'',off:true};
+    const v=getVal(h,k), lim=limitOf(h);
+    if(v>lim) return {p:Math.min(100,Math.round(55+(lim>0?(v-lim)/lim*45:15*Math.min(v,3)))),slip:true,txt:fmt(v),off:false};
+    return {p:78,slip:false,txt:v?fmt(v):'✓',off:false};
+  }
+  const v=getVal(h,k), g=goalOf(h);
+  return {
+    p:v>0?Math.round(32+68*Math.min(v/g,1)):0, slip:false,
+    txt:h.type==='check'?(v>=g?'✓':''):(v?fmt(v):''),
+    off:v<=0&&(!scheduled(h,k)||k<startOf(h))
+  };
+}
 function fillCell(h,k,c){
-  const t=todayKey(); let p=0, txt='', perfect=false, off=false, title='';
+  const t=todayKey(); let p=0, txt='', perfect=false, off=false, slip=false, title='';
   const d=parse(k);
   if(h===null){
     const i=dayInfo(k);
@@ -1085,16 +1477,15 @@ function fillCell(h,k,c){
     txt=i.rel?i.done+'/'+i.rel:''; perfect=i.rel>0&&i.done===i.rel;
     title=d.getDate()+'/'+(d.getMonth()+1)+(i.rel?' · '+i.done+' de '+i.rel:'');
   }else{
-    const v=getVal(h,k), g=goalOf(h);
-    p=v>0?Math.round(32+68*Math.min(v/g,1)):0;
-    txt=h.type==='check'?(v>=g?'✓':''):(v?fmt(v):'');
-    off=v<=0&&(!scheduled(h,k)||k<startOf(h));
-    title=d.getDate()+'/'+(d.getMonth()+1)+(v?' · '+fmt(v)+(h.unit?' '+h.unit:''):'');
+    const r=cellP(h,k), v=getVal(h,k);
+    p=r.p; txt=r.txt; off=r.off; slip=r.slip;
+    title=d.getDate()+'/'+(d.getMonth()+1)+(v?' · '+fmt(v)+(h.unit?' '+h.unit:''):'')+(isPaused(h,k)?' · pausado':'');
   }
   c.style.setProperty('--p',p);
   c.classList.toggle('fut',k>t);
   c.classList.toggle('today',k===t);
   c.classList.toggle('off',off);
+  c.classList.toggle('slip',slip);
   c.classList.toggle('perfect',perfect);
   c.classList.toggle('dark',p>=62);
   c.title=title;
@@ -1160,10 +1551,10 @@ function buildGradeCard(h){
   if(h) setC(el,h.color); else el.style.setProperty('--c','var(--accent)');
   const r=periodRange(ui.zoom,anchor);
   const rs=h?rangeStats(h,r[0],r[1]):rangeAll(r[0],r[1]);
-  let big=rs.pct==null?'–':rs.pct+'%', small=rs.total?rs.done+' de '+rs.total+(h&&weekly(h)?' semanas':' dias'):'sem dados';
-  if(h&&weekly(h)&&ui.zoom==='semana'){ big=weekCount(h,r[0])+'/'+h.freq.n; small='nesta semana'; }
+  const big=rs.pct==null?'–':rs.pct+'%';
+  const small=rs.total?rs.done+' de '+rs.total+' '+(h&&isPeriod(h)?periodUnitPl(h):'dias'):'sem dados';
   const head=h
-    ?'<button type="button" class="name" data-edit="1" aria-label="Editar '+esc(h.name)+'"><span class="nm"><i class="dot"></i><b>'+esc(h.name)+'</b>'+PEN+'</span><span class="goal">'+esc(goalPart(h)+' · '+freqPart(h))+'</span></button>'
+    ?'<button type="button" class="name" data-edit="1" aria-label="Editar '+esc(h.name)+'"><span class="nm">'+markHTML(h)+'<b>'+esc(h.name)+'</b>'+PEN+'</span><span class="goal">'+esc(goalPart(h)+(h.bad?'':' · '+freqPart(h)))+'</span></button>'
     :'<div class="name"><span class="nm"><i class="dot"></i><b>Tudo junto</b></span><span class="goal">todos os hábitos ativos</span></div>';
   el.innerHTML='<div class="card-head">'+head+'<div class="pct"><b>'+big+'</b><small>'+esc(small)+'</small></div></div>';
   const body=document.createElement('div');
@@ -1185,8 +1576,20 @@ function renderGrade(){
     e.innerHTML='<strong>Nada para mostrar</strong>Crie um hábito na aba Hoje para ver os quadradinhos aqui.';
     L.appendChild(e); return;
   }
-  L.appendChild(buildGradeCard(null));
-  act.forEach(h=>L.appendChild(buildGradeCard(h)));
+  let idx=0;
+  const add=el=>{ el.style.setProperty('--i',idx++); L.appendChild(el); };
+  add(buildGradeCard(null));
+  const fs=state.folders;
+  if(!fs.length){ act.forEach(h=>add(buildGradeCard(h))); }
+  else{
+    fs.forEach(f=>{
+      const hs=act.filter(h=>h.folder===f.id); if(!hs.length) return;
+      const t=document.createElement('h3'); t.className='gfold'; t.textContent=f.name; L.appendChild(t);
+      hs.forEach(h=>add(buildGradeCard(h)));
+    });
+    const loose=act.filter(h=>!h.folder||!fs.some(f=>f.id===h.folder));
+    if(loose.length){ const t=document.createElement('h3'); t.className='gfold'; t.textContent='Sem pasta'; L.appendChild(t); loose.forEach(h=>add(buildGradeCard(h))); }
+  }
   if(z==='ano' && gscrollers.length){
     let left=gScrollX;
     if(left==null){
@@ -1231,11 +1634,11 @@ $('#gradeList').addEventListener('click',e=>{
 /* =============== folha do dia (editar um dia de um hábito) =============== */
 function openDaySheet(h,k){
   const s=$('#daySheet'); setC(s,h.color);
-  $('#dsTitle').textContent=h.name;
-  const wk=weekly(h)?' · '+weekCount(h,k)+'/'+h.freq.n+' na semana':'';
-  $('#dsSub').textContent=dayShort(k)+wk;
+  $('#dsTitle').textContent=(markText(h)?markText(h)+' ':'')+h.name;
+  const sub=()=>dayShort(k)+(isPeriod(h)?' · '+periodProgress(h,k):'')+(isPaused(h,k)?' · pausado':'');
+  $('#dsSub').textContent=sub();
   const box=$('#dsCtl'); box.innerHTML='';
-  const ctl=makeControl(h,()=>k,()=>{ $('#dsSub').textContent=dayShort(k)+(weekly(h)?' · '+weekCount(h,k)+'/'+h.freq.n+' na semana':''); scheduleGrade(); });
+  const ctl=makeControl(h,()=>k,()=>{ $('#dsSub').textContent=sub(); scheduleGrade(); });
   box.appendChild(ctl.root);
   daySel=k;
   $('#dayBg').hidden=false; document.body.style.overflow='hidden';
@@ -1246,12 +1649,55 @@ $('#ds-open').addEventListener('click',()=>{ const k=daySel; closeSheets(); sel=
 $('#dayBg').addEventListener('click',e=>{ if(e.target===$('#dayBg')) closeSheets(); });
 
 /* =============== aba RESUMO =============== */
-function bars(vals,labels,color){
+function bars(vals,labels,color,hi){
   return '<div class="bars"'+(color?' style="--c:'+color+'"':'')+' role="img" aria-label="Gráfico de barras">'
-    +vals.map(v=>v==null?'<i class="nil" style="height:3%" title="sem dados"></i>':'<i style="height:'+Math.max(v,3)+'%" title="'+v+'%"></i>').join('')+'</div>'
+    +vals.map((v,i)=>v==null?'<i class="nil" style="height:3%" title="sem dados"></i>':'<i style="height:'+Math.max(v,3)+'%'+(hi===i?';background:var(--c-lime)':'')+'" title="'+v+'%"></i>').join('')+'</div>'
     +(labels?'<div class="bl">'+labels.map(l=>'<span>'+l+'</span>').join('')+'</div>':'');
 }
 const pctOf=o=>o&&o.r?Math.round(100*o.d/o.r):null;
+const nameHTML=h=>(markText(h)?esc(markText(h))+' ':'')+esc(h.name);
+
+/* ---- resumo semanal ---- */
+function weekReviewHTML(){
+  const curWs=key(weekStartDate(new Date())), ws=rweek&&rweek<=curWs?rweek:curWs;
+  const we=key(addDays(parse(ws),6)), pws=key(addDays(parse(ws),-7)), pwe=key(addDays(parse(ws),-1)), t=todayKey();
+  const cur=rangeAll(ws,we), prev=rangeAll(pws,pwe);
+  const days=Array.from({length:7},(_,i)=>{ const k=key(addDays(parse(ws),i)); return {k:k,inf:dayInfo(k),mood:(state.days[k]||{}).mood||0,note:(state.days[k]||{}).note||''}; });
+  const past=days.filter(d=>d.k<=t&&d.inf.rel>0);
+  const perfect=past.filter(d=>d.inf.done===d.inf.rel).length;
+  const moodDays=days.filter(d=>d.mood), moodAvg=moodDays.length?moodDays.reduce((a,d)=>a+d.mood,0)/moodDays.length:null;
+  const pcts=days.map(d=>d.k>t||!d.inf.rel?null:Math.round(100*d.inf.done/d.inf.rel));
+  let bestI=-1, worstI=-1;
+  pcts.forEach((p,i)=>{ if(p==null) return; if(bestI<0||p>pcts[bestI]) bestI=i; if(worstI<0||p<pcts[worstI]) worstI=i; });
+  const hrows=active().map(h=>{
+    let rel=0,dn=0;
+    days.forEach(d=>{ if(relevant(h,d.k)){ rel++; if(isDone(h,d.k)) dn++; } });
+    return {h:h,rel:rel,dn:dn,p:rel?Math.round(100*dn/rel):null};
+  }).filter(x=>x.rel>0);
+  const diff=(cur.pct!=null&&prev.pct!=null)?cur.pct-prev.pct:null;
+  const range=(()=>{ const a=parse(ws), b=parse(we); return a.getMonth()===b.getMonth()?a.getDate()+'–'+b.getDate()+' '+MONTHS[b.getMonth()]:a.getDate()+' '+MONTHS[a.getMonth()]+' – '+b.getDate()+' '+MONTHS[b.getMonth()]; })();
+  let html='<h2 class="sec">Resumo semanal</h2><div class="card" style="margin-top:12px;gap:14px">'
+    +'<div class="wknav"><button type="button" class="ib" data-wk="-1" aria-label="Semana anterior">‹</button><span class="wl">'+(ws===curWs?'Esta semana · ':'')+range+'</span><button type="button" class="ib" data-wk="1" aria-label="Próxima semana"'+(ws>=curWs?' disabled':'')+'>›</button></div>';
+  if(!cur.total){ return html+'<p class="hint" style="margin:0">Nenhum hábito registrado nesta semana.</p></div>'; }
+  html+='<div class="wkhead"><div class="ring big'+(cur.pct===100?' perfect':'')+'" style="--f:'+(cur.pct||0)+'"><b>'+(cur.pct==null?'–':cur.pct+'%')+'</b></div>'
+    +'<div class="tx"><b>'+cur.done+' de '+cur.total+' feitos</b><span>'+(diff==null?'sem semana anterior para comparar':(diff>0?'<span class="up">+'+diff+' pontos</span> que a semana anterior':diff<0?'<span class="dn2">'+diff+' pontos</span> que a semana anterior':'igual à semana anterior'))+'</span></div></div>'
+    +'<div class="tiles"><div class="tile"><b>'+perfect+'</b><span>dias perfeitos</span></div><div class="tile"><b>'+(moodAvg==null?'–':moodAvg.toFixed(1).replace('.',','))+'</b><span>humor médio (de 5)</span></div></div>'
+    +bars(pcts,days.map(d=>WD[parse(d.k).getDay()]),'var(--accent)',bestI);
+  const bits=[];
+  if(bestI>=0&&worstI>=0&&pcts[bestI]!==pcts[worstI]) bits.push('Melhor dia: <b>'+WD_LONG[parse(days[bestI].k).getDay()].toLowerCase()+'</b> ('+pcts[bestI]+'%). Mais difícil: <b>'+WD_LONG[parse(days[worstI].k).getDay()].toLowerCase()+'</b> ('+pcts[worstI]+'%).');
+  const hs=hrows.filter(x=>x.rel>=2);
+  if(hs.length>=2){
+    const b=hs.reduce((a,x)=>x.p>a.p?x:a), w=hs.reduce((a,x)=>x.p<a.p?x:a);
+    if(b.p!==w.p){ bits.push('Hábito mais firme: <b>'+nameHTML(b.h)+'</b> ('+b.p+'%).'); bits.push('Pede atenção: <b>'+nameHTML(w.h)+'</b> ('+w.p+'%).'); }
+  }
+  if(bits.length) html+='<div class="insight">'+bits.map(x=>'<p>'+x+'</p>').join('')+'</div>';
+  html+=hrows.map(x=>'<div class="hrow" style="'+cstyle(x.h.color)+'"><div class="hl">'+markHTML(x.h)+'<b>'+esc(x.h.name)+'</b><span>'+x.dn+'/'+x.rel+'</span></div><div class="bar"><i style="width:'+x.p+'%"></i></div></div>').join('');
+  const nts=days.filter(d=>d.note);
+  if(nts.length) html+='<div>'+nts.map(d=>'<button type="button" class="note" data-goday="'+d.k+'"><i'+(d.mood?' style="background:var(--m'+d.mood+')"':' style="background:var(--cell)"')+'></i><span class="nt"><span class="nd">'+esc(dayShort(d.k))+'</span><span class="nx">'+esc(d.note)+'</span></span></button>').join('')+'</div>';
+  return html+'</div>';
+}
+
+/* ---- insights ---- */
 function insightsHTML(g){
   const out=[];
   const days=wdOrder().map((d,i)=>({n:WD_LONG[d],p:pctOf(g.byDow[i]),r:g.byDow[i].r})).filter(x=>x.p!=null&&x.r>=4);
@@ -1270,10 +1716,71 @@ function insightsHTML(g){
     out.push('Nos dias de humor bom ou ótimo você cumpre <b>'+a+'%</b> dos hábitos. Nos dias ruins, <b>'+b+'%</b>.');
   }
   const best=active().map(h=>({h:h,s:habitStats(h)})).filter(x=>x.s.total>=7).sort((a,b)=>b.s.pct-a.s.pct)[0];
-  if(best) out.push('O hábito em que você é mais consistente é <b>'+esc(best.h.name)+'</b> ('+best.s.pct+'%).');
+  if(best) out.push('O hábito em que você é mais consistente é <b>'+nameHTML(best.h)+'</b> ('+best.s.pct+'%).');
   if(!out.length) return '';
   return '<h2 class="sec">Insights</h2><div class="card insight" style="margin-top:12px">'+out.map(x=>'<p>'+x+'</p>').join('')+'</div>';
 }
+
+/* ---- relação entre hábitos ---- */
+const CORR_MIN_DAYS=30, CORR_MIN_PAIR=20;
+function corrCompute(){
+  const t=todayKey(), hs=active(); let first=t;
+  hs.forEach(h=>{ if(startOf(h)<first) first=startOf(h); });
+  const dayKeys=[];
+  for(let d=parse(first); key(d)<t; d=addDays(d,1)){ const k=key(d), i=dayInfo(k); if(i.rel>=2&&i.done>0) dayKeys.push(k); }
+  const res={N:dayKeys.length,hs:hs,pairs:[]};
+  if(res.N<CORR_MIN_DAYS||hs.length<2) return res;
+  for(let i=0;i<hs.length;i++) for(let j=i+1;j<hs.length;j++){
+    let n11=0,n10=0,n01=0,n00=0;
+    dayKeys.forEach(k=>{
+      if(!relevant(hs[i],k)||!relevant(hs[j],k)) return;
+      const a=isDone(hs[i],k), b=isDone(hs[j],k);
+      if(a&&b) n11++; else if(a) n10++; else if(b) n01++; else n00++;
+    });
+    const n=n11+n10+n01+n00, r1=n11+n10, r0=n01+n00, c1=n11+n01, c0=n10+n00;
+    if(n<CORR_MIN_PAIR||!r1||!r0||!c1||!c0) continue;
+    const phi=(n11*n00-n10*n01)/Math.sqrt(r1*r0*c1*c0);
+    res.pairs.push({i:i,j:j,a:hs[i],b:hs[j],phi:phi,n:n,pBgA:Math.round(100*n11/r1),pBgNotA:Math.round(100*n01/r0)});
+  }
+  return res;
+}
+function corrHTML(){
+  const c=corrCompute();
+  let html='<h2 class="sec">Relação entre hábitos</h2><div class="card" style="margin-top:12px;gap:12px">';
+  if(c.hs.length<2) return html+'<div class="lock"><p>Crie pelo menos dois hábitos para ver como um se liga ao outro.</p></div></div>';
+  if(c.N<CORR_MIN_DAYS){
+    const pc=Math.round(100*c.N/CORR_MIN_DAYS);
+    return html+'<div class="lock"><p>Este gráfico mostra quais hábitos costumam andar juntos. Ele só aparece depois de <b>'+CORR_MIN_DAYS+' dias</b> com registros, para os resultados fazerem sentido.</p>'
+      +'<div class="bar" aria-hidden="true"><i style="width:'+pc+'%;background:var(--accent)"></i></div><span class="cap">'+c.N+' de '+CORR_MIN_DAYS+' dias</span></div></div>';
+  }
+  const lab=h=>markText(h)||esc(h.name.slice(0,3));
+  const n=c.hs.length;
+  if(n<=9){
+    const phiOf={}; c.pairs.forEach(p=>{ phiOf[p.i+'-'+p.j]=p; phiOf[p.j+'-'+p.i]=p; });
+    let g='<div class="corr" style="grid-template-columns:minmax(28px,34px) repeat('+n+',minmax(0,1fr))"><span></span>'+c.hs.map(h=>'<span class="ch" title="'+esc(h.name)+'">'+lab(h)+'</span>').join('');
+    for(let i=0;i<n;i++){
+      g+='<span class="ch" title="'+esc(c.hs[i].name)+'">'+lab(c.hs[i])+'</span>';
+      for(let j=0;j<n;j++){
+        if(i===j){ g+='<span class="cc" style="opacity:.35"></span>'; continue; }
+        const p=phiOf[i+'-'+j];
+        if(!p){ g+='<span class="cc" title="dados insuficientes"></span>'; continue; }
+        const a=Math.min(100,Math.round(Math.abs(p.phi)*130)), col=p.phi>=0?'var(--c-lime)':'var(--c-rose)';
+        g+='<span class="cc" style="background:color-mix(in srgb,'+col+' '+a+'%,var(--cell))" title="'+esc(c.hs[i].name+' e '+c.hs[j].name)+': '+(p.phi>=0?'+':'')+p.phi.toFixed(2).replace('.',',')+'"></span>';
+      }
+    }
+    html+=g+'</div><div class="legend"><span><i style="background:var(--c-lime)"></i>andam juntos</span><span><i style="background:var(--c-rose)"></i>um atrapalha o outro</span></div>';
+  }
+  const pos=c.pairs.filter(p=>p.phi>=0.25).sort((a,b)=>b.phi-a.phi).slice(0,3);
+  const neg=c.pairs.filter(p=>p.phi<=-0.25).sort((a,b)=>a.phi-b.phi).slice(0,2);
+  const lines=[];
+  pos.forEach(p=>lines.push('Nos dias em que você faz <b>'+nameHTML(p.a)+'</b>, faz <b>'+nameHTML(p.b)+'</b> em <b>'+p.pBgA+'%</b> das vezes (contra '+p.pBgNotA+'% quando não faz).'));
+  neg.forEach(p=>lines.push('<b>'+nameHTML(p.a)+'</b> e <b>'+nameHTML(p.b)+'</b> costumam competir: quando você faz o primeiro, faz o segundo em '+p.pBgA+'% das vezes (contra '+p.pBgNotA+'%).'));
+  if(!lines.length) lines.push('Nenhuma ligação forte entre seus hábitos por enquanto. Continue registrando.');
+  html+='<div class="insight">'+lines.map(x=>'<p>'+x+'</p>').join('')+'</div><div class="cap">Baseado em '+c.N+' dias. Relação não prova causa: serve como pista.</div></div>';
+  return html;
+}
+
+/* ---- humor e anotações ---- */
 function moodMapHTML(){
   const y=ryear, jan1=new Date(y,0,1), off=dowIdx(jan1), nd=Math.round((new Date(y+1,0,1)-jan1)/864e5), cols=Math.ceil((off+nd)/7);
   let cells='';
@@ -1293,7 +1800,34 @@ function notesHTML(){
     return '<button type="button" class="note" data-goday="'+k+'"><i'+(d.mood?' style="background:var(--m'+d.mood+')"':' style="background:var(--cell)"')+'></i><span class="nt"><span class="nd">'+esc(dayShort(k))+(d.mood?' · '+MOODS[d.mood-1]:'')+'</span><span class="nx" style="display:-webkit-box">'+esc(d.note)+'</span></span></button>';
   }).join('')+'</div>';
 }
-/* imagem da retrospectiva */
+
+/* ---- conquistas em níveis ---- */
+function achievementsHTML(g){
+  const nAct=active().length;
+  const T=[
+    ['Check-ins',g.checkins,[1,25,100,250,500,1000,2500,5000],''],
+    ['Dias ativos',g.activeDays,[7,30,100,200,365],'dias'],
+    ['Dias perfeitos',g.perfect,[1,5,10,30,60,100,200,365],'dias'],
+    ['Dias perfeitos seguidos',g.best,[3,7,14,30,60,100],'dias'],
+    ['Maior sequência de um hábito',g.bestStreak,[7,14,21,30,60,100,200,365],'dias'],
+    ['Sequência em períodos',g.bestPeriod,[2,4,8,12,26,52],'períodos'],
+    ['Sem recaída',g.bestBad,[3,7,30,90,180,365],'dias'],
+    ['Meses fortes (90% ou mais)',g.strongMonths,[1,3,6,12],'meses'],
+    ['Humor registrado',g.moods,[7,30,100,365],'dias'],
+    ['Anotações escritas',g.notes,[1,10,30,100],'anotações'],
+    ['Hábitos ativos',nAct,[3,5,8,12],'hábitos']
+  ];
+  let got=0,all=0;
+  const rows=T.map(r=>{
+    const lv=r[2].filter(n=>r[1]>=n).length; got+=lv; all+=r[2].length;
+    const next=r[2][lv], full=lv===r[2].length;
+    return '<div class="tier'+(full?' full':'')+'"><b>'+r[0]+'</b><div class="pips">'+r[2].map((n,i)=>'<i class="'+(i<lv?'on':'')+'"></i>').join('')+'</div>'
+      +'<span>'+(full?'nível máximo · '+fmtInt(r[1])+(r[3]?' '+r[3]:''):fmtInt(r[1])+' de '+fmtInt(next)+(r[3]?' '+r[3]:'')+' · nível '+lv+' de '+r[2].length)+'</span></div>';
+  });
+  return '<h2 class="sec">Conquistas</h2><div class="achsum" style="margin-top:6px">'+got+' de '+all+' níveis conquistados</div><div class="ach">'+rows.join('')+'</div>';
+}
+
+/* ---- imagem da retrospectiva ---- */
 function hexMix(a,b,t){
   const p=h=>[1,3,5].map(i=>parseInt(h.slice(i,i+2),16));
   const A=p(a),B=p(b); return 'rgb('+A.map((v,i)=>Math.round(B[i]*(1-t)+v*t)).join(',')+')';
@@ -1302,7 +1836,7 @@ async function retrospective(){
   const y=ryear, act=active(); if(!act.length){ toast('Crie hábitos primeiro'); return; }
   try{ await document.fonts.ready; }catch(e){}
   const cs=getComputedStyle(document.documentElement), V=n=>cs.getPropertyValue(n).trim();
-  const bg=V('--bg'), fg=V('--fg'), mu=V('--muted'), cell=V('--cell'), sf=V('--surface');
+  const bg=V('--bg'), fg=V('--fg'), mu=V('--muted'), cell=V('--cell'), dangerC=V('--danger');
   const W=1080, PAD=48, N=53, step=(W-2*PAD)/N, cw=step-3.2;
   const jan1=new Date(y,0,1), off=dowIdx(jan1), nd=Math.round((new Date(y+1,0,1)-jan1)/864e5);
   const blockH=64+17+7*step+34, H=Math.round(PAD+170+act.length*blockH+60);
@@ -1316,9 +1850,11 @@ async function retrospective(){
   let yy=PAD+170;
   act.forEach(h=>{
     const hex=isHex(h.color)?h.color:V('--c-'+h.color), rs=rangeStats(h,y+'-01-01',y+'-12-31'), st=habitStats(h);
-    c.fillStyle=hex; c.beginPath(); c.roundRect?c.roundRect(PAD,yy+10,26,26,7):c.rect(PAD,yy+10,26,26); c.fill();
+    const em=markText(h);
+    if(em){ c.font='28px system-ui,"Apple Color Emoji","Segoe UI Emoji",sans-serif'; c.textAlign='left'; c.fillStyle=fg; c.fillText(em,PAD,yy+36); }
+    else{ c.fillStyle=hex; c.beginPath(); c.roundRect?c.roundRect(PAD,yy+10,26,26,7):c.rect(PAD,yy+10,26,26); c.fill(); }
     c.fillStyle=fg; c.font='700 34px "Bricolage Grotesque",system-ui,sans-serif'; c.textAlign='left';
-    c.fillText(h.name.length>26?h.name.slice(0,25)+'…':h.name,PAD+42,yy+36);
+    c.fillText(h.name.length>24?h.name.slice(0,23)+'…':h.name,PAD+42,yy+36);
     c.textAlign='right'; c.fillStyle=hex; c.font='500 34px "DM Mono",ui-monospace,monospace';
     c.fillText(rs.pct==null?'–':rs.pct+'%',W-PAD,yy+36);
     c.fillStyle=mu; c.font='500 20px "DM Mono",ui-monospace,monospace';
@@ -1327,9 +1863,9 @@ async function retrospective(){
     c.fillStyle=mu; c.font='500 16px "DM Mono",ui-monospace,monospace';
     for(let m=0;m<12;m++){ const idx=Math.round((new Date(y,m,1)-jan1)/864e5); c.fillText(MONTHS[m],PAD+Math.floor((idx+off)/7)*step,gy-8); }
     for(let i=0;i<nd;i++){
-      const k=key(addDays(jan1,i)), col=Math.floor((i+off)/7), row=(i+off)%7, v=getVal(h,k);
-      const p=v>0?(32+68*Math.min(v/goalOf(h),1))/100:0;
-      c.fillStyle=p?hexMix(hex,cell,p):cell; if(k>todayKey()) c.globalAlpha=.4;
+      const k=key(addDays(jan1,i)), col=Math.floor((i+off)/7), row=(i+off)%7, r=cellP(h,k);
+      const p=r.p/100;
+      c.fillStyle=p?hexMix(r.slip?dangerC:hex,cell,p):cell; if(k>todayKey()) c.globalAlpha=.4;
       c.beginPath(); if(c.roundRect) c.roundRect(PAD+col*step,gy+row*step,cw,cw,4); else c.rect(PAD+col*step,gy+row*step,cw,cw); c.fill(); c.globalAlpha=1;
     }
     yy+=blockH;
@@ -1346,12 +1882,14 @@ async function retrospective(){
     document.body.appendChild(a); a.click(); a.remove(); setTimeout(()=>URL.revokeObjectURL(a.href),2000); toast('Imagem pronta');
   },'image/png');
 }
+
 function renderResumo(){
   const g=globalStats(), act=active();
   const B=$('#resumoBody');
   if(!act.length){ B.innerHTML='<div class="empty" style="margin-top:14px"><strong>Sem dados ainda</strong>Crie hábitos e marque alguns dias para ver estatísticas.</div>'; return; }
   const l30=g.last30.filter(x=>x.rel>0), r30=l30.reduce((a,x)=>a+x.done,0), t30=l30.reduce((a,x)=>a+x.rel,0);
-  let html='<div class="tiles" style="margin-top:14px">'
+  let html=weekReviewHTML();
+  html+='<h2 class="sec">Visão geral</h2><div class="tiles" style="margin-top:12px">'
     +'<div class="tile"><b>'+fmtInt(g.checkins)+'</b><span>check-ins no total</span></div>'
     +'<div class="tile"><b>'+(t30?Math.round(100*r30/t30):0)+'%</b><span>taxa nos últimos 30 dias</span></div>'
     +'<div class="tile"><b>'+g.perfect+'</b><span>dias perfeitos</span></div>'
@@ -1372,34 +1910,40 @@ function renderResumo(){
     +'<button type="button" class="ib" data-ry="-1" aria-label="Ano anterior">‹</button><button type="button" class="ib" data-ry="1" aria-label="Próximo ano"'+(ryear>=new Date().getFullYear()?' disabled':'')+'>›</button></div>'
     +bars(mv,ml,'var(--accent)')+'</div>';
 
+  html+=insightsHTML(g);
+  html+=corrHTML();
+  html+='<h2 class="sec">Humor em '+ryear+'</h2><div class="card" style="margin-top:12px">'+moodMapHTML()+'<div class="cap">Cada quadradinho é um dia, do vermelho (péssimo) ao verde (ótimo).</div></div>';
+  html+=notesHTML();
+
   html+='<h2 class="sec">Por hábito</h2>';
   act.forEach(h=>{
     const st=habitStats(h), mvals=[];
     for(let m=0;m<12;m++){ mvals.push(rangeStats(h,key(new Date(ryear,m,1)),key(new Date(ryear,m+1,0))).pct); }
     const avg=st.logged?st.sum/st.logged:0;
-    html+='<div class="card" style="margin-top:12px;'+cstyle(h.color)+'"><div class="card-head"><div class="name"><span class="nm"><i class="dot"></i><b>'+esc(h.name)+'</b></span><span class="goal">'+esc(goalPart(h)+' · '+freqPart(h))+'</span></div>'
+    const mini=h.bad
+      ?'<div><b>'+st.streak+'</b><span>dias sem recaída</span></div><div><b>'+st.best+'</b><span>melhor sequência</span></div><div><b>'+st.slips+'</b><span>recaídas</span></div>'
+      :'<div><b>'+st.streak+'</b><span>sequência atual</span></div><div><b>'+st.best+'</b><span>melhor sequência</span></div><div><b>'+fmtInt(st.checkins)+'</b><span>dias feitos</span></div>';
+    html+='<div class="card" style="margin-top:12px;'+cstyle(h.color)+'"><div class="card-head"><div class="name"><span class="nm">'+markHTML(h)+'<b>'+esc(h.name)+'</b></span><span class="goal">'+esc(goalPart(h)+(h.bad?'':' · '+freqPart(h)))+(pausedNowTag(h))+'</span></div>'
       +'<div class="pct"><b>'+st.pct+'%</b><small>'+st.done+' de '+st.total+' '+st.unit+'</small></div></div>'
-      +'<div class="mini"><div><b>'+st.streak+'</b><span>sequência atual</span></div><div><b>'+st.best+'</b><span>melhor sequência</span></div><div><b>'+fmtInt(st.checkins)+'</b><span>dias feitos</span></div></div>'
+      +'<div class="mini">'+mini+'</div>'
       +(h.type==='count'?'<div class="cap">Total: '+fmt(st.sum)+(h.unit?' '+esc(h.unit):'')+' · média '+fmt(avg)+' por dia registrado</div>':'')
       +bars(mvals,ml,'var(--c)')+'</div>';
   });
 
-  const bd=[
-    {t:'Primeiro check-in',n:1,v:g.checkins},{t:'25 check-ins',n:25,v:g.checkins},{t:'100 check-ins',n:100,v:g.checkins},{t:'500 check-ins',n:500,v:g.checkins},{t:'1.000 check-ins',n:1000,v:g.checkins},
-    {t:'Dia perfeito',n:1,v:g.perfect},{t:'10 dias perfeitos',n:10,v:g.perfect},{t:'30 dias perfeitos',n:30,v:g.perfect},
-    {t:'7 dias seguidos',n:7,v:g.bestStreak},{t:'30 dias seguidos',n:30,v:g.bestStreak},{t:'100 dias seguidos',n:100,v:g.bestStreak},{t:'1 ano seguido',n:365,v:g.bestStreak}
-  ];
-  html+=insightsHTML(g);
-  html+='<h2 class="sec">Humor em '+ryear+'</h2><div class="card" style="margin-top:12px">'+moodMapHTML()+'<div class="cap">Cada quadradinho é um dia, do vermelho (péssimo) ao verde (ótimo).</div></div>';
-  html+=notesHTML();
   html+='<h2 class="sec">Retrospectiva</h2><div class="card" style="margin-top:12px"><p class="hint" style="margin:0">Uma imagem com o ano inteiro de todos os seus hábitos, pronta para guardar ou compartilhar.</p><div class="btnrow"><button type="button" class="btn" data-share="1">Gerar retrospectiva de '+ryear+'</button></div></div>';
-  html+='<h2 class="sec">Conquistas</h2><div class="badges" style="margin-top:12px">'
-    +bd.map(b=>{ const on=b.v>=b.n; return '<div class="badge'+(on?' on':'')+'"><b>'+b.t+'</b><span>'+(on?'conquistado':Math.min(b.v,b.n)+' de '+b.n)+'</span></div>'; }).join('')+'</div>';
+  html+=achievementsHTML(g);
   B.innerHTML=html;
 }
+function pausedNowTag(h){ return isPaused(h,todayKey())?' · pausado':''; }
 $('#resumoBody').addEventListener('click',e=>{
   if(e.target.closest('[data-share]')){ retrospective(); return; }
   const gd=e.target.closest('[data-goday]'); if(gd){ sel=gd.dataset.goday; showTab('hoje'); return; }
+  const wk=e.target.closest('[data-wk]');
+  if(wk){
+    const curWs=key(weekStartDate(new Date())), base=rweek&&rweek<=curWs?rweek:curWs;
+    const n=key(addDays(parse(base),7*Number(wk.dataset.wk)));
+    rweek=n>curWs?curWs:n; renderResumo(); return;
+  }
   const b=e.target.closest('[data-ry]'); if(!b) return;
   ryear=Math.min(new Date().getFullYear(),ryear+Number(b.dataset.ry)); renderResumo();
 });
@@ -1409,12 +1953,17 @@ function segHTML(name,opts,val){
   return '<div class="seg2">'+opts.map(o=>'<button type="button" data-set="'+name+'" data-val="'+o[0]+'" aria-pressed="'+(String(val)===String(o[0]))+'">'+o[1]+'</button>').join('')+'</div>';
 }
 function renderAjustes(){
-  const arch=state.habits.filter(h=>h.archived);
+  const arch=state.habits.filter(h=>h.archived), S=state.settings;
   const who=currentUser&&currentUser.email?currentUser.email.split('@')[0]:'';
   const cloud='Seus dados ficam na sua conta'+(who?' ('+who+')':'')+' e também neste aparelho. Entrando com o mesmo usuário em outro aparelho, você vê o mesmo progresso.';
+  const onoff=[[1,'Ligado'],[0,'Desligado']];
   $('#ajustesBody').innerHTML=
-    '<div class="card"><h3 class="ct">Aparência</h3><div class="set-row">'+segHTML('theme',[['auto','Automático'],['light','Claro'],['dark','Escuro']],state.settings.theme)+'</div></div>'
-    +'<div class="card"><h3 class="ct">Início da semana</h3><div class="set-row">'+segHTML('ws',[[0,'Domingo'],[1,'Segunda']],state.settings.weekStart)+'<p>Muda as colunas da grade e o que conta como “semana” nos hábitos de vezes por semana.</p></div></div>'
+    '<div class="card"><h3 class="ct">Mensagem do dia</h3><div class="set-row">'+segHTML('msg',[['none','Nenhuma'],['cur','Curiosidade'],['ver','Versículo'],['fra','Frase']],S.msg)+'<p>Aparece no topo da aba Hoje e muda todo dia.</p></div></div>'
+    +'<div class="card"><h3 class="ct">Aparência</h3><div class="set-row">'+segHTML('theme',[['auto','Automático'],['light','Claro'],['dark','Escuro']],S.theme)+'</div></div>'
+    +'<div class="card"><h3 class="ct">Ícones de emoji</h3><div class="set-row">'+segHTML('emoji',onoff,S.emoji?1:0)+'<p>Mostra o emoji de cada hábito no lugar da bolinha colorida.</p></div></div>'
+    +'<div class="card"><h3 class="ct">Animações</h3><div class="set-row">'+segHTML('anim',onoff,S.anim?1:0)+'<p>Movimentos suaves ao marcar hábitos e trocar de aba. Respeita a configuração de movimento reduzido do aparelho.</p></div></div>'
+    +'<div class="card"><h3 class="ct">Hábitos fora do dia</h3><div class="set-row">'+segHTML('off',[['show','Mostrar apagados'],['hide','Esconder']],S.offDay)+'<p>Hábitos de dias fixos (ou pausados) que não caem no dia escolhido. Mesmo escondidos, dá para marcar um deles tocando em “mostrar ocultos”.</p></div></div>'
+    +'<div class="card"><h3 class="ct">Início da semana</h3><div class="set-row">'+segHTML('ws',[[0,'Domingo'],[1,'Segunda']],S.weekStart)+'<p>Muda as colunas da grade e o que conta como “semana” nas metas por período.</p></div></div>'
     +'<div class="card"><h3 class="ct">Hábitos arquivados</h3>'
     +(arch.length?arch.map(h=>'<div class="arch"><span class="dot" style="'+cstyle(h.color)+'"></span><span class="an">'+esc(h.name)+'</span><button type="button" class="btn" data-act="restore" data-id="'+h.id+'">Restaurar</button><button type="button" class="btn danger" data-act="rmarch" data-id="'+h.id+'">Excluir</button></div>').join(''):'<p class="hint">Nenhum. Arquivar tira o hábito da lista sem apagar o histórico.</p>')+'</div>'
     +'<div class="card"><h3 class="ct">Seus dados</h3><div class="btnrow"><button type="button" class="btn" data-act="exp-json">Exportar tudo (JSON)</button><button type="button" class="btn" data-act="exp-csv">Exportar registros (CSV)</button><button type="button" class="btn" data-act="import">Importar</button></div>'
@@ -1423,10 +1972,13 @@ function renderAjustes(){
 }
 function csvQ(s){ return '"'+String(s).replace(/"/g,'""')+'"'; }
 function makeCsv(){
-  const lines=['data,habito,valor,unidade,meta,concluido'];
+  const lines=['data,habito,tipo,valor,unidade,meta_ou_limite,concluido'];
   state.habits.forEach(h=>{
     const l=state.logs[h.id]||{};
-    Object.keys(l).sort().forEach(k=>{ lines.push([k,csvQ(h.name),String(l[k]).replace('.',','),csvQ(h.unit||''),String(goalOf(h)).replace('.',','),l[k]>=goalOf(h)?'sim':'nao'].join(',')); });
+    Object.keys(l).sort().forEach(k=>{
+      const v=l[k];
+      lines.push([k,csvQ(h.name),h.bad?'evitar':h.type==='count'?'quantidade':'feito',String(v).replace('.',','),csvQ(h.unit||''),String(h.bad?limitOf(h):goalOf(h)).replace('.',','),(h.bad?v<=limitOf(h):v>=goalOf(h))?'sim':'nao'].join(','));
+    });
   });
   return lines.join('\n');
 }
@@ -1439,36 +1991,42 @@ function saveFile(name,data){
 $('#ajustesBody').addEventListener('click',e=>{
   const s=e.target.closest('[data-set]');
   if(s){
-    if(s.dataset.set==='theme'){ state.settings.theme=s.dataset.val; applyTheme(); }
-    else if(s.dataset.set==='ws'){ state.settings.weekStart=Number(s.dataset.val); gScrollX=null; }
-    touch(); renderAjustes(); return;
+    const n=s.dataset.set, v=s.dataset.val;
+    if(n==='theme'){ state.settings.theme=v; }
+    else if(n==='ws'){ state.settings.weekStart=Number(v); gScrollX=null; bust(); }
+    else if(n==='msg') state.settings.msg=v;
+    else if(n==='emoji') state.settings.emoji=v==='1';
+    else if(n==='anim') state.settings.anim=v==='1';
+    else if(n==='off') state.settings.offDay=v;
+    applyTheme(); touch(); renderAjustes(); return;
   }
   const b=e.target.closest('[data-act]'); if(!b) return;
   const a=b.dataset.act, id=b.dataset.id;
   if(a==='restore'){ const h=state.habits.find(x=>x.id===id); if(h){ h.archived=false; touch(); renderAjustes(); toast('Hábito restaurado'); } }
-  else if(a==='rmarch'){ armOrRun(b,'Toque de novo',()=>{ state.habits=state.habits.filter(x=>x.id!==id); delete state.logs[id]; touch(); renderAjustes(); }); }
+  else if(a==='rmarch'){ armOrRun(b,'Toque de novo',()=>{ state.habits=state.habits.filter(x=>x.id!==id); delete state.logs[id]; bust(); touch(); renderAjustes(); }); }
   else if(a==='logout'){ flush(); signOut(fsAuth); }
-  else if(a==='exp-json') saveFile('quadradinhos-'+todayKey()+'.json',JSON.stringify(state,null,1));
-  else if(a==='exp-csv') saveFile('quadradinhos-'+todayKey()+'.csv',makeCsv());
+  else if(a==='exp-json') saveFile('diario-'+todayKey()+'.json',JSON.stringify(state,null,1));
+  else if(a==='exp-csv') saveFile('diario-'+todayKey()+'.csv',makeCsv());
   else if(a==='import'){ $('#i-text').value=''; $('#i-err').hidden=true; $('#impBg').hidden=false; document.body.style.overflow='hidden'; setTimeout(()=>$('#i-text').focus(),30); }
-  else if(a==='wipe'){ armOrRun(b,'Toque de novo para apagar tudo',()=>{ state.habits=[]; state.logs={}; state.days={}; touch(); renderAjustes(); toast('Tudo apagado'); }); }
+  else if(a==='wipe'){ armOrRun(b,'Toque de novo para apagar tudo',()=>{ state.habits=[]; state.folders=[]; state.logs={}; state.days={}; bust(); touch(); renderAjustes(); toast('Tudo apagado'); }); }
 });
 $('#impSheet').addEventListener('submit',e=>{
   e.preventDefault();
   const go=$('#i-go');
   let obj;
   try{ obj=JSON.parse($('#i-text').value); if(!obj||!Array.isArray(obj.habits)) throw 0; }
-  catch(x){ const er=$('#i-err'); er.textContent='Isso não parece um arquivo exportado pelo Quadradinhos. Cole o JSON inteiro.'; er.hidden=false; return; }
+  catch(x){ const er=$('#i-err'); er.textContent='Isso não parece um arquivo exportado pelo Diário. Cole o JSON inteiro.'; er.hidden=false; return; }
   armOrRun(go,'Toque de novo para substituir tudo',()=>{
-    state=normalize(obj); touch(); applyTheme(); closeSheets(); renderAll(); toast('Dados importados');
+    bust(); state=normalize(obj); touch(); applyTheme(); closeSheets(); renderAll(); toast('Dados importados');
   });
 });
 $('#i-cancel').addEventListener('click',closeSheets);
 $('#impBg').addEventListener('click',e=>{ if(e.target===$('#impBg')) closeSheets(); });
 
 /* =============== folha de criar/editar hábito =============== */
+const EMOJIS='💧 📚 🌅 🏃 🏋️ 🧘 🥗 🍎 😴 🧠 ✍️ 🎯 💼 🎸 🎨 🧹 🪥 💊 🚭 🍺 📵 🍬 ☕ 🐶 🌱 💰 🙏 📞 🧴 🛏️ 🚿 🚴 🏊 ⚽ 🎮 📖 🗓️ ❤️ ⭐'.split(' ');
 let editing=null;
-const sheetBg=$('#sheetBg'), fName=$('#f-name'), fGoal=$('#f-goal'), fUnit=$('#f-unit'), fStep=$('#f-step'), fN=$('#f-n');
+const sheetBg=$('#sheetBg'), fName=$('#f-name'), fGoal=$('#f-goal'), fUnit=$('#f-unit'), fStep=$('#f-step'), fN=$('#f-n'), fEmoji=$('#f-emoji');
 const swatches=$('#swatches');
 function renderSwatches(selected){
   let h=COLORS.map(c=>'<label title="'+c[1]+'"><input type="radio" name="f-color" value="'+c[0]+'" aria-label="'+c[1]+'"><span style="--c:var(--c-'+c[0]+')"></span></label>').join('');
@@ -1493,38 +2051,100 @@ $('#rmColor').addEventListener('click',()=>{
   const c=curColor(); state.customColors=state.customColors.filter(x=>x!==c); touch();
   renderSwatches(COLOR_IDS[0]); toast('Cor removida da paleta');
 });
-function syncType(){ $('#countFields').hidden=!$('#f-type-count').checked; }
-function syncFreq(){
-  $('#daysPanel').hidden=!$('#f-freq-days').checked;
-  $('#weeklyPanel').hidden=!$('#f-freq-weekly').checked;
+$('#emgrid').innerHTML=EMOJIS.map(e=>'<button type="button" class="em" data-em="'+e+'" aria-label="Usar '+e+'">'+e+'</button>').join('');
+$('#emgrid').addEventListener('click',e=>{ const b=e.target.closest('[data-em]'); if(b) fEmoji.value=b.dataset.em; });
+$('#f-emoji-clear').addEventListener('click',()=>{ fEmoji.value=''; });
+
+const kind=()=>$('#f-type-bad').checked?'bad':$('#f-type-count').checked?'count':'check';
+function syncType(){
+  const k=kind();
+  $('#countFields').hidden=k!=='count';
+  $('#badFields').hidden=k!=='bad';
+  $('#freqBox').hidden=k==='bad';
+  syncFreq();
 }
-document.querySelectorAll('input[name=f-type]').forEach(r=>r.addEventListener('change',syncType));
-document.querySelectorAll('input[name=f-freq]').forEach(r=>r.addEventListener('change',syncFreq));
+function periodTxt(per,n){
+  const every=parseInt($('#f-every').value,10)||14;
+  return per==='week'?'por semana':per==='month'?'por mês':per==='year'?'por ano':'a cada '+every+' dias';
+}
+function syncFreq(){
+  const mode=document.querySelector('input[name=f-freq]:checked').value, k=kind();
+  $('#daysPanel').hidden=mode!=='days';
+  const pp=$('#periodPanel'); pp.hidden=mode!=='period'; pp.style.display=mode==='period'?'flex':'none';
+  const per=$('#f-per').value;
+  $('#everyField').hidden=per!=='days';
+  $('#metricBox').hidden=k!=='count';
+  const sum=k==='count'&&$('#f-metric-sum').checked;
+  $('#goalField').hidden=sum&&mode==='period';
+  $('#f-n-label').textContent=sum?'Total a atingir':'Quantas vezes';
+  $('#periodHint').textContent=sum
+    ?'Soma tudo o que você registrar no período. Ex.: 50 km por mês. Cada dia conta proporcionalmente na grade.'
+    :'Ex.: 3 vezes por semana, ou 10 vezes por mês. O quadradinho de cada dia mostra o progresso do período.';
+}
+document.querySelectorAll('input[name=f-type],input[name=f-freq],input[name=f-metric]').forEach(r=>r.addEventListener('change',syncType));
+$('#f-per').addEventListener('change',syncFreq);
+
+function renderFolderSelect(sel){
+  $('#f-folder').innerHTML='<option value="">Sem pasta</option>'+state.folders.map(f=>'<option value="'+esc(f.id)+'"'+(f.id===sel?' selected':'')+'>'+esc(f.name)+'</option>').join('');
+}
+function pauseUI(){
+  const h=editing, box=$('#pauseBox'); box.hidden=!h;
+  if(!h) return;
+  const t=todayKey(), cur=h.pauses.find(p=>t>=p.from&&(!p.to||t<=p.to));
+  const nowP=!!cur;
+  $('#pauseInfo').textContent=nowP?('Pausado'+(cur.to?' até '+parse(cur.to).toLocaleDateString('pt-BR')+'.':' sem data para voltar.')+' Dias pausados não contam contra você nem quebram a sequência.')
+    :'Pausar tira o hábito da lista e não conta contra você. A sequência continua de onde parou. Deixe a data vazia para pausar sem prazo.';
+  $('#f-pause').textContent=nowP?'Retomar agora':'Pausar agora';
+  $('#f-pause-to').hidden=nowP; $('#f-pause-to').value='';
+}
+$('#f-pause').addEventListener('click',()=>{
+  const h=editing; if(!h) return;
+  const t=todayKey(), cur=h.pauses.find(p=>t>=p.from&&(!p.to||t<=p.to));
+  if(cur){
+    const y=key(addDays(parse(t),-1));
+    if(cur.from>y) h.pauses=h.pauses.filter(p=>p!==cur); else cur.to=y;
+    toast('Hábito retomado');
+  }else{
+    const to=$('#f-pause-to').value;
+    if(to&&to<t){ showErr('A data de volta precisa ser hoje ou depois.'); return; }
+    h.pauses.push({from:t,to:to&&DATE_RE.test(to)?to:null});
+    toast('Hábito pausado');
+  }
+  bust(); touch(); pauseUI(); renderAll();
+});
 
 function openSheet(h){
   editing=h||null;
   $('#sheetTitle').textContent=h?'Editar hábito':'Novo hábito';
   fName.value=h?h.name:'';
-  (h&&h.type==='count'?$('#f-type-count'):$('#f-type-check')).checked=true;
-  fGoal.value=h&&h.type==='count'?h.goal:'';
-  fUnit.value=h&&h.type==='count'?(h.unit||''):'';
+  fEmoji.value=h?(h.emoji||''):'';
+  (h&&h.bad?$('#f-type-bad'):h&&h.type==='count'?$('#f-type-count'):$('#f-type-check')).checked=true;
+  const isP=h&&isPeriod(h), sum=!!(h&&isP&&h.freq.metric==='sum');
+  fGoal.value=h&&h.type==='count'&&!h.bad?(sum?'':h.goal):'';
+  fUnit.value=h&&h.type==='count'&&!h.bad?(h.unit||''):'';
   fStep.value=h&&h.step>0?h.step:'';
-  const f=h?h.freq:{mode:'daily',days:[0,1,2,3,4,5,6],n:3};
-  $('#f-freq-'+f.mode).checked=true;
+  $('#f-limit').value=h&&h.bad?h.limit:'';
+  $('#f-bunit').value=h&&h.bad?(h.unit||''):'';
+  $('#f-since').value=h&&h.bad?h.start:todayKey();
+  const f=h?h.freq:{mode:'daily',days:[0,1,2,3,4,5,6],n:3,per:'week',every:14,metric:'days'};
+  $('#f-freq-'+(h&&h.bad?'daily':f.mode)).checked=true;
   $('#f-days').innerHTML=wdOrder().map(i=>'<label><input type="checkbox" id="f-d'+i+'" value="'+i+'"'+(f.days.includes(i)?' checked':'')+'><span>'+WD[i]+'</span></label>').join('');
   fN.value=f.n;
+  $('#f-per').value=f.per; $('#f-every').value=f.every;
+  (f.metric==='sum'?$('#f-metric-sum'):$('#f-metric-days')).checked=true;
+  renderFolderSelect(h?h.folder:null);
   const used=state.habits.filter(x=>!x.archived).map(x=>x.color), free=COLORS.find(c=>!used.includes(c[0]));
   const color=h?h.color:(free?free[0]:COLORS[state.habits.length%COLORS.length][0]);
   renderSwatches(color);
   $('#f-err').hidden=true;
   $('#editRow').hidden=!h;
-  syncType(); syncFreq();
+  syncType(); pauseUI();
   sheetBg.hidden=false; document.body.style.overflow='hidden';
   setTimeout(()=>fName.focus(),30);
 }
 function closeSheets(){
-  ['#sheetBg','#dayBg','#impBg'].forEach(s=>{ $(s).hidden=true; });
-  document.body.style.overflow=''; editing=null;
+  ['#sheetBg','#dayBg','#impBg','#folderBg'].forEach(s=>{ $(s).hidden=true; });
+  document.body.style.overflow=''; editing=null; editingFolder=undefined;
   if(ui.tab==='grade') scheduleGrade();
 }
 function showErr(m){ const e=$('#f-err'); e.textContent=m; e.hidden=false; }
@@ -1532,36 +2152,59 @@ $('#sheet').addEventListener('submit',e=>{
   e.preventDefault();
   const name=fName.value.trim();
   if(!name){ showErr('Dê um nome ao hábito.'); fName.focus(); return; }
-  const type=$('#f-type-count').checked?'count':'check';
-  let goal=1, unit='', step=null;
-  if(type==='count'){
-    goal=parseFloat(fGoal.value);
-    if(!(goal>0)){ showErr('Informe a meta de cada dia, por exemplo 30.'); fGoal.focus(); return; }
+  const k=kind(), bad=k==='bad', type=k==='check'?'check':'count';
+  let goal=1, unit='', step=null, limit=0, start=null;
+  const mode=bad?'daily':document.querySelector('input[name=f-freq]:checked').value;
+  const per=$('#f-per').value;
+  let days=[0,1,2,3,4,5,6], n=3, every=14, metric='days';
+  if(mode==='period'&&type==='count'&&$('#f-metric-sum').checked) metric='sum';
+  if(type==='count'&&!bad){
     unit=fUnit.value.trim();
     const s=parseFloat(fStep.value); step=s>0?s:null;
+    if(!(mode==='period'&&metric==='sum')){
+      goal=parseFloat(fGoal.value);
+      if(!(goal>0)){ showErr('Informe a meta de cada dia, por exemplo 30.'); fGoal.focus(); return; }
+    }
   }
-  const mode=$('#f-freq-days').checked?'days':$('#f-freq-weekly').checked?'weekly':'daily';
-  let days=[0,1,2,3,4,5,6], n=3;
+  if(bad){
+    limit=parseFloat($('#f-limit').value); if(!(limit>=0)) limit=0;
+    unit=$('#f-bunit').value.trim();
+    const sv=$('#f-since').value; start=DATE_RE.test(sv)?sv:todayKey();
+    if(start>todayKey()){ showErr('A data de início não pode ser no futuro.'); return; }
+  }
   if(mode==='days'){
     days=[0,1,2,3,4,5,6].filter(i=>$('#f-d'+i).checked);
     if(!days.length){ showErr('Escolha pelo menos um dia da semana.'); return; }
   }
-  if(mode==='weekly'){
-    n=parseInt(fN.value,10);
-    if(!(n>=1&&n<=7)){ showErr('Informe de 1 a 7 vezes por semana.'); fN.focus(); return; }
+  if(mode==='period'){
+    n=parseFloat(fN.value);
+    if(!(n>0)){ showErr('Informe a meta do período, por exemplo 3.'); fN.focus(); return; }
+    if(metric==='days'){
+      n=Math.round(n);
+      const max=per==='week'?7:per==='month'?31:per==='year'?366:parseInt($('#f-every').value,10)||14;
+      if(n>max){ showErr('Essa meta é maior que o número de dias do período ('+max+').'); fN.focus(); return; }
+    }
+    if(per==='days'){
+      every=parseInt($('#f-every').value,10);
+      if(!(every>=2&&every<=366)){ showErr('Informe de 2 a 366 dias.'); $('#f-every').focus(); return; }
+    }
+    if(metric==='sum'){
+      const len=per==='week'?7:per==='month'?30:per==='year'?365:every;
+      goal=n/len;
+    }
   }
-  const color=curColor();
-  const freq={mode:mode,days:days,n:n};
-  if(editing){ Object.assign(editing,{name:name,type:type,goal:goal,unit:unit,step:step,color:color,freq:freq}); }
-  else{ state.habits.push({id:uid(),name:name,type:type,goal:goal,unit:unit,step:step,color:color,freq:freq,start:todayKey(),archived:false}); }
-  closeSheets(); touch(); renderAll();
+  const data={name:name,emoji:fEmoji.value.trim().slice(0,8),type:type,bad:bad,goal:goal,limit:limit,unit:unit,step:step,color:curColor(),folder:$('#f-folder').value||null,freq:{mode:mode,days:days,n:n,per:per,every:every,metric:metric}};
+  if(bad) data.start=start;
+  if(editing){ Object.assign(editing,data); }
+  else{ data.id=uid(); data.pauses=[]; data.archived=false; if(!bad) data.start=todayKey(); state.habits.push(data); }
+  bust(); closeSheets(); touch(); renderAll();
 });
 $('#f-cancel').addEventListener('click',closeSheets);
 sheetBg.addEventListener('click',e=>{ if(e.target===sheetBg) closeSheets(); });
 function moveHabit(dir){
   if(!editing) return;
   const a=state.habits, i=a.indexOf(editing); let j=i+dir;
-  while(j>=0&&j<a.length&&a[j].archived) j+=dir;
+  while(j>=0&&j<a.length&&(a[j].archived||(a[j].folder||null)!==(editing.folder||null))) j+=dir;
   if(j<0||j>=a.length) return;
   const t=a[i]; a[i]=a[j]; a[j]=t;
   touch(); renderAll();
@@ -1577,11 +2220,45 @@ $('#f-del').addEventListener('click',()=>{
   armOrRun(b,'Toque de novo para excluir',()=>{
     const id=editing.id;
     state.habits=state.habits.filter(h=>h.id!==id); delete state.logs[id];
-    closeSheets(); touch(); renderAll();
+    bust(); closeSheets(); touch(); renderAll();
   });
 });
+
+/* =============== folha de pasta =============== */
+let editingFolder; // undefined = fechada, null = nova, objeto = editando
+const foName=$('#fo-name');
+function openFolderSheet(id){
+  const f=id?state.folders.find(x=>x.id===id):null;
+  if(id&&!f) return;
+  editingFolder=f||null;
+  $('#foTitle').textContent=f?'Editar pasta':'Nova pasta';
+  foName.value=f?f.name:'';
+  $('#fo-err').hidden=true;
+  $('#fo-del').hidden=!f; $('#fo-hint').hidden=!f;
+  $('#folderBg').hidden=false; document.body.style.overflow='hidden';
+  setTimeout(()=>foName.focus(),30);
+}
+$('#folderSheet').addEventListener('submit',e=>{
+  e.preventDefault();
+  const name=foName.value.trim();
+  if(!name){ const er=$('#fo-err'); er.textContent='Dê um nome à pasta.'; er.hidden=false; foName.focus(); return; }
+  if(editingFolder) editingFolder.name=name.slice(0,30);
+  else state.folders.push({id:'f'+Date.now().toString(36)+Math.random().toString(36).slice(2,5),name:name.slice(0,30)});
+  closeSheets(); touch(); renderAll();
+});
+$('#fo-del').addEventListener('click',()=>{
+  const b=$('#fo-del'), f=editingFolder; if(!f) return;
+  armOrRun(b,'Toque de novo para excluir',()=>{
+    state.habits.forEach(h=>{ if(h.folder===f.id) h.folder=null; });
+    state.folders=state.folders.filter(x=>x.id!==f.id);
+    delete ui.collapsed[f.id]; saveUi();
+    closeSheets(); touch(); renderAll(); toast('Pasta excluída');
+  });
+});
+$('#fo-cancel').addEventListener('click',closeSheets);
+$('#folderBg').addEventListener('click',e=>{ if(e.target===$('#folderBg')) closeSheets(); });
 document.addEventListener('keydown',e=>{
-  if(e.key==='Escape'&&(!$('#sheetBg').hidden||!$('#dayBg').hidden||!$('#impBg').hidden)) closeSheets();
+  if(e.key==='Escape'&&['#sheetBg','#dayBg','#impBg','#folderBg'].some(s=>!$(s).hidden)) closeSheets();
 });
 
 /* =============== abas e ciclo de vida =============== */
