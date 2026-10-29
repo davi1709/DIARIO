@@ -420,6 +420,42 @@ textarea{width:100%;border-radius:12px;border:1px solid var(--line);background:v
 @keyframes pop{0%{transform:scale(.8)}100%{transform:none}}
 @keyframes wiggle{0%,100%{transform:rotate(0)}20%{transform:rotate(-14deg) scale(1.25)}50%{transform:rotate(12deg) scale(1.25)}80%{transform:rotate(-6deg)}}
 @media (prefers-reduced-motion:reduce){ .anim *,.anim *::before{animation:none!important;transition:none!important} }
+/* tarefas */
+.field input[type=time]{height:46px;border-radius:12px;border:1px solid var(--line);background:var(--bg);padding:0 12px;width:100%;min-width:0;color:var(--fg)}
+.field textarea{border-radius:12px;border:1px solid var(--line);background:var(--bg);padding:10px 12px;width:100%;min-height:70px;resize:vertical;color:var(--fg)}
+.thead{display:flex;align-items:center;gap:4px;margin:6px 0 8px}
+.thead .ftoggle{flex:1}
+.tlist{display:flex;flex-direction:column;gap:8px;margin-bottom:6px}
+.trow{display:flex;align-items:center;gap:10px;padding:10px 10px 10px 12px;border-radius:14px;background:var(--surface);border:1px solid var(--line)}
+.trow .tt{flex:1;min-width:0;text-align:left;display:flex;flex-direction:column;gap:2px;padding:2px 0}
+.trow .tn{font-weight:600;overflow-wrap:anywhere}
+.trow .tm{font:12px var(--font-mono);color:var(--muted)}
+.trow .tm.late{color:var(--danger)}
+.trow .fl{color:var(--danger)}
+.trow .tck{flex:none;width:34px;height:34px;border-radius:50%;border:2px solid var(--line);display:grid;place-items:center;color:transparent;background:transparent}
+.trow .tck svg{width:18px;height:18px}
+.trow.done .tck{background:var(--accent);border-color:var(--accent);color:var(--bg)}
+.trow.done .tn{text-decoration:line-through;color:var(--muted)}
+.tgroup{font:500 12px var(--font-mono);color:var(--muted);text-transform:uppercase;letter-spacing:.04em;margin:10px 2px 2px}
+.tmore{font:12px var(--font-mono);color:var(--muted);text-align:center;padding:6px}
+.tk{position:absolute;left:0;right:0;bottom:3px;display:flex;justify-content:center;gap:2px;pointer-events:none}
+.tk i{width:5px;height:5px;border-radius:50%;background:var(--accent)}
+.tk i.f{background:var(--danger)}
+.tk i.d{background:var(--muted);opacity:.7}
+.mcell,.wcell{position:relative}
+.tflags{display:flex;gap:8px}
+.tflags label{display:flex;align-items:center;gap:8px;font-size:14px;color:var(--fg)}
+.qd{display:flex;gap:6px;flex-wrap:wrap}
+.qd button{padding:6px 12px;border-radius:99px;background:var(--surface2);font:500 12px var(--font-mono);color:var(--fg)}
+.tday-add{display:flex;gap:8px;margin-top:12px}
+.tday-add input{flex:1;height:46px;border-radius:12px;border:1px solid var(--line);background:var(--bg);padding:0 12px;min-width:0;color:var(--fg)}
+.addrow.wrap{flex-wrap:wrap}
+.addrow.wrap .add{flex:1 1 100%}
+.addrow.wrap .add.half{flex:1 1 calc(50% - 5px)}
+.anim .trow{animation:rise .35s cubic-bezier(.2,.8,.2,1) both;animation-delay:calc(var(--i,0)*30ms)}
+.anim .trow .tck{transition:background .2s,border-color .2s,transform .2s}
+.anim .trow.done .tck{animation:pop .35s ease}
+.tday-add .primary{flex:none;height:46px;padding:0 14px;white-space:nowrap}
 
 </style>
 </head>
@@ -450,6 +486,7 @@ textarea{width:100%;border-radius:12px;border:1px solid var(--line);background:v
     <div id="msgbox" hidden></div>
     <div class="strip" id="strip"></div>
     <div class="daysum" id="daysum"></div>
+    <div id="tasksBox"></div>
     <div class="list" id="hojeList"></div>
     <section class="card" id="diary" style="margin-top:12px" aria-label="Diário do dia">
       <h2 class="ct">Como foi o dia?</h2>
@@ -457,7 +494,7 @@ textarea{width:100%;border-radius:12px;border:1px solid var(--line);background:v
       <label class="sr" for="d-note">Anotação do dia</label>
       <textarea id="d-note" rows="3" maxlength="1000" placeholder="Anote algo sobre o dia (opcional)"></textarea>
     </section>
-    <div class="addrow"><button type="button" class="add" id="addBtn"><span aria-hidden="true">+</span> Novo hábito</button><button type="button" class="add" id="addFolderBtn"><span aria-hidden="true">+</span> Nova pasta</button></div>
+    <div class="addrow wrap"><button type="button" class="add" id="addTaskBtn"><span aria-hidden="true">+</span> Nova tarefa</button><button type="button" class="add half" id="addBtn"><span aria-hidden="true">+</span> Novo hábito</button><button type="button" class="add half" id="addFolderBtn"><span aria-hidden="true">+</span> Nova pasta</button></div>
   </section>
 
   <section id="v-grade" hidden>
@@ -595,6 +632,54 @@ textarea{width:100%;border-radius:12px;border:1px solid var(--line);background:v
   </form>
 </div>
 
+<!-- Folha: tarefa -->
+<div class="backdrop" id="taskBg" hidden>
+  <form class="sheet" id="taskSheet" role="dialog" aria-modal="true" aria-labelledby="tkTitle" novalidate>
+    <h2 id="tkTitle">Nova tarefa</h2>
+    <div class="field">
+      <label for="tk-name">Tarefa</label>
+      <input id="tk-name" type="text" maxlength="120" autocomplete="off" placeholder="Ex.: Marcar consulta no dentista">
+    </div>
+    <div class="row3" style="grid-template-columns:1fr 1fr">
+      <div class="field"><label for="tk-date">Data</label><input id="tk-date" type="date"></div>
+      <div class="field"><label for="tk-time">Hora (opcional)</label><input id="tk-time" type="time"></div>
+    </div>
+    <div class="qd" id="tk-quick">
+      <button type="button" data-q="0">Hoje</button><button type="button" data-q="1">Amanhã</button><button type="button" data-q="7">Em 1 semana</button><button type="button" data-q="">Sem data</button>
+    </div>
+    <div class="field">
+      <label for="tk-repeat">Repetir</label>
+      <select id="tk-repeat"><option value="">Não repetir</option><option value="day">Todo dia</option><option value="week">Toda semana</option><option value="month">Todo mês</option></select>
+    </div>
+    <div class="tflags"><label><input type="checkbox" id="tk-flag"> Marcar como importante</label></div>
+    <div class="field">
+      <label for="tk-note">Anotação (opcional)</label>
+      <textarea id="tk-note" maxlength="500" rows="3"></textarea>
+    </div>
+    <p class="err" id="tk-err" role="alert" hidden></p>
+    <div class="actions">
+      <button type="button" class="danger" id="tk-del" hidden>Excluir</button>
+      <span class="sp"></span>
+      <button type="button" class="ghost" id="tk-cancel">Cancelar</button>
+      <button type="submit" class="primary">Salvar</button>
+    </div>
+  </form>
+</div>
+
+<!-- Folha: tarefas de um dia -->
+<div class="backdrop" id="tdayBg" hidden>
+  <div class="sheet" id="tdaySheet" role="dialog" aria-modal="true" aria-labelledby="tdTitle">
+    <h2 id="tdTitle">Dia</h2>
+    <div id="tdayBody"></div>
+    <form class="tday-add" id="tdayAdd"><input id="td-new" type="text" maxlength="120" autocomplete="off" placeholder="Nova tarefa para este dia" aria-label="Nova tarefa"><button type="submit" class="primary">Adicionar</button></form>
+    <div class="actions" style="margin-top:14px">
+      <button type="button" class="ghost" id="td-open" hidden>Abrir o dia</button>
+      <span class="sp"></span>
+      <button type="button" class="primary" id="td-close">Fechar</button>
+    </div>
+  </div>
+</div>
+
 <!-- Folha: editar um dia de um hábito -->
 <div class="backdrop" id="dayBg" hidden>
   <div class="sheet" id="daySheet" role="dialog" aria-modal="true" aria-labelledby="dsTitle">
@@ -695,12 +780,18 @@ function normalize(s){
       emoji:set.emoji!==false,
       anim:set.anim!==false,
       offDay:set.offDay==='hide'?'hide':'show',
-      countFrom:DATE_RE.test(set.countFrom||'')?set.countFrom:''
+      countFrom:DATE_RE.test(set.countFrom||'')?set.countFrom:'',
+      tasks:set.tasks!==false
     },
     customColors:Array.isArray(s.customColors)?s.customColors.filter(isHex).map(x=>x.toLowerCase()).filter((x,i,a)=>a.indexOf(x)===i).slice(0,12):[],
     folders:[],
+    tasks:[],
     habits:[]
   };
+  (Array.isArray(s.tasks)?s.tasks:[]).forEach(t=>{
+    if(!t||!t.id||!String(t.title||'').trim()) return;
+    out.tasks.push({id:String(t.id),title:String(t.title).slice(0,120),date:DATE_RE.test(t.date||'')?t.date:'',time:/^\d\d:\d\d$/.test(t.time||'')?t.time:'',flag:!!t.flag,note:String(t.note||'').slice(0,500),repeat:['day','week','month'].includes(t.repeat)?t.repeat:'',done:!!t.done,doneAt:DATE_RE.test(t.doneAt||'')?t.doneAt:'',next:String(t.next||'')});
+  });
   const fids={};
   (Array.isArray(s.folders)?s.folders:[]).forEach(f=>{
     if(f&&f.id&&!fids[f.id]){ fids[f.id]=1; out.folders.push({id:String(f.id),name:String(f.name||'Pasta').slice(0,30)}); }
@@ -1346,7 +1437,7 @@ function buildFolderHead(f,hs){
   return el;
 }
 function renderHoje(){
-  renderMsg(); renderStrip(); renderSummary();
+  renderMsg(); renderStrip(); renderSummary(); renderTasksHoje();
   const L=$('#hojeList'); L.innerHTML=''; rows={}; foldHabits={};
   const act=active(), fs=state.folders;
   let hidden=0, idx=0;
@@ -1580,7 +1671,8 @@ function renderGrade(){
   }
   let idx=0;
   const add=el=>{ el.style.setProperty('--i',idx++); L.appendChild(el); };
-  add(buildGradeCard(null));
+  const allCard=buildGradeCard(null); if(z!=='ano') addTaskDots(allCard); add(allCard);
+  const tc=buildGradeTasks(); if(tc) add(tc);
   const fs=state.folders;
   if(!fs.length){ act.forEach(h=>add(buildGradeCard(h))); }
   else{
@@ -1611,7 +1703,9 @@ $('#gradeList').addEventListener('click',e=>{
   const hid=card.dataset.hid;
   if(e.target.closest('[data-edit]')){ const h=state.habits.find(x=>x.id===hid); if(h) openSheet(h); return; }
   const c=e.target.closest('[data-d]'); if(!c) return;
-  const k=c.dataset.d; if(k>todayKey()) return;
+  const k=c.dataset.d;
+  if(hid==='all'&&tasksOn()){ openTaskDay(k); return; }
+  if(k>todayKey()) return;
   if(hid==='all'){ sel=k; showTab('hoje'); return; }
   const h=state.habits.find(x=>x.id===hid); if(h) openDaySheet(h,k);
 });
@@ -1962,6 +2056,7 @@ function renderAjustes(){
   $('#ajustesBody').innerHTML=
     '<div class="card"><h3 class="ct">Mensagem do dia</h3><div class="set-row">'+segHTML('msg',[['none','Nenhuma'],['cur','Curiosidade'],['ver','Versículo'],['fra','Frase']],S.msg)+'<p>Aparece no topo da aba Hoje e muda todo dia.</p></div></div>'
     +'<div class="card"><h3 class="ct">Aparência</h3><div class="set-row">'+segHTML('theme',[['auto','Automático'],['light','Claro'],['dark','Escuro']],S.theme)+'</div></div>'
+    +'<div class="card"><h3 class="ct">Tarefas</h3><div class="set-row">'+segHTML('tasks',onoff,S.tasks!==false?1:0)+'<p>Tarefas com data e hora aparecem na aba Hoje e nos dias da Grade, como um calendário.</p></div></div>'
     +'<div class="card"><h3 class="ct">Ícones de emoji</h3><div class="set-row">'+segHTML('emoji',onoff,S.emoji?1:0)+'<p>Mostra o emoji de cada hábito no lugar da bolinha colorida.</p></div></div>'
     +'<div class="card"><h3 class="ct">Animações</h3><div class="set-row">'+segHTML('anim',onoff,S.anim?1:0)+'<p>Movimentos suaves ao marcar hábitos e trocar de aba. Respeita a configuração de movimento reduzido do aparelho.</p></div></div>'
     +'<div class="card"><h3 class="ct">Hábitos fora do dia</h3><div class="set-row">'+segHTML('off',[['show','Mostrar apagados'],['hide','Esconder']],S.offDay)+'<p>Hábitos de dias fixos (ou pausados) que não caem no dia escolhido. Mesmo escondidos, dá para marcar um deles tocando em “mostrar ocultos”.</p></div></div>'
@@ -2000,6 +2095,7 @@ $('#ajustesBody').addEventListener('click',e=>{
     else if(n==='msg') state.settings.msg=v;
     else if(n==='emoji') state.settings.emoji=v==='1';
     else if(n==='anim') state.settings.anim=v==='1';
+    else if(n==='tasks') state.settings.tasks=v==='1';
     else if(n==='off') state.settings.offDay=v;
     applyTheme(); touch(); renderAjustes(); return;
   }
@@ -2012,7 +2108,7 @@ $('#ajustesBody').addEventListener('click',e=>{
   else if(a==='exp-json') saveFile('diario-'+todayKey()+'.json',JSON.stringify(state,null,1));
   else if(a==='exp-csv') saveFile('diario-'+todayKey()+'.csv',makeCsv());
   else if(a==='import'){ $('#i-text').value=''; $('#i-err').hidden=true; $('#impBg').hidden=false; document.body.style.overflow='hidden'; setTimeout(()=>$('#i-text').focus(),30); }
-  else if(a==='wipe'){ armOrRun(b,'Toque de novo para apagar tudo',()=>{ state.habits=[]; state.folders=[]; state.logs={}; state.days={}; bust(); touch(); renderAjustes(); toast('Tudo apagado'); }); }
+  else if(a==='wipe'){ armOrRun(b,'Toque de novo para apagar tudo',()=>{ state.habits=[]; state.folders=[]; state.tasks=[]; state.logs={}; state.days={}; bust(); touch(); renderAjustes(); toast('Tudo apagado'); }); }
 });
 $('#ajustesBody').addEventListener('change',e=>{
   if(e.target.id!=='s-from') return;
@@ -2151,8 +2247,8 @@ function openSheet(h){
   setTimeout(()=>fName.focus(),30);
 }
 function closeSheets(){
-  ['#sheetBg','#dayBg','#impBg','#folderBg'].forEach(s=>{ $(s).hidden=true; });
-  document.body.style.overflow=''; editing=null; editingFolder=undefined;
+  ['#sheetBg','#dayBg','#impBg','#folderBg','#taskBg','#tdayBg'].forEach(s=>{ $(s).hidden=true; });
+  document.body.style.overflow=''; editing=null; editingFolder=undefined; editingTask=null;
   if(ui.tab==='grade') scheduleGrade();
 }
 function showErr(m){ const e=$('#f-err'); e.textContent=m; e.hidden=false; }
@@ -2266,7 +2362,197 @@ $('#fo-del').addEventListener('click',()=>{
 $('#fo-cancel').addEventListener('click',closeSheets);
 $('#folderBg').addEventListener('click',e=>{ if(e.target===$('#folderBg')) closeSheets(); });
 document.addEventListener('keydown',e=>{
-  if(e.key==='Escape'&&['#sheetBg','#dayBg','#impBg','#folderBg'].some(s=>!$(s).hidden)) closeSheets();
+  if(e.key==='Escape'&&['#sheetBg','#dayBg','#impBg','#folderBg','#taskBg','#tdayBg'].some(s=>!$(s).hidden)) closeSheets();
+});
+
+/* =============== tarefas =============== */
+const TKSVG='<svg viewBox="0 0 20 20" aria-hidden="true"><path d="M4.5 10.5l3.5 3.5 7.5-8" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+const FLAGSVG='<svg viewBox="0 0 16 16" width="11" height="11" aria-hidden="true" style="vertical-align:-1px"><path d="M3 1.5v13M3 2.5h9l-2 3 2 3H3" fill="currentColor" stroke="currentColor" stroke-width="1.2" stroke-linejoin="round"/></svg>';
+const tasksOn=()=>state.settings.tasks!==false;
+const shortDate=k=>{ const d=parse(k); return d.getDate()+' '+MONTHS[d.getMonth()]; };
+function taskSort(a,b){
+  if(a.done!==b.done) return a.done?1:-1;
+  if((a.date||'~')!==(b.date||'~')) return (a.date||'~')<(b.date||'~')?-1:1;
+  if((a.time||'')!==(b.time||'')) return (a.time||'')<(b.time||'')?-1:1;
+  return a.title.localeCompare(b.title,'pt-BR');
+}
+function taskLabel(t,ctx){
+  const today=todayKey(); let late=false, parts=[];
+  if(!t.done&&t.date&&t.date<today){ late=true; parts.push(shortDate(t.date)+' · atrasada'+(t.time?' '+t.time:'')); }
+  else if(!t.date) parts.push('Sem data');
+  else if(ctx==='dia') parts.push(t.time||'');
+  else if(ctx==='hoje') parts.push(t.time||(t.date===today?'Hoje':shortDate(t.date)));
+  else parts.push(t.time||'');
+  if(t.repeat) parts.push('↻');
+  return {txt:parts.filter(Boolean).join(' · '),late:late};
+}
+function taskRowHTML(t,ctx,i){
+  const l=taskLabel(t,ctx);
+  return '<div class="trow'+(t.done?' done':'')+'" style="--i:'+(i||0)+'"><button type="button" class="tck" data-tck="'+t.id+'" role="checkbox" aria-checked="'+t.done+'" aria-label="Concluir '+esc(t.title)+'">'+TKSVG+'</button>'
+    +'<button type="button" class="tt" data-tedit="'+t.id+'"><span class="tn">'+esc(t.title)+'</span>'
+    +((l.txt||t.note)?'<span class="tm'+(l.late?' late':'')+'">'+esc(l.txt)+(t.note?(l.txt?' · ':'')+'📝':'')+'</span>':'')+'</button>'
+    +(t.flag?'<span class="fl" title="Importante">'+FLAGSVG+'</span>':'')+'</div>';
+}
+function tasksForHoje(){
+  const today=todayKey(), k=sel;
+  return state.tasks.filter(t=>{
+    if(t.done) return t.date===k;
+    if(t.date===k) return true;
+    if(k===today&&(!t.date||t.date<today)) return true;
+    return false;
+  }).sort(taskSort);
+}
+function renderTasksHoje(){
+  const B=$('#tasksBox'); if(!B) return;
+  $('#addTaskBtn').hidden=!tasksOn();
+  if(!tasksOn()){ B.innerHTML=''; return; }
+  const ts=tasksForHoje();
+  if(!ts.length){ B.innerHTML=''; return; }
+  const open=!ui.collapsed._tasks, pend=ts.filter(t=>!t.done).length;
+  B.innerHTML='<div class="thead"><button type="button" class="ftoggle" data-ttoggle="1" aria-expanded="'+open+'"><span class="chev" aria-hidden="true">▾</span><b>Lista de tarefas</b><small>'+pend+(pend===1?' pendente':' pendentes')+'</small></button></div>'
+    +(open?'<div class="tlist">'+ts.map((t,i)=>taskRowHTML(t,'hoje',i)).join('')+'</div>':'');
+}
+/* concluir / reabrir (com repetição) */
+function nextDate(t){
+  const base=t.date||todayKey(), step=t.repeat; let d=parse(base);
+  const adv=x=>step==='day'?addDays(x,1):step==='week'?addDays(x,7):new Date(x.getFullYear(),x.getMonth()+1,Math.min(x.getDate(),28));
+  let n=adv(d), guard=0; while(key(n)<=todayKey()&&guard++<800) n=adv(n);
+  return key(n);
+}
+function toggleTask(id){
+  const t=state.tasks.find(x=>x.id===id); if(!t) return;
+  if(!t.done){
+    t.done=true; t.doneAt=todayKey();
+    if(t.repeat){
+      const n={id:uid(),title:t.title,date:nextDate(t),time:t.time,flag:t.flag,note:t.note,repeat:t.repeat,done:false,doneAt:'',next:''};
+      state.tasks.push(n); t.next=n.id;
+    }
+    try{ navigator.vibrate&&navigator.vibrate(10); }catch(e){}
+  }else{
+    t.done=false; t.doneAt='';
+    if(t.next){ const i=state.tasks.findIndex(x=>x.id===t.next&&!x.done); if(i>=0) state.tasks.splice(i,1); t.next=''; }
+  }
+  touch(); refreshTasksUI();
+}
+function refreshTasksUI(){
+  if(ui.tab==='hoje') renderTasksHoje();
+  else if(ui.tab==='grade') renderGrade();
+  if(!$('#tdayBg').hidden) renderTday();
+}
+/* folha da tarefa */
+let editingTask=null;
+const tkName=$('#tk-name'), tkDate=$('#tk-date');
+function openTaskSheet(t,date){
+  editingTask=t||null;
+  $('#tkTitle').textContent=t?'Editar tarefa':'Nova tarefa';
+  tkName.value=t?t.title:''; tkDate.value=t?t.date:(date===undefined?(ui.tab==='hoje'?sel:''):date);
+  $('#tk-time').value=t?t.time:''; $('#tk-repeat').value=t?(t.repeat||''):'';
+  $('#tk-flag').checked=!!(t&&t.flag); $('#tk-note').value=t?t.note:'';
+  $('#tk-err').hidden=true; $('#tk-del').hidden=!t;
+  $('#taskBg').hidden=false; document.body.style.overflow='hidden';
+  setTimeout(()=>tkName.focus(),30);
+}
+$('#tk-quick').addEventListener('click',e=>{
+  const b=e.target.closest('[data-q]'); if(!b) return;
+  const q=b.dataset.q; tkDate.value=q===''?'':key(addDays(new Date(),Number(q)));
+});
+$('#taskSheet').addEventListener('submit',e=>{
+  e.preventDefault();
+  const title=tkName.value.trim();
+  if(!title){ const er=$('#tk-err'); er.textContent='Dê um nome à tarefa.'; er.hidden=false; tkName.focus(); return; }
+  const date=DATE_RE.test(tkDate.value)?tkDate.value:'', time=/^\d\d:\d\d$/.test($('#tk-time').value)?$('#tk-time').value:'';
+  const data={title:title.slice(0,120),date:date,time:time,flag:$('#tk-flag').checked,note:$('#tk-note').value.trim().slice(0,500),repeat:$('#tk-repeat').value};
+  if(editingTask) Object.assign(editingTask,data);
+  else state.tasks.push(Object.assign({id:uid(),done:false,doneAt:'',next:''},data));
+  const wasTday=!$('#tdayBg').hidden;
+  closeSheets(); touch(); refreshTasksUI(); if(wasTday&&tdayKey) openTaskDay(tdayKey);
+});
+$('#tk-del').addEventListener('click',()=>{
+  const b=$('#tk-del'), t=editingTask; if(!t) return;
+  armOrRun(b,'Toque de novo para excluir',()=>{
+    state.tasks=state.tasks.filter(x=>x.id!==t.id);
+    closeSheets(); touch(); refreshTasksUI(); toast('Tarefa excluída');
+  });
+});
+$('#tk-cancel').addEventListener('click',closeSheets);
+$('#taskBg').addEventListener('click',e=>{ if(e.target===$('#taskBg')) closeSheets(); });
+/* folha de um dia */
+let tdayKey=null;
+function tasksOfDay(k){
+  const today=todayKey();
+  return state.tasks.filter(t=>t.date===k||(k===today&&!t.done&&(!t.date||t.date<today))).sort(taskSort);
+}
+function renderTday(){
+  const k=tdayKey, ts=tasksOfDay(k);
+  const d=parse(k);
+  $('#tdTitle').textContent=WD_LONG[d.getDay()]+', '+d.getDate()+' de '+MONTHS_LONG[d.getMonth()];
+  $('#tdayBody').innerHTML=ts.length?'<div class="tlist">'+ts.map((t,i)=>taskRowHTML(t,'dia',i)).join('')+'</div>':'<p class="hint">Nenhuma tarefa neste dia.</p>';
+  $('#td-open').hidden=k>todayKey();
+}
+function openTaskDay(k){
+  tdayKey=k; renderTday();
+  $('#tdayBg').hidden=false; document.body.style.overflow='hidden';
+}
+$('#tdayAdd').addEventListener('submit',e=>{
+  e.preventDefault();
+  const v=$('#td-new').value.trim(); if(!v) return;
+  state.tasks.push({id:uid(),title:v.slice(0,120),date:tdayKey,time:'',flag:false,note:'',repeat:'',done:false,doneAt:'',next:''});
+  $('#td-new').value=''; touch(); refreshTasksUI(); renderTday();
+});
+$('#td-close').addEventListener('click',closeSheets);
+$('#td-open').addEventListener('click',()=>{ const k=tdayKey; closeSheets(); sel=k; showTab('hoje'); });
+$('#tdayBg').addEventListener('click',e=>{ if(e.target===$('#tdayBg')) closeSheets(); });
+$('#tdayBody').addEventListener('click',e=>taskClick(e,true));
+/* cliques em linhas de tarefa */
+function taskClick(e,inSheet){
+  const c=e.target.closest('[data-tck]'); if(c){ toggleTask(c.dataset.tck); return true; }
+  const ed=e.target.closest('[data-tedit]');
+  if(ed){ const t=state.tasks.find(x=>x.id===ed.dataset.tedit); if(t) openTaskSheet(t); return true; }
+  return false;
+}
+$('#tasksBox').addEventListener('click',e=>{
+  if(taskClick(e)) return;
+  if(e.target.closest('[data-ttoggle]')){ ui.collapsed._tasks=!ui.collapsed._tasks; if(!ui.collapsed._tasks) delete ui.collapsed._tasks; saveUi(); renderTasksHoje(); }
+});
+$('#addTaskBtn').addEventListener('click',()=>openTaskSheet(null));
+/* grade: marcas nos dias e lista do período */
+function addTaskDots(card){
+  if(!tasksOn()) return;
+  const by={}; state.tasks.forEach(t=>{ if(t.date) (by[t.date]||(by[t.date]=[])).push(t); });
+  card.querySelectorAll('[data-d]').forEach(c=>{
+    const ts=by[c.dataset.d]; if(!ts) return;
+    const pend=ts.filter(t=>!t.done), late=pend.length&&c.dataset.d<todayKey();
+    const dots=pend.slice(0,3).map(t=>'<i class="'+((t.flag||late)?'f':'')+'"></i>').join('')+(!pend.length?'<i class="d"></i>':'');
+    const el=document.createElement('span'); el.className='tk'; el.innerHTML=dots; c.appendChild(el);
+  });
+}
+function buildGradeTasks(){
+  if(!tasksOn()) return null;
+  const r=periodRange(ui.zoom,anchor), today=todayKey();
+  let ts=state.tasks.filter(t=>t.date&&t.date>=r[0]&&t.date<=r[1]&&(ui.zoom!=='ano'||!t.done));
+  if(ui.zoom==='semana'||ui.zoom==='mes'){ /* tudo do período */ }
+  const cur=r[0]<=today&&today<=r[1];
+  const over=cur?state.tasks.filter(t=>!t.done&&t.date&&t.date<r[0]):[];
+  const nodate=cur?state.tasks.filter(t=>!t.done&&!t.date):[];
+  ts=over.concat(ts,nodate); ts.sort(taskSort);
+  const seen={}; ts=ts.filter(t=>seen[t.id]?false:(seen[t.id]=1));
+  const el=document.createElement('article'); el.className='card'; el.dataset.hid='tasks'; el.style.setProperty('--c','var(--accent)');
+  const LIM=40, shown=ts.slice(0,LIM);
+  let html='<div class="card-head"><div class="name"><span class="nm"><b>Tarefas</b></span><span class="goal">'+(ts.length?ts.filter(t=>!t.done).length+' pendentes no período':'nenhuma no período')+'</span></div>'
+    +'<button type="button" class="pill" data-tnew="1">+ Nova</button></div>';
+  if(shown.length){
+    let last='';
+    html+='<div class="tlist" style="margin-top:10px">'+shown.map((t,i)=>{
+      const g=t.date?(t.date<r[0]?'Atrasadas':shortDate(t.date)):'Sem data';
+      const h=g!==last?'<div class="tgroup">'+esc(g)+'</div>':''; last=g;
+      return h+taskRowHTML(t,'grade',i);
+    }).join('')+'</div>'+(ts.length>LIM?'<div class="tmore">e mais '+(ts.length-LIM)+'…</div>':'');
+  }
+  el.innerHTML=html; return el;
+}
+$('#gradeList').addEventListener('click',e=>{
+  if(taskClick(e)) return;
+  if(e.target.closest('[data-tnew]')){ openTaskSheet(null,ui.zoom==='semana'||ui.zoom==='mes'?(isCurrentPeriod()?todayKey():periodRange(ui.zoom,anchor)[0]):todayKey()); }
 });
 
 /* =============== abas e ciclo de vida =============== */
