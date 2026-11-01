@@ -420,6 +420,8 @@ textarea{width:100%;border-radius:12px;border:1px solid var(--line);background:v
 @keyframes pop{0%{transform:scale(.8)}100%{transform:none}}
 @keyframes wiggle{0%,100%{transform:rotate(0)}20%{transform:rotate(-14deg) scale(1.25)}50%{transform:rotate(12deg) scale(1.25)}80%{transform:rotate(-6deg)}}
 @media (prefers-reduced-motion:reduce){ .anim *,.anim *::before{animation:none!important;transition:none!important} }
+.pauselist{display:flex;flex-direction:column;gap:6px}
+#ds-skip{margin-top:12px;width:100%}
 /* tarefas */
 .field input[type=time]{height:46px;border-radius:12px;border:1px solid var(--line);background:var(--bg);padding:0 12px;width:100%;min-width:0;color:var(--fg)}
 .field textarea{border-radius:12px;border:1px solid var(--line);background:var(--bg);padding:10px 12px;width:100%;min-height:70px;resize:vertical;color:var(--fg)}
@@ -603,12 +605,14 @@ textarea{width:100%;border-radius:12px;border:1px solid var(--line);background:v
       <button type="button" class="rmc" id="rmColor" hidden>Remover esta cor da paleta</button>
     </fieldset>
     <div class="field" id="pauseBox" hidden>
-      <label for="f-pause-to">Pausa</label>
-      <p class="hint" id="pauseInfo"></p>
-      <div class="pauserow">
-        <input id="f-pause-to" type="date" aria-label="Pausar até (opcional)">
-        <button type="button" class="btn" id="f-pause">Pausar agora</button>
+      <label>Pausas</label>
+      <p class="hint">Dias pausados não contam contra você nem quebram a sequência. Dá para pausar dias que já passaram (feriado, viagem, doença).</p>
+      <div id="pauseList" class="pauselist"></div>
+      <div class="row3" style="grid-template-columns:1fr 1fr;margin-top:8px">
+        <div class="field"><label for="f-pause-from">De</label><input id="f-pause-from" type="date"></div>
+        <div class="field"><label for="f-pause-to">Até (opcional)</label><input id="f-pause-to" type="date"></div>
       </div>
+      <button type="button" class="btn" id="f-pause" style="margin-top:8px">Adicionar pausa</button>
     </div>
     <p class="err" id="f-err" role="alert" hidden></p>
     <div class="editrow" id="editRow" hidden>
@@ -713,6 +717,7 @@ textarea{width:100%;border-radius:12px;border:1px solid var(--line);background:v
     <h2 id="dsTitle"></h2>
     <div class="ds-sub" id="dsSub"></div>
     <div id="dsCtl"></div>
+    <button type="button" class="btn" id="ds-skip">Pular este dia (não conta)</button>
     <div class="actions">
       <button type="button" class="ghost" id="ds-open">Abrir este dia</button>
       <span class="sp"></span>
@@ -982,7 +987,7 @@ function dayInfo(k){
 /* estatísticas de um hábito (desde o início) */
 function habitStats(h){
   const t=todayKey(), st=startOf(h);
-  let done=0,total=0,run=0,best=0,checkins=0,slips=0;
+  let done=0,total=0,run=0,best=0,checkins=0,slips=0,fr=0;
   for(let d=parse(st); key(d)<=t; d=addDays(d,1)){
     const k=key(d);
     if(isDone(h,k)) checkins++;
@@ -992,8 +997,8 @@ function habitStats(h){
     let p=periodOf(h,st), guard=0;
     while(p[0]<=t&&guard++<4000){
       if(!allPaused(h,p[0],p[1])){
-        if(periodMet(h,p[0])){ total++; done++; run++; best=Math.max(best,run); }
-        else if(p[1]<t){ total++; run=0; }
+        if(periodMet(h,p[0])){ total++; done++; fr++; run++; best=Math.max(best,run); }
+        else if(p[1]<t){ total++; run=0; fr+=Math.min(periodCount(h,p[0])/h.freq.n,1); }
       }
       p=nextPeriod(h,p);
     }
@@ -1001,37 +1006,37 @@ function habitStats(h){
     for(let d=parse(st); key(d)<=t; d=addDays(d,1)){
       const k=key(d), dn=isDone(h,k);
       if(scheduled(h,k)){
-        if(dn){ total++; done++; run++; best=Math.max(best,run); }
+        if(dn){ total++; done++; fr++; run++; best=Math.max(best,run); }
         else{ total++; if(k!==t||h.bad) run=0; }
-      }else if(dn&&!h.bad){ total++; done++; run++; best=Math.max(best,run); }
+      }else if(dn&&!h.bad){ total++; done++; fr++; run++; best=Math.max(best,run); }
     }
   }
   let sum=0,logged=0; const l=state.logs[h.id]||{};
   for(const k in l){ if(k<st) continue; sum+=l[k]; logged++; }
-  return {done:done,total:total,pct:total?Math.round(done/total*100):0,streak:run,best:best,checkins:checkins,slips:slips,sum:sum,logged:logged,unit:isPeriod(h)?periodUnitPl(h):'dias'};
+  return {done:done,total:total,pct:total?Math.round(fr/total*100):0,streak:run,best:best,checkins:checkins,slips:slips,sum:sum,logged:logged,unit:isPeriod(h)?periodUnitPl(h):'dias'};
 }
 /* estatística de um intervalo [from,to] */
 function rangeStats(h,from,to){
   const t=todayKey(), st=startOf(h);
   const a=from<st?st:from, b=to>t?t:to;
-  let done=0,total=0;
+  let done=0,total=0,fr=0;
   if(a>b) return {done:0,total:0,pct:null};
   if(isPeriod(h)){
     let p=periodOf(h,a), guard=0;
     while(p[0]<=b&&guard++<4000){
       if(!allPaused(h,p[0],p[1])){
-        if(periodMet(h,p[0])){ total++; done++; } else if(p[1]<t){ total++; }
+        if(periodMet(h,p[0])){ total++; done++; fr++; } else if(p[1]<t){ total++; fr+=Math.min(periodCount(h,p[0])/h.freq.n,1); }
       }
       p=nextPeriod(h,p);
     }
   }else{
     for(let d=parse(a); key(d)<=b; d=addDays(d,1)){
       const k=key(d), dn=isDone(h,k);
-      if(scheduled(h,k)){ total++; if(dn) done++; }
-      else if(dn&&!h.bad){ total++; done++; }
+      if(scheduled(h,k)){ total++; if(dn){ done++; fr++; } }
+      else if(dn&&!h.bad){ total++; done++; fr++; }
     }
   }
-  return {done:done,total:total,pct:total?Math.round(done/total*100):null};
+  return {done:done,total:total,pct:total?Math.round(fr/total*100):null};
 }
 function rangeAll(from,to){
   const t=todayKey(); let rel=0,done=0;
@@ -1757,6 +1762,7 @@ $('#gradeList').addEventListener('click',e=>{
 
 /* =============== folha do dia (editar um dia de um hábito) =============== */
 function openDaySheet(h,k){
+  dayHabit=h;
   const s=$('#daySheet'); setC(s,h.color);
   $('#dsTitle').textContent=(markText(h)?markText(h)+' ':'')+h.name;
   const sub=()=>dayShort(k)+(isPeriod(h)?' · '+periodProgress(h,k):'')+(isPaused(h,k)?' · pausado':'');
@@ -1764,10 +1770,25 @@ function openDaySheet(h,k){
   const box=$('#dsCtl'); box.innerHTML='';
   const ctl=makeControl(h,()=>k,()=>{ $('#dsSub').textContent=sub(); scheduleGrade(); });
   box.appendChild(ctl.root);
-  daySel=k;
+  daySel=k; daySkipUI();
   $('#dayBg').hidden=false; document.body.style.overflow='hidden';
 }
-let daySel=null;
+let daySel=null, dayHabit=null;
+function daySkipUI(){
+  const h=dayHabit, k=daySel, b=$('#ds-skip');
+  const own=h.pauses.find(p=>p.from===k&&p.to===k), any=isPaused(h,k);
+  b.hidden=!(own||!any);
+  b.textContent=own?'Voltar a contar este dia':'Pular este dia (não conta)';
+  $('#dsSub').textContent=dayShort(k)+(isPeriod(h)?' · '+periodProgress(h,k):'')+(any?' · pausado':'');
+}
+$('#ds-skip').addEventListener('click',()=>{
+  const h=dayHabit, k=daySel; if(!h) return;
+  const own=h.pauses.find(p=>p.from===k&&p.to===k);
+  if(own) h.pauses.splice(h.pauses.indexOf(own),1); else h.pauses.push({from:k,to:k});
+  bust(); touch(); daySkipUI();
+  const box=$('#dsCtl'); box.innerHTML=''; box.appendChild(makeControl(h,()=>k,()=>{ daySkipUI(); scheduleGrade(); }).root);
+  scheduleGrade();
+});
 $('#ds-close').addEventListener('click',closeSheets);
 $('#ds-open').addEventListener('click',()=>{ const k=daySel; closeSheets(); sel=k; showTab('hoje'); });
 $('#dayBg').addEventListener('click',e=>{ if(e.target===$('#dayBg')) closeSheets(); });
@@ -1775,7 +1796,7 @@ $('#dayBg').addEventListener('click',e=>{ if(e.target===$('#dayBg')) closeSheets
 /* =============== aba RESUMO =============== */
 function bars(vals,labels,color,hi){
   return '<div class="bars"'+(color?' style="--c:'+color+'"':'')+' role="img" aria-label="Gráfico de barras">'
-    +vals.map((v,i)=>v==null?'<i class="nil" style="height:3%" title="sem dados"></i>':'<i style="height:'+Math.max(v,3)+'%'+(hi===i?';background:var(--c-lime)':'')+'" title="'+v+'%"></i>').join('')+'</div>'
+    +vals.map((v,i)=>v==null?'<i class="nil" style="height:3%" title="sem dados"></i>':'<i style="height:'+Math.max(v,3)+'%'+((Array.isArray(hi)?hi.includes(i):hi===i)?';background:var(--c-lime)':'')+'" title="'+v+'%"></i>').join('')+'</div>'
     +(labels?'<div class="bl">'+labels.map(l=>'<span>'+l+'</span>').join('')+'</div>':'');
 }
 const pctOf=o=>o&&o.r?Math.round(100*o.d/o.r):null;
@@ -1794,9 +1815,14 @@ function weekReviewHTML(){
   let bestI=-1, worstI=-1;
   pcts.forEach((p,i)=>{ if(p==null) return; if(bestI<0||p>pcts[bestI]) bestI=i; if(worstI<0||p<pcts[worstI]) worstI=i; });
   const hrows=active().map(h=>{
-    let rel=0,dn=0;
+    let rel=0,dn=0,txt='';
+    if(isPeriod(h)){
+      const kk=we>t?t:we, c=ws>t?0:periodCount(h,kk), n=h.freq.n;
+      rel=n; dn=c; txt=periodProgress(h,kk);
+      return {h:h,rel:rel,dn:dn,txt:txt,p:Math.round(100*Math.min(c/n,1))};
+    }
     days.forEach(d=>{ if(relevant(h,d.k)){ rel++; if(isDone(h,d.k)) dn++; } });
-    return {h:h,rel:rel,dn:dn,p:rel?Math.round(100*dn/rel):null};
+    return {h:h,rel:rel,dn:dn,txt:dn+'/'+rel,p:rel?Math.round(100*dn/rel):null};
   }).filter(x=>x.rel>0);
   const diff=(cur.pct!=null&&prev.pct!=null)?cur.pct-prev.pct:null;
   const range=(()=>{ const a=parse(ws), b=parse(we); return a.getMonth()===b.getMonth()?a.getDate()+'–'+b.getDate()+' '+MONTHS[b.getMonth()]:a.getDate()+' '+MONTHS[a.getMonth()]+' – '+b.getDate()+' '+MONTHS[b.getMonth()]; })();
@@ -1806,16 +1832,20 @@ function weekReviewHTML(){
   html+='<div class="wkhead"><div class="ring big'+(cur.pct===100?' perfect':'')+'" style="--f:'+(cur.pct||0)+'"><b>'+(cur.pct==null?'–':cur.pct+'%')+'</b></div>'
     +'<div class="tx"><b>'+cur.done+' de '+cur.total+' feitos</b><span>'+(diff==null?'sem semana anterior para comparar':(diff>0?'<span class="up">+'+diff+' pontos</span> que a semana anterior':diff<0?'<span class="dn2">'+diff+' pontos</span> que a semana anterior':'igual à semana anterior'))+'</span></div></div>'
     +'<div class="tiles"><div class="tile"><b>'+perfect+'</b><span>dias perfeitos</span></div><div class="tile"><b>'+(moodAvg==null?'–':moodAvg.toFixed(1).replace('.',','))+'</b><span>humor médio (de 5)</span></div></div>'
-    +bars(pcts,days.map(d=>WD[parse(d.k).getDay()]),'var(--accent)',bestI);
+    +bars(pcts,days.map(d=>WD[parse(d.k).getDay()]),'var(--accent)',pcts.map((p,i)=>p===100?i:-1).filter(i=>i>=0))
+    +(perfect?'<div class="cap">Barras verdes: dias perfeitos (tudo o que estava programado foi feito).</div>':'');
   const bits=[];
-  if(bestI>=0&&worstI>=0&&pcts[bestI]!==pcts[worstI]) bits.push('Melhor dia: <b>'+WD_LONG[parse(days[bestI].k).getDay()].toLowerCase()+'</b> ('+pcts[bestI]+'%). Mais difícil: <b>'+WD_LONG[parse(days[worstI].k).getDay()].toLowerCase()+'</b> ('+pcts[worstI]+'%).');
+  if(bestI>=0&&worstI>=0&&pcts[bestI]!==pcts[worstI]){
+    const nm=v=>{ const l=pcts.map((p,i)=>p===v?WD_LONG[parse(days[i].k).getDay()].toLowerCase():null).filter(Boolean); return l.length>2?l.length+' dias':l.join(' e '); };
+    bits.push('Melhor'+(pcts.filter(p=>p===pcts[bestI]).length>1?'s dias':' dia')+': <b>'+nm(pcts[bestI])+'</b> ('+pcts[bestI]+'%). Mais difícil: <b>'+nm(pcts[worstI])+'</b> ('+pcts[worstI]+'%).');
+  }
   const hs=hrows.filter(x=>x.rel>=2);
   if(hs.length>=2){
     const b=hs.reduce((a,x)=>x.p>a.p?x:a), w=hs.reduce((a,x)=>x.p<a.p?x:a);
     if(b.p!==w.p){ bits.push('Hábito mais firme: <b>'+nameHTML(b.h)+'</b> ('+b.p+'%).'); bits.push('Pede atenção: <b>'+nameHTML(w.h)+'</b> ('+w.p+'%).'); }
   }
   if(bits.length) html+='<div class="insight">'+bits.map(x=>'<p>'+x+'</p>').join('')+'</div>';
-  html+=hrows.map(x=>'<div class="hrow" style="'+cstyle(x.h.color)+'"><div class="hl">'+markHTML(x.h)+'<b>'+esc(x.h.name)+'</b><span>'+x.dn+'/'+x.rel+'</span></div><div class="bar"><i style="width:'+x.p+'%"></i></div></div>').join('');
+  html+=hrows.map(x=>'<div class="hrow" style="'+cstyle(x.h.color)+'"><div class="hl">'+markHTML(x.h)+'<b>'+esc(x.h.name)+'</b><span>'+esc(x.txt)+'</span></div><div class="bar"><i style="width:'+x.p+'%"></i></div></div>').join('');
   const nts=days.filter(d=>d.note);
   if(nts.length) html+='<div>'+nts.map(d=>'<button type="button" class="note" data-goday="'+d.k+'"><i'+(d.mood?' style="background:var(--m'+d.mood+')"':' style="background:var(--cell)"')+'></i><span class="nt"><span class="nd">'+esc(dayShort(d.k))+'</span><span class="nx">'+esc(d.note)+'</span></span></button>').join('')+'</div>';
   return html+'</div>';
@@ -2222,29 +2252,31 @@ $('#f-per').addEventListener('change',syncFreq);
 function renderFolderSelect(sel){
   $('#f-folder').innerHTML='<option value="">Sem pasta</option>'+state.folders.map(f=>'<option value="'+esc(f.id)+'"'+(f.id===sel?' selected':'')+'>'+esc(f.name)+'</option>').join('');
 }
+const fmtD=k=>parse(k).toLocaleDateString('pt-BR');
 function pauseUI(){
-  const h=editing, box=$('#pauseBox'); box.hidden=!h;
+  const h=editing; $('#pauseBox').hidden=!h;
   if(!h) return;
-  const t=todayKey(), cur=h.pauses.find(p=>t>=p.from&&(!p.to||t<=p.to));
-  const nowP=!!cur;
-  $('#pauseInfo').textContent=nowP?('Pausado'+(cur.to?' até '+parse(cur.to).toLocaleDateString('pt-BR')+'.':' sem data para voltar.')+' Dias pausados não contam contra você nem quebram a sequência.')
-    :'Pausar tira o hábito da lista e não conta contra você. A sequência continua de onde parou. Deixe a data vazia para pausar sem prazo.';
-  $('#f-pause').textContent=nowP?'Retomar agora':'Pausar agora';
-  $('#f-pause-to').hidden=nowP; $('#f-pause-to').value='';
+  const t=todayKey();
+  $('#pauseList').innerHTML=h.pauses.length?h.pauses.slice().sort((a,b)=>a.from<b.from?-1:1).map((p,i)=>
+    '<div class="arch"><span class="an">'+(p.to===p.from?fmtD(p.from):fmtD(p.from)+' até '+(p.to?fmtD(p.to):'sem data para voltar'))+(t>=p.from&&(!p.to||t<=p.to)?' · agora':'')+'</span><button type="button" class="btn" data-pdel="'+h.pauses.indexOf(p)+'">'+((!p.to||p.to>=t)&&p.from<=t?'Retomar':'Remover')+'</button></div>').join(''):'<p class="hint" style="margin:0">Nenhuma pausa.</p>';
+  $('#f-pause-from').value=t; $('#f-pause-to').value='';
 }
+$('#pauseList').addEventListener('click',e=>{
+  const b=e.target.closest('[data-pdel]'); if(!b||!editing) return;
+  const p=editing.pauses[Number(b.dataset.pdel)]; if(!p) return;
+  const t=todayKey(), y=key(addDays(parse(t),-1));
+  if(p.from<=t&&(!p.to||p.to>=t)){ if(p.from>y) editing.pauses.splice(editing.pauses.indexOf(p),1); else p.to=y; toast('Hábito retomado'); }
+  else editing.pauses.splice(editing.pauses.indexOf(p),1);
+  bust(); touch(); pauseUI(); renderAll();
+});
 $('#f-pause').addEventListener('click',()=>{
   const h=editing; if(!h) return;
-  const t=todayKey(), cur=h.pauses.find(p=>t>=p.from&&(!p.to||t<=p.to));
-  if(cur){
-    const y=key(addDays(parse(t),-1));
-    if(cur.from>y) h.pauses=h.pauses.filter(p=>p!==cur); else cur.to=y;
-    toast('Hábito retomado');
-  }else{
-    const to=$('#f-pause-to').value;
-    if(to&&to<t){ showErr('A data de volta precisa ser hoje ou depois.'); return; }
-    h.pauses.push({from:t,to:to&&DATE_RE.test(to)?to:null});
-    toast('Hábito pausado');
-  }
+  const from=$('#f-pause-from').value, to=$('#f-pause-to').value;
+  if(!DATE_RE.test(from)){ showErr('Escolha o primeiro dia da pausa.'); return; }
+  if(to&&(!DATE_RE.test(to)||to<from)){ showErr('O fim da pausa precisa ser depois do início.'); return; }
+  $('#f-err').hidden=true;
+  h.pauses.push({from:from,to:to||null});
+  toast('Pausa adicionada');
   bust(); touch(); pauseUI(); renderAll();
 });
 
