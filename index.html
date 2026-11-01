@@ -814,6 +814,7 @@ function normalize(s){
       offDay:set.offDay==='hide'?'hide':'show',
       countFrom:DATE_RE.test(set.countFrom||'')?set.countFrom:'',
       tasks:set.tasks!==false,
+      extraMode:set.extraMode==='sub'?'sub':'extra',
       taskSort:['next','prio','folder'].includes(set.taskSort)?set.taskSort:'next',
       taskAlert:['off','0','1','3','7'].includes(String(set.taskAlert))?String(set.taskAlert):'off'
     },
@@ -984,6 +985,12 @@ function dayInfo(k){
   return {rel:rel,done:done};
 }
 
+/* dias feitos fora do programado: contam como extra (+N) ou substituem faltas */
+function applyExtra(done,total,extra){
+  if(!extra) return {done:done,fr:done,surplus:0};
+  if(state.settings.extraMode==='sub'){ const d=Math.min(total,done+extra); return {done:d,fr:d,surplus:Math.max(0,done+extra-total)}; }
+  return {done:done,fr:done,surplus:extra};
+}
 /* estatísticas de um hábito (desde o início) */
 function habitStats(h){
   const t=todayKey(), st=startOf(h);
@@ -1011,7 +1018,8 @@ function habitStats(h){
       }else if(dn&&!h.bad){ extra++; run++; best=Math.max(best,run); }
     }
   }
-  const surplus=isPeriod(h)?0:extra;
+  let surplus=0;
+  if(!isPeriod(h)){ const x=applyExtra(done,total,extra); done=x.done; fr=x.done; surplus=x.surplus; }
   let sum=0,logged=0; const l=state.logs[h.id]||{};
   for(const k in l){ if(k<st) continue; sum+=l[k]; logged++; }
   return {done:done,total:total,pct:total?Math.round(fr/total*100):0,surplus:surplus,streak:run,best:best,checkins:checkins,slips:slips,sum:sum,logged:logged,unit:isPeriod(h)?periodUnitPl(h):'dias'};
@@ -1036,7 +1044,7 @@ function rangeStats(h,from,to){
       if(scheduled(h,k)){ total++; if(dn){ done++; fr++; } }
       else if(dn&&!h.bad) extra++;
     }
-    surplus=extra;
+    { const x=applyExtra(done,total,extra); done=x.done; fr=x.done; surplus=x.surplus; }
   }
   return {done:done,total:total,surplus:surplus,pct:total?Math.round(fr/total*100):null};
 }
@@ -1830,7 +1838,8 @@ function weekReviewHTML(){
       else if(!h.bad&&isDone(h,d.k)) extra++;
     });
     if(!rel&&extra) return {h:h,rel:0,dn:0,txt:'+'+extra+' extra',p:100};
-    return {h:h,rel:rel,dn:dn,txt:dn+'/'+rel+(extra?'+'+extra:''),p:rel?Math.round(100*dn/rel):null};
+    const x=applyExtra(dn,rel,extra); dn=x.done;
+    return {h:h,rel:rel,dn:dn,txt:dn+'/'+rel+(x.surplus?'+'+x.surplus:''),p:rel?Math.round(100*dn/rel):null};
   }).filter(x=>x.rel>0);
   const diff=(cur.pct!=null&&prev.pct!=null)?cur.pct-prev.pct:null;
   const range=(()=>{ const a=parse(ws), b=parse(we); return a.getMonth()===b.getMonth()?a.getDate()+'–'+b.getDate()+' '+MONTHS[b.getMonth()]:a.getDate()+' '+MONTHS[a.getMonth()]+' – '+b.getDate()+' '+MONTHS[b.getMonth()]; })();
@@ -1845,7 +1854,7 @@ function weekReviewHTML(){
   const bits=[];
   if(bestI>=0&&worstI>=0&&pcts[bestI]!==pcts[worstI]){
     const nm=v=>{ const l=pcts.map((p,i)=>p===v?WD_LONG[parse(days[i].k).getDay()].toLowerCase():null).filter(Boolean); return l.length>2?l.length+' dias':l.join(' e '); };
-    bits.push('Melhor'+(pcts.filter(p=>p===pcts[bestI]).length>1?'s dias':' dia')+': <b>'+nm(pcts[bestI])+'</b> ('+pcts[bestI]+'%). Mais difícil: <b>'+nm(pcts[worstI])+'</b> ('+pcts[worstI]+'%).');
+    bits.push('Melhor'+(pcts.filter(p=>p===pcts[bestI]).length>1?'es dias':' dia')+': <b>'+nm(pcts[bestI])+'</b> ('+pcts[bestI]+'%). Mais difícil: <b>'+nm(pcts[worstI])+'</b> ('+pcts[worstI]+'%).');
   }
   const hs=hrows.filter(x=>x.rel>=2);
   if(hs.length>=2){
@@ -2128,6 +2137,7 @@ function renderAjustes(){
     +'<div class="card"><h3 class="ct">Ícones de emoji</h3><div class="set-row">'+segHTML('emoji',onoff,S.emoji?1:0)+'<p>Mostra o emoji de cada hábito no lugar da bolinha colorida.</p></div></div>'
     +'<div class="card"><h3 class="ct">Animações</h3><div class="set-row">'+segHTML('anim',onoff,S.anim?1:0)+'<p>Movimentos suaves ao marcar hábitos e trocar de aba. Respeita a configuração de movimento reduzido do aparelho.</p></div></div>'
     +'<div class="card"><h3 class="ct">Hábitos fora do dia</h3><div class="set-row">'+segHTML('off',[['show','Mostrar apagados'],['hide','Esconder']],S.offDay)+'<p>Hábitos de dias fixos (ou pausados) que não caem no dia escolhido. Mesmo escondidos, dá para marcar um deles tocando em “mostrar ocultos”.</p></div></div>'
+    +'<div class="card"><h3 class="ct">Dia feito fora do programado</h3><div class="set-row">'+segHTML('extra',[['extra','Só extra (+1)'],['sub','Substitui falta']],S.extraMode)+'<p>'+(S.extraMode==='sub'?'Se você fez um dia que não era programado, ele cobre uma falta da semana. Ex.: fez 1 dos 5 programados e 1 extra: 2/5.':'O dia extra aparece como +1 e não cobre faltas. Ex.: fez 1 dos 5 programados e 1 extra: 1/5+1.')+'</p></div></div>'
     +'<div class="card"><h3 class="ct">Início da semana</h3><div class="set-row">'+segHTML('ws',[[0,'Domingo'],[1,'Segunda']],S.weekStart)+'<p>Muda as colunas da grade e o que conta como “semana” nas metas por período.</p></div></div>'
     +'<div class="card"><h3 class="ct">Começar a contar em</h3><div class="set-row"><div class="pauserow"><input id="s-from" type="date" value="'+(S.countFrom||'')+'" aria-label="Data de início da contagem"><button type="button" class="btn" data-act="fromclear">Limpar</button></div><p>Estatísticas e sequências ignoram dias antes desta data, para todos os hábitos. Seus registros antigos não são apagados. Vazio = desde o início de cada hábito.</p></div></div>'
     +'<div class="card"><h3 class="ct">Hábitos arquivados</h3>'
@@ -2165,6 +2175,7 @@ $('#ajustesBody').addEventListener('click',e=>{
     else if(n==='anim') state.settings.anim=v==='1';
     else if(n==='tasks') state.settings.tasks=v==='1';
     else if(n==='talert') state.settings.taskAlert=v;
+    else if(n==='extra'){ state.settings.extraMode=v; bust(); }
     else if(n==='off') state.settings.offDay=v;
     applyTheme(); touch(); renderAjustes(); updateTaskBadge(); return;
   }
