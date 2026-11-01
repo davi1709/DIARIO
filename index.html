@@ -538,7 +538,7 @@ textarea{width:100%;border-radius:12px;border:1px solid var(--line);background:v
       <label for="f-name">Nome</label>
       <input id="f-name" type="text" maxlength="40" autocomplete="off" placeholder="Ex.: Ler, Treinar, Meditar">
     </div>
-    <div class="field">
+    <div class="field" id="emField">
       <label for="f-emoji">Ícone (opcional)</label>
       <div class="emrow">
         <input id="f-emoji" type="text" maxlength="8" autocomplete="off" placeholder="🙂" aria-label="Emoji do hábito">
@@ -987,7 +987,7 @@ function dayInfo(k){
 /* estatísticas de um hábito (desde o início) */
 function habitStats(h){
   const t=todayKey(), st=startOf(h);
-  let done=0,total=0,run=0,best=0,checkins=0,slips=0,fr=0;
+  let done=0,total=0,run=0,best=0,checkins=0,slips=0,fr=0,extra=0;
   for(let d=parse(st); key(d)<=t; d=addDays(d,1)){
     const k=key(d);
     if(isDone(h,k)) checkins++;
@@ -1008,18 +1008,19 @@ function habitStats(h){
       if(scheduled(h,k)){
         if(dn){ total++; done++; fr++; run++; best=Math.max(best,run); }
         else{ total++; if(k!==t||h.bad) run=0; }
-      }else if(dn&&!h.bad){ total++; done++; fr++; run++; best=Math.max(best,run); }
+      }else if(dn&&!h.bad){ extra++; run++; best=Math.max(best,run); }
     }
   }
+  const surplus=isPeriod(h)?0:extra;
   let sum=0,logged=0; const l=state.logs[h.id]||{};
   for(const k in l){ if(k<st) continue; sum+=l[k]; logged++; }
-  return {done:done,total:total,pct:total?Math.round(fr/total*100):0,streak:run,best:best,checkins:checkins,slips:slips,sum:sum,logged:logged,unit:isPeriod(h)?periodUnitPl(h):'dias'};
+  return {done:done,total:total,pct:total?Math.round(fr/total*100):0,surplus:surplus,streak:run,best:best,checkins:checkins,slips:slips,sum:sum,logged:logged,unit:isPeriod(h)?periodUnitPl(h):'dias'};
 }
 /* estatística de um intervalo [from,to] */
 function rangeStats(h,from,to){
   const t=todayKey(), st=startOf(h);
   const a=from<st?st:from, b=to>t?t:to;
-  let done=0,total=0,fr=0;
+  let done=0,total=0,fr=0,extra=0,surplus=0;
   if(a>b) return {done:0,total:0,pct:null};
   if(isPeriod(h)){
     let p=periodOf(h,a), guard=0;
@@ -1033,10 +1034,11 @@ function rangeStats(h,from,to){
     for(let d=parse(a); key(d)<=b; d=addDays(d,1)){
       const k=key(d), dn=isDone(h,k);
       if(scheduled(h,k)){ total++; if(dn){ done++; fr++; } }
-      else if(dn&&!h.bad){ total++; done++; fr++; }
+      else if(dn&&!h.bad) extra++;
     }
+    surplus=extra;
   }
-  return {done:done,total:total,pct:total?Math.round(fr/total*100):null};
+  return {done:done,total:total,surplus:surplus,pct:total?Math.round(fr/total*100):null};
 }
 function rangeAll(from,to){
   const t=todayKey(); let rel=0,done=0;
@@ -1679,7 +1681,7 @@ function buildGradeCard(h){
   const r=periodRange(ui.zoom,anchor);
   const rs=h?rangeStats(h,r[0],r[1]):rangeAll(r[0],r[1]);
   const big=rs.pct==null?'–':rs.pct+'%';
-  const small=rs.total?rs.done+' de '+rs.total+' '+(h?(isPeriod(h)?periodUnitPl(h):'dias'):'feitos'):'sem dados';
+  const small=rs.total?rs.done+' de '+rs.total+' '+(h?(isPeriod(h)?periodUnitPl(h):'dias'):'feitos')+(rs.surplus?' +'+rs.surplus+' extra':''):'sem dados';
   const head=h
     ?'<button type="button" class="name" data-edit="1" aria-label="Editar '+esc(h.name)+'"><span class="nm">'+markHTML(h)+'<b>'+esc(h.name)+'</b>'+PEN+'</span><span class="goal">'+esc(goalPart(h)+(h.bad?'':' · '+freqPart(h)))+'</span></button>'
     :'<div class="name"><span class="nm"><i class="dot"></i><b>Tudo junto</b></span><span class="goal">todos os hábitos ativos</span></div>';
@@ -1821,8 +1823,14 @@ function weekReviewHTML(){
       rel=n; dn=c; txt=periodProgress(h,kk);
       return {h:h,rel:rel,dn:dn,txt:txt,p:Math.round(100*Math.min(c/n,1))};
     }
-    days.forEach(d=>{ if(relevant(h,d.k)){ rel++; if(isDone(h,d.k)) dn++; } });
-    return {h:h,rel:rel,dn:dn,txt:dn+'/'+rel,p:rel?Math.round(100*dn/rel):null};
+    let extra=0;
+    days.forEach(d=>{
+      if(d.k>t||d.k<startOf(h)) return;
+      if(scheduled(h,d.k)){ rel++; if(isDone(h,d.k)) dn++; }
+      else if(!h.bad&&isDone(h,d.k)) extra++;
+    });
+    if(!rel&&extra) return {h:h,rel:0,dn:0,txt:'+'+extra+' extra',p:100};
+    return {h:h,rel:rel,dn:dn,txt:dn+'/'+rel+(extra?'+'+extra:''),p:rel?Math.round(100*dn/rel):null};
   }).filter(x=>x.rel>0);
   const diff=(cur.pct!=null&&prev.pct!=null)?cur.pct-prev.pct:null;
   const range=(()=>{ const a=parse(ws), b=parse(we); return a.getMonth()===b.getMonth()?a.getDate()+'–'+b.getDate()+' '+MONTHS[b.getMonth()]:a.getDate()+' '+MONTHS[a.getMonth()]+' – '+b.getDate()+' '+MONTHS[b.getMonth()]; })();
@@ -2079,7 +2087,7 @@ function renderResumo(){
       ?'<div><b>'+st.streak+'</b><span>dias sem recaída</span></div><div><b>'+st.best+'</b><span>melhor sequência</span></div><div><b>'+st.slips+'</b><span>recaídas</span></div>'
       :'<div><b>'+st.streak+'</b><span>sequência atual</span></div><div><b>'+st.best+'</b><span>melhor sequência</span></div><div><b>'+fmtInt(st.checkins)+'</b><span>dias feitos</span></div>';
     html+='<div class="card" style="margin-top:12px;'+cstyle(h.color)+'"><div class="card-head"><div class="name"><span class="nm">'+markHTML(h)+'<b>'+esc(h.name)+'</b></span><span class="goal">'+esc(goalPart(h)+(h.bad?'':' · '+freqPart(h)))+(pausedNowTag(h))+'</span></div>'
-      +'<div class="pct"><b>'+st.pct+'%</b><small>'+st.done+' de '+st.total+' '+st.unit+'</small></div></div>'
+      +'<div class="pct"><b>'+st.pct+'%</b><small>'+st.done+' de '+st.total+' '+st.unit+(st.surplus?' +'+st.surplus+' extra':'')+'</small></div></div>'
       +'<div class="mini">'+mini+'</div>'
       +(h.type==='count'?'<div class="cap">Total: '+fmt(st.sum)+(h.unit?' '+esc(h.unit):'')+' · média '+fmt(avg)+' por dia registrado</div>':'')
       +bars(mvals,ml,'var(--c)')+'</div>';
@@ -2285,6 +2293,7 @@ function openSheet(h){
   $('#sheetTitle').textContent=h?'Editar hábito':'Novo hábito';
   fName.value=h?h.name:'';
   fEmoji.value=h?(h.emoji||''):'';
+  $('#emField').hidden=!state.settings.emoji;
   (h&&h.bad?$('#f-type-bad'):h&&h.type==='count'?$('#f-type-count'):$('#f-type-check')).checked=true;
   const isP=h&&isPeriod(h), sum=!!(h&&isP&&h.freq.metric==='sum');
   fGoal.value=h&&h.type==='count'&&!h.bad?(sum?'':h.goal):'';
